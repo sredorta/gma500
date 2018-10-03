@@ -18,8 +18,8 @@
   <!--Small screens-->
   <div  fxShow="false" fxShow.xs="true">
     <mat-toolbar>
-      <button mat-icon-button color="primary" (click)="snav.toggle()" fxShow="false" fxShow.xs="true" style="height:48px !important;width:48px !important;font-size:48px !important;">
-      <mat-icon>menu</mat-icon>
+      <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon aria-label="menu">menu</mat-icon>
       </button>
       <div fxLayoutAlign="center center" style="margin-left:20px">
         <div fxLayoutAlign="center center"><img src="./assets/img/logo.jpg" alt="brand" style="height:35px;border-radius:15%"></div>
@@ -27,21 +27,25 @@
       </div>
     </mat-toolbar>
   </div>
-
-<h2>Toolbar </h2>
-<ul>
-  <li>
-    <a routerLink="">Home</a>
-  </li>
-  <li>
-    <a routerLink="about">About</a>
-  </li>
-  <li>
-    <a routerLink="login">Login</a>
-  </li>
-  <li>
-    <a routerLink="signup">Signup</a>
-  </li> 
-</ul>
-
-<router-outlet></router-outlet>
+</div>
+  <mat-sidenav-container class="main-sidenav-container">
+      <mat-sidenav #snav>
+        <mat-nav-list>
+          <!--Short access-->
+          <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">Login</button></div>
+          <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">Signup</button></div>
+          <mat-divider></mat-divider>
+          <!--Menu-->
+          <a (click)="snav.toggle()" mat-list-item routerLink=""><span>Accueil</span></a>       
+          <a (click)="snav.toggle()" mat-list-item routerLink="about"><span>A propos</span></a>
+          <a (click)="snav.toggle()" mat-list-item routerLink="login"><span>login</span></a>
+        </mat-nav-list>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <main [@routerTransition]="o.isActivated ? o.activatedRoute : ''">
+          <router-outlet #o="outlet"></router-outlet>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    <app-footer></app-footer>

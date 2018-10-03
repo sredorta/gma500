@@ -42,6 +42,8 @@ import {MatAutocompleteModule,
   MatTreeModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+//Directives
+import { OnlyNumberDirective } from './_directives/onlyNumber.directive';
 //Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,18 +52,21 @@ import { LoginComponent } from './_authentication/login/login.component';
 import { ResetpasswordComponent } from './_authentication/resetpassword/resetpassword.component';
 import { SignupComponent } from './_authentication/signup/signup.component';
 import { AboutComponent } from './about/about.component';
+import { FooterComponent } from './_common/footer/footer.component';
 
 
 
 
 @NgModule({
   declarations: [
+    OnlyNumberDirective,
     AppComponent,
     HomeComponent,
     LoginComponent,
     ResetpasswordComponent,
     SignupComponent,
-    AboutComponent
+    AboutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

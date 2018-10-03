@@ -1,3 +1,86 @@
-<p>
-  signup works!
-</p>
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center">
+  <mat-card style="width:80%;max-width:300px;margin:10px">
+      <mat-card-header>
+        <mat-card-title style="font-size:16px;" >Creer un compte</mat-card-title>
+        <mat-card-subtitle>Creer votre espace</mat-card-subtitle>
+      </mat-card-header>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+      <mat-card-content>   
+        <p>
+              <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Prénom</mat-label>
+                <input matInput formControlName="firstName" placeholder="Prénom" required>
+                <mat-hint>Écrivez votre prénom</mat-hint>
+                <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('firstName').hasError(validation.type) && (myForm.get('firstName').dirty || myForm.get('firstName').touched)">{{validation.message}}</mat-error>
+                </mat-error>                 
+              </mat-form-field>
+        </p>            
+        <p>
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="lastName" placeholder="Nom" required>
+              <mat-hint>Écrivez votre nom</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('lastName').hasError(validation.type) && (myForm.get('lastName').dirty || myForm.get('lastName').touched)">{{validation.message}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Portable</mat-label>
+              <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber="true">
+              <mat-hint>Écrivez votre numero de portable</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+        </p>         
+        <p>
+              <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>email</mat-label>
+                <input matInput formControlName="email" placeholder="email" required>
+                <mat-hint>Votre addresse email</mat-hint>
+                <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message}}</mat-error>
+                </mat-error>                 
+              </mat-form-field>
+        </p>   
+        <div formGroupName="matching_passwords_group">
+          <p>  
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Mot de passe</mat-label>
+              <input matInput formControlName="password" placeholder="Mot de passe" required type="password">
+              <mat-hint>Écrivez votre mot de passe</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>
+          </p>     
+          <p>  
+              <mat-form-field appearance="outline" style="width:100%">
+                  <mat-label>Confirmation mot de passe</mat-label>
+                <input matInput formControlName="confirm_password" placeholder="Confirmation mot de passe" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
+                <mat-hint>Confirmez votre mot de passe</mat-hint>
+                <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="(myForm.get('matching_passwords_group').hasError(validation.type)||myForm.get('matching_passwords_group').get('confirm_password').hasError(validation.type)) && (myForm.get('matching_passwords_group').get('confirm_password').dirty || myForm.get('matching_passwords_group').get('confirm_password').touched)">{{validation.message}}</mat-error>
+                </mat-error>                 
+              </mat-form-field>
+            </p> 
+        </div> 
+        <p>
+            <mat-checkbox formControlName="terms"></mat-checkbox>
+            <small> J'accepte les conditions d'utilization des données</small>
+        </p>   
+      </mat-card-content>
+      <mat-card-actions>
+        <div fxLayoutAlign="center center" fxLayoutGap="20px">
+          <button mat-button type="reset" (click)="resetForm()" color="primary">ANNULER</button>
+          <button mat-raised-button type="submit" color="primary">OK</button>
+        </div>
+      </mat-card-actions>
+      </form>
+    </mat-card> 
+    </div>
+
+  

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+//Animations
+import {routerTransition} from "./_helpers/animations"
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [routerTransition]
 })
 export class AppComponent {
   title = 'gma500';
