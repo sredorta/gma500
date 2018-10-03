@@ -1,10 +1,40 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 
-const routes: Routes = [];
+import {HomeComponent} from './home/home.component';
+import {AboutComponent} from './about/about.component';
+import {SignupComponent} from './_authentication/signup/signup.component';
+import {LoginComponent} from './_authentication/login/login.component';
+import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassword.component';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ResetpasswordComponent
+  }, 
+  {
+    path: 'about',
+    component: AboutComponent
+  }
+
+
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,21 +1,47 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
+<div class="navbar-theme">
+  <!--Wide screens-->
+  <div fxHide.xs>
+    <mat-toolbar>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/'" color="primary" routerLink="" style="height:100%">Home</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/'" color="secondary" routerLink="" style="height:100%">Home</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/about'" color="primary" routerLink="/about"  style="height:100%">About</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/about'" color="secondary" routerLink="/about"  style="height:100%">About</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/login'" color="primary" routerLink="/login"  style="height:100%">Login</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/login'" color="secondary" routerLink="/login"  style="height:100%">Login</button>
+    </mat-toolbar>
+    <div fxLayout="row">    
+       <div fxFlex="1 1 auto">
+          <img src="./assets/img/banniereGMA500.jpg" alt="banniere" style="width:100%;object-fit: scale-down">
+       </div>
+    </div>
+  </div>
+  <!--Small screens-->
+  <div  fxShow="false" fxShow.xs="true">
+    <mat-toolbar>
+      <button mat-icon-button color="primary" (click)="snav.toggle()" fxShow="false" fxShow.xs="true" style="height:48px !important;width:48px !important;font-size:48px !important;">
+      <mat-icon>menu</mat-icon>
+      </button>
+      <div fxLayoutAlign="center center" style="margin-left:20px">
+        <div fxLayoutAlign="center center"><img src="./assets/img/logo.jpg" alt="brand" style="height:35px;border-radius:15%"></div>
+        <div fxLayoutAlign="center center" style="margin-left:10px"><span style="font-weight:bold;font-size:40px">GMA500</span></div>
+      </div>
+    </mat-toolbar>
+  </div>
+
+<h2>Toolbar </h2>
 <ul>
   <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+    <a routerLink="">Home</a>
   </li>
   <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+    <a routerLink="about">About</a>
   </li>
   <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+    <a routerLink="login">Login</a>
   </li>
+  <li>
+    <a routerLink="signup">Signup</a>
+  </li> 
 </ul>
 
 <router-outlet></router-outlet>
