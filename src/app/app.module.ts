@@ -58,6 +58,7 @@ import { HttpService } from './_services/http.service';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 import { MessageComponent } from './_library/message/message.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 
 
@@ -71,7 +72,8 @@ import { MessageComponent } from './_library/message/message.component';
     SignupComponent,
     AboutComponent,
     FooterComponent,
-    MessageComponent
+    MessageComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

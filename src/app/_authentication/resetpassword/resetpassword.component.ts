@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, createPlatformFactory } from '@angular/core';
 import { Location } from '@angular/common';
 import {  FormGroup,FormControl,Validators } from '@angular/forms';
 //Import all shared logic required for forms handling
@@ -22,14 +22,20 @@ export class ResetpasswordComponent implements OnInit {
   constructor(private _location: Location, private httpService : HttpService) { }
 
   ngOnInit() {
-    this.myForm = new FormGroup({
+    this.myForm = this.createForm(); 
+  }
+
+  createForm() {
+    return new FormGroup({
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.email
       ]))
     });
   }
-
+  resetForm() {
+    //this.myForm.reset();
+  }
   //From submit
   onSubmit(value) {
     if (this.myForm.invalid) {
@@ -46,6 +52,7 @@ export class ResetpasswordComponent implements OnInit {
             this.httpMsgType = "success";
             this.httpMsgText = "Nouveau mot de passe envoyé par email";
             this.loading = false;
+            this.resetForm();
         },
         error => {
             this.httpMsgVisible = true;

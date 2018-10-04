@@ -1,0 +1,24 @@
+.footer-theme {
+    border-top:1px solid #404040;
+    background-color:rgb(34, 34, 34);
+    color: rgba(255, 255, 255, 0.76); // rgba(0, 0, 0, 0.67);
+    padding-bottom: 10px;
+    margin-top:10px;
+    width:100%;
+}
+
+
+.icon-wrapper {
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    
+}
+
+.icon-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.footer-button-link {
+    height:20px;
+}

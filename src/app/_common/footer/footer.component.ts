@@ -11,5 +11,11 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
   }
+  redirectToFacebook() {
+    window.location.href='https://www.facebook.com/gma500/';  
+  }
+  redirectToContact() {
+    //TODO
 
+  }  
 }

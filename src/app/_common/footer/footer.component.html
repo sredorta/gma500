@@ -1,3 +1,42 @@
-<p>
-  footer works!
-</p>
+<div class="footer-theme" style="margin-top:0px;">
+    <div  fxLayout="row"  fxLayoutAlign="center stretch" fxLayoutGap="10%">
+
+
+        <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="stretch center" style="min-width:100px">
+            <h3 style="margin-bottom:5px">CONNEXIÓN</h3>
+            <p>S'inscrire</p>
+            <mat-nav-list>
+                <a mat-list-item href="..." *ngFor="let link of links"> {{ link }} </a>
+                <a mat-list-item href="...">S'inscrire</a>
+                <a mat-list-item href="...">Se connecter</a>
+
+             </mat-nav-list>            
+        </div>
+
+
+
+        <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="stretch center" style="min-width:100px">
+            <h3 style="margin-bottom:5px">SUIVEZ-NOUS</h3>
+            <div (click)="redirectToFacebook()" fxLayout="row" fxLayoutAlign="center center">
+              <img src="./assets/img/facebook.jpg" alt="facebook-icon" style="width:35px;height:35px;border-radius:15%" class="icon-wrapper">
+            </div>  
+        </div>
+
+        <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="stretch center" style="min-width:100px">
+            <h3 style="margin-bottom:5px">CONTACT</h3>
+            <div (click)="redirectToContact()" fxLayout="row" fxLayoutAlign="center center">
+              <img src="./assets/img/email.jpg" alt="email-icon" style="width:35px;height:35px;border-radius:15%" class="icon-wrapper">
+              <span style="padding-left:10px;">Ecrivez-nous</span>
+            </div>  
+            <div fxLayout="column" fxLayoutAlign="center start" style="margin-top:10px;">
+              <small>Maison des associations</small>
+              <small>16, rue de l'ancien Palais de Justice</small>
+              <small>06130 GRASSE</small>
+            </div>
+        </div>
+    
+      </div>
+      <div style="width:50%;margin:20px">
+    
+    </div>
+    </div>

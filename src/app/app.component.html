@@ -6,8 +6,8 @@
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/'" color="secondary" routerLink="" style="height:100%">Home</button>
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/about'" color="primary" routerLink="/about"  style="height:100%">About</button>
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/about'" color="secondary" routerLink="/about"  style="height:100%">About</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/login'" color="primary" routerLink="/login"  style="height:100%">Login</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/login'" color="secondary" routerLink="/login"  style="height:100%">Login</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/productlist'" color="primary" routerLink="/productlist"  style="height:100%">Location Matériel</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/productlist'" color="secondary" routerLink="/productlist"  style="height:100%">Location Matériel</button>
     </mat-toolbar>
     <div fxLayout="row">    
        <div fxFlex="1 1 auto">
@@ -38,7 +38,7 @@
           <!--Menu-->
           <a (click)="snav.toggle()" mat-list-item routerLink=""><span>Accueil</span></a>       
           <a (click)="snav.toggle()" mat-list-item routerLink="about"><span>A propos</span></a>
-          <a (click)="snav.toggle()" mat-list-item routerLink="login"><span>login</span></a>
+          <a (click)="snav.toggle()" mat-list-item routerLink="productlist"><span>Location Matériel</span></a>
         </mat-nav-list>
       </mat-sidenav>
   

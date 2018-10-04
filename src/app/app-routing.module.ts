@@ -6,6 +6,9 @@ import {AboutComponent} from './about/about.component';
 import {SignupComponent} from './_authentication/signup/signup.component';
 import {LoginComponent} from './_authentication/login/login.component';
 import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassword.component';
+import {ProductListComponent} from './product-list/product-list.component';
+
+
 
 
 const routes: Routes = [
@@ -28,7 +31,11 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
-  }
+  },
+  {
+    path: 'productlist',
+    component: ProductListComponent
+  },  
 
 
 ];
