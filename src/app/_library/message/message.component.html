@@ -1,0 +1,12 @@
+<div [ngClass]="setClasses()" fxLayoutAlign="center center">
+  <div fxLayout="row" style="width:100%" fxLayoutGap="10px">
+      <div fxFlex="1 1 auto" style="min-width:30px;max-width:40px" fxLayoutAlign="center center">
+        <mat-icon *ngIf='type=="error"'>warning</mat-icon>
+      </div>
+      <div fxFlex="5 5 auto" fxLayoutAlign="start center">
+          <small>{{message}}</small>
+      </div>
+
+  </div>
+
+</div>

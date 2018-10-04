@@ -57,6 +57,7 @@ import { FooterComponent } from './_common/footer/footer.component';
 import { HttpService } from './_services/http.service';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
+import { MessageComponent } from './_library/message/message.component';
 
 
 
@@ -69,7 +70,8 @@ import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
     ResetpasswordComponent,
     SignupComponent,
     AboutComponent,
-    FooterComponent
+    FooterComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

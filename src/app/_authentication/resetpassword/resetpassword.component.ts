@@ -15,8 +15,9 @@ export class ResetpasswordComponent implements OnInit {
   //Get error messages
   validation_messages = CustomValidators.getMessages();
   loading = false;    //Tells html we are loading
-  showResult = false; //Tells html to show result message
-  error='';           //http error if any
+  httpMsgVisible = false; //Tells html to show result message
+  httpMsgType = "error";
+  httpMsgText='';           //http error if any
 
   constructor(private _location: Location, private httpService : HttpService) { }
 
@@ -34,16 +35,22 @@ export class ResetpasswordComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
+    this.httpMsgVisible = false;
     this.loading = true;
     //request http here !
     this.httpService.userResetPassword(value.email).subscribe(
         data => {
             console.log(data);
             console.log("End of http service success !!!");
-            this.showResult = true;
+            this.httpMsgVisible = true;
+            this.httpMsgType = "success";
+            this.httpMsgText = "Nouveau mot de passe envoyé par email";
+            this.loading = false;
         },
         error => {
-            this.error = error;
+            this.httpMsgVisible = true;
+            this.httpMsgType = "error";
+            this.httpMsgText = error;
             this.loading = false;
         });
     }  

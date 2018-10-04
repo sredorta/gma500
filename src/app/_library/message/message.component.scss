@@ -1,0 +1,22 @@
+//HTTP messaging
+.http-message-wrapper {
+    margin-bottom:10px;
+    min-height:28px;
+    opacity:0;    
+}
+
+.http-alert-message {
+    color:rgb(252, 74, 74);
+    background-color:  rgb(253, 207, 207);
+    box-shadow: 1px 1px 3px rgb(192, 150, 150);
+}
+
+.http-success-message {
+    color:rgb(29, 141, 76);
+    background-color:  rgb(191, 236, 210);
+    box-shadow: 1px 1px 3px rgb(141, 175, 155);
+}
+
+.http-message-visible {
+    opacity:1;
+}

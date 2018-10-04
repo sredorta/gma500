@@ -24,15 +24,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 let user = userTestStatus.find(i => i.email === request.body.email);
                 console.log(user);
 
-                /*if (request.body.username === testUser.username && request.body.password === testUser.password) {
-                    // if login details are valid return user details
-                    let body = {
-                        id: testUser.id,
-                        username: testUser.username,
-                        firstName: testUser.firstName,
-                        lastName: testUser.lastName
-                    };*/
-                return of(new HttpResponse({ status: 200 }));
+                if (user != null) {
+                    return of(new HttpResponse({ status: 200 }));
+                } else {
+                    return throwError({ error: { message: 'Email non enregistré' } });
+                }    
             } else {
                     // else return 400 bad request
                 return throwError({ error: { message: 'Username or password is incorrect' } });

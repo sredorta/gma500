@@ -58,25 +58,3 @@ span,p,h1,h2,h3 {
 user-select: none;
 }
 
-//HTTP messaging
-.http-alert-message {
-    padding:3px;
-    margin-bottom:10px;
-    color:rgb(252, 74, 74);
-    background-color:  rgb(253, 207, 207);
-    box-shadow: 1px 1px 3px rgb(192, 150, 150);
-}
-
-.http-success-message {
-    padding:3px;
-    margin-bottom:10px;
-    color:rgb(29, 141, 76);
-    background-color:  rgb(191, 236, 210);
-    box-shadow: 1px 1px 3px rgb(141, 175, 155);
-}
-
-.http-alert-message-place-holder {
-    width:100%;
-    height:22px;
-    margin-bottom:10px;
-}
