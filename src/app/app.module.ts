@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {FormBuilder, FormGroup, FormControl,ReactiveFormsModule, Validators} from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //Material design
 import {MatIconRegistry} from '@angular/material';
@@ -53,7 +54,9 @@ import { ResetpasswordComponent } from './_authentication/resetpassword/resetpas
 import { SignupComponent } from './_authentication/signup/signup.component';
 import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './_common/footer/footer.component';
-
+import { HttpService } from './_services/http.service';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 
 
 
@@ -71,6 +74,7 @@ import { FooterComponent } from './_common/footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
@@ -110,7 +114,7 @@ import { FooterComponent } from './_common/footer/footer.component';
       MatTooltipModule,
       MatTreeModule],          
   ],
-  providers: [],
+  providers: [HttpService, {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
+import {HttpService } from '../../_services/http.service';
 
 
 @Component({
@@ -13,7 +14,10 @@ export class LoginComponent implements OnInit {
   myForm: FormGroup; 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
-  constructor() { }
+  loading = false;
+  error='';
+
+  constructor(private httpService: HttpService) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -38,11 +42,20 @@ export class LoginComponent implements OnInit {
   }
 //From submit
 onSubmit(value) {
- 
-  if (this.myForm.valid) {
-    console.log("Valid form!");
-  } else {
-    console.log("Invalid form!");
+  if (this.myForm.invalid) {
+    return;
   }
- }
+  this.loading = true;
+  //request http here !
+  this.httpService.userLogin(value.email,value.password).subscribe(
+      data => {
+          console.log(data);
+          console.log("End of http service success !!!");
+      },
+      error => {
+          this.error = error;
+          this.loading = false;
+      });
+  }  
+
 }
