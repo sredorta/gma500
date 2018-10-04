@@ -16,8 +16,8 @@ export class ResetpasswordComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   loading = false;    //Tells html we are loading
   httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";
-  httpMsgText='';           //http error if any
+  httpMsgType = "error";  //Error or success
+  httpMsgText='';         //http error if any
 
   constructor(private _location: Location, private httpService : HttpService) { }
 

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+
 //Import all shared logic required for forms handling
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
 //Directives
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
+import { HttpService } from '../../_services/http.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +17,13 @@ export class SignupComponent implements OnInit {
   myForm: FormGroup; 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
-  constructor() { }
+
+  loading = false;        //Tells html we are loading
+  httpMsgVisible = false; //Tells html to show result message
+  httpMsgType = "error";  //Error or success
+  httpMsgText='';         //http error if any
+
+  constructor(private httpService: HttpService, private router: Router) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -55,6 +64,7 @@ export class SignupComponent implements OnInit {
   //Reset the form
   resetForm() {
     this.myForm.reset();
+    this.httpMsgVisible = false;
   }
   
   ngOnInit() {
@@ -65,13 +75,31 @@ export class SignupComponent implements OnInit {
     });
   }
   parentErrorStateMatcher = new ParentErrorStateMatcher();
-//From submit
-onSubmit(value) {
- 
-  if (this.myForm.valid) {
-    console.log("Valid form!");
-  } else {
-    console.log("Invalid form!");
-  }
- }
+
+  //From submit
+  onSubmit(value) {
+    if (this.myForm.invalid) {
+      return;
+    }
+    this.httpMsgVisible = false;
+    this.loading = true;
+    //request http here !
+    this.httpService.userSignup(value.firstName, value.lastName, value.email, value.mobile, value.password).subscribe(
+        data => {
+            console.log(data);
+            console.log("End of http service success !!!");
+            this.httpMsgVisible = false;
+
+            //Redirect to home
+            this.router.navigate(['']);              
+        },
+        error => {
+            this.httpMsgVisible = true;
+            this.httpMsgType = "error";
+            this.httpMsgText = error;
+            this.loading = false;
+        });
+    }  
+
+
 }

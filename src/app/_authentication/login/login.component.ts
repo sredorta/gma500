@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import {HttpService } from '../../_services/http.service';
@@ -15,9 +16,11 @@ export class LoginComponent implements OnInit {
   //Get error messages
   validation_messages = CustomValidators.getMessages();
   loading = false;
-  error='';
+  httpMsgVisible = false; //Tells html to show result message
+  httpMsgType = "error";  //Error or success
+  httpMsgText='';         //http error if any  
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,private router : Router) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit {
   //Reset the form
   resetForm() {
     this.myForm.reset();
+    this.httpMsgVisible = false;
   }
 
   ngOnInit() {
@@ -45,15 +49,21 @@ onSubmit(value) {
   if (this.myForm.invalid) {
     return;
   }
+  this.httpMsgVisible = false;
   this.loading = true;
   //request http here !
   this.httpService.userLogin(value.email,value.password).subscribe(
       data => {
           console.log(data);
-          console.log("End of http service success !!!");
+          //Here we need to store user in sessionStorage and then move to home again
+          
+          //Redirect to home
+          this.router.navigate(['']);  
       },
       error => {
-          this.error = error;
+          this.httpMsgText = error;
+          this.httpMsgType = "error";
+          this.httpMsgVisible = true;
           this.loading = false;
       });
   }  

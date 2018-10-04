@@ -9,44 +9,60 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let userTestStatus: { id: number, firstName: string,lastName:string,email:string,mobile:string,password:string }[] = [
-            { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212'},
-            { id: 1, firstName: 'Ser', lastName: 'Red', email:'ser@red.com', password: 'Secure0', mobile: '0611223344'}
+        let userTestStatus: { id: number, firstName: string,lastName:string,email:string,mobile:string,password:string,isValidated:boolean }[] = [
+            { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212', isValidated: true},
+            { id: 1, firstName: 'Ser', lastName: 'Red', email:'ser@red.com', password: 'Secure0', mobile: '0611223344', isValidated: false}
         ];        
         let testUser = { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212'};
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
 
-            // authenticate
+            // Password reset
             if (request.url.endsWith('/users/resetpassword') && request.method === 'POST') {
                 console.log("We are in fake backend !");
                 let user = userTestStatus.find(i => i.email === request.body.email);
-                console.log(user);
-
                 if (user != null) {
                     return of(new HttpResponse({ status: 200 }));
                 } else {
                     return throwError({ error: { message: 'Email non enregistré' } });
                 }    
-            } else {
-                    // else return 400 bad request
-                return throwError({ error: { message: 'Username or password is incorrect' } });
-            }
-            
-/*
-            // get users
-            if (request.url.endsWith('/users') && request.method === 'GET') {
-                    // check for fake auth token in header and return users if valid, this security 
-                    // is implemented server side in a real application
-                    if (request.headers.get('Authorization') === `Basic ${window.btoa('test:test')}`) {
-                    return of(new HttpResponse({ status: 200, body: [testUser] }));
+            } 
+ 
+            // Login
+            if (request.url.endsWith('/users/login') && request.method === 'POST') {
+                console.log("We are in fake backend !");
+                let user = userTestStatus.find(i => i.email === request.body.email && i.password === request.body.password);
+                console.log(user);
+
+                if (user != null) {
+                    if (!user.isValidated) {
+                        return throwError({ error: { message: 'Vous devez valider votre email' } });
+                    }
+                    return of(new HttpResponse({ status: 200 }));
                 } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                    return throwError({ error: { message: 'Email ou mot de passe incorrecte' } });
+                }    
+            } 
+            
+            // Signup
+            if (request.url.endsWith('/users/create') && request.method === 'POST') {
+                console.log("We are in fake backend !");
+                let user = userTestStatus.find(i => i.email === request.body.email);
+                console.log(user);
+
+                if (user != null) {
+                    return throwError({ error: { message: 'Compte déjà existent' } });
+                } else {
+                    return of(new HttpResponse({ status: 200 }));
                 }
-            }
-*/
+            } 
+
+
+            return throwError({ error: { message: 'Erreur not connue' } });
+            
+
+
             // pass through any requests not handled above
             return next.handle(request);
             

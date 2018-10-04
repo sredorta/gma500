@@ -20,10 +20,8 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
 
-  public userSignup(user: User) {   
-    this.http.post<any>(environment.apiURL +'/users/create', user).subscribe(result  => {
-      console.log(result);
-    });
+  public userSignup(firstName:string,lastName:string,email:string,mobile:string,password:string) {   
+    return this.http.post<any>(environment.apiURL +'/users/create', {firstName,lastName,email,mobile,password});
   }
 
   public userLogin(email:string, password:string) : Observable<any> {   
