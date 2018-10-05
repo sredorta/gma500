@@ -11,6 +11,8 @@ export class InputImageComponent implements OnInit {
   isImgLoaded : boolean;    //Stores if image has been loaded or default is loaded
   imgSize : number = 10;   //Final size of the image cropped
 
+  defaultImageString : string;
+
   constructor() { }
 
   //Inputs
@@ -33,8 +35,8 @@ export class InputImageComponent implements OnInit {
     }
     console.log(this.defaultImg);
     if (this.defaultImg != null) {
-      //this.defaultImg = "./assets/img/no-photo.png";
-      this.realImgElem.nativeElement.src = "url("+this.defaultImg+")";
+      this.defaultImageString = this.defaultImg;
+      this.realImgElem.nativeElement.src = this.defaultImg;
       this.onImageChange.emit(this.defaultImg);  //Emit the new image
     }
     this.isImgLoaded = false;
@@ -77,9 +79,9 @@ export class InputImageComponent implements OnInit {
 
   //Restore default image
   resetImage() {
-    this.realImgElem.nativeElement.src = this.defaultImg;
+    this.realImgElem.nativeElement.src = this.defaultImageString;
     this.isImgLoaded = false;
-    this.onImageChange.emit(this.defaultImg);  //Emit the new image
+    this.onImageChange.emit(this.defaultImageString);  //Emit the new image
   }
 
   //We have clicked on the galery fab
