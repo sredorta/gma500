@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 //Import all shared logic required for forms handling
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
+
+//Dialogs
+import {TermsDialogComponent} from '../../_dialogs/terms-dialog/terms-dialog.component'
 //Directives
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import { HttpService } from '../../_services/http.service';
@@ -22,8 +26,10 @@ export class SignupComponent implements OnInit {
   httpMsgVisible = false; //Tells html to show result message
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any
+  avatar : string = "./assets/img/user-default.jpg";
+  terms : boolean = false; //Terms and conditions checkbox
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router,public dialog: MatDialog) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -76,22 +82,44 @@ export class SignupComponent implements OnInit {
   }
   parentErrorStateMatcher = new ParentErrorStateMatcher();
 
+  //Update photo if we change it
+  onImageChange(photo:string) {
+    this.avatar = photo;
+  }
+
+  //Update terms when changing value
+  onTermsChange(event:any) {
+    this.terms = event.checked;
+  }
+
   //From submit
   onSubmit(value) {
+
+    //Handle invalid form
     if (this.myForm.invalid) {
       return;
     }
+
+    //Handle terms
+    if (!this.terms) {
+      this.httpMsgVisible = true;
+      this.httpMsgType = "error";
+      this.httpMsgText = "Vous dévez accepter les conditions d'utilization des données"
+      return;
+    }
+
+    //Valid form part
     this.httpMsgVisible = false;
     this.loading = true;
-    //request http here !
-    this.httpService.userSignup(value.firstName, value.lastName, value.email, value.mobile, value.password).subscribe(
+    this.httpService.userSignup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
         data => {
             console.log(data);
             console.log("End of http service success !!!");
             this.httpMsgVisible = false;
 
+            this.loading = false; //tmp
             //Redirect to home
-            this.router.navigate(['']);              
+            //this.router.navigate(['']);     ///////////////////////////         
         },
         error => {
             this.httpMsgVisible = true;
@@ -101,5 +129,13 @@ export class SignupComponent implements OnInit {
         });
     }  
 
-
+    //Terms and conditions dialog
+    openTermsAndConditionsDialog(): void {
+      let dialogRef = this.dialog.open(TermsDialogComponent, {
+        panelClass: 'big-dialog',
+        width: '80%',
+        height: '80%',
+        data:  null 
+      });
+    }
 }

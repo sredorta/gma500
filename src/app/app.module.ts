@@ -59,6 +59,8 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 import { MessageComponent } from './_library/message/message.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { InputImageComponent } from './_library/input-image/input-image.component';
+import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.component';
 
 
 
@@ -73,7 +75,9 @@ import { ProductListComponent } from './product-list/product-list.component';
     AboutComponent,
     FooterComponent,
     MessageComponent,
-    ProductListComponent
+    ProductListComponent,
+    InputImageComponent,
+    TermsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,12 @@ import { ProductListComponent } from './product-list/product-list.component';
       MatTooltipModule,
       MatTreeModule],          
   ],
-  providers: [HttpService, {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }],
+  entryComponents: [TermsDialogComponent],
+  providers: [
+    HttpService, 
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
+    {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

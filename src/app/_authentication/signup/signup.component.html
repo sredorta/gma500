@@ -67,10 +67,11 @@
                 </mat-error>                 
               </mat-form-field>
             </p> 
+            <app-input-image (onImageChange)="onImageChange($event)" [defaultImg]="avatar" style="margin:5px"></app-input-image>
         </div> 
         <p>
-            <mat-checkbox formControlName="terms"></mat-checkbox>
-            <small> J'accepte les conditions d'utilization des données</small>
+            <mat-checkbox (change)="onTermsChange($event)"></mat-checkbox>
+            <small> J'accepte les <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">conditions d'utilization des données</a></small>
         </p>   
       </mat-card-content>
       <app-message [visible]='httpMsgVisible' [message]="httpMsgText" [type]="httpMsgType"></app-message>      
