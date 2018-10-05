@@ -17,8 +17,17 @@ import { User } from '../_models/user';
 })
 export class HttpService {
 
-  constructor(private http: HttpClient) { }
+  private _user = new BehaviorSubject<User>(new User());
+  constructor(private http: HttpClient) { 
+  }
 
+  getUser() : Observable<User> {
+    return this._user;
+  }
+
+  updateUser(user:User) {
+    this._user.next(user);
+  }
 
   public userSignup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) {   
     let o = {firstName:firstName,lastName:lastName,email:email,mobile:mobile,password:password,avatar:avatar};
@@ -26,14 +35,17 @@ export class HttpService {
     return this.http.post<any>(environment.apiURL +'/users/create', {firstName,lastName,email,mobile,password,avatar});
   }
 
-  public userLogin(email:string, password:string) : Observable<any> {   
-    console.log("here !");
-    return this.http.post<any>(environment.apiURL +'/users/login', {email, password});
+  public userLogin(email:string, password:string) : Observable<User> {   
+    return this.http.post<User>(environment.apiURL +'/users/login', {email, password});
   }
 
   public userResetPassword(email:string) : Observable<any> {
     return this.http.post<any>(environment.apiURL +'/users/resetpassword', {email});
   }
+
+  public userLogout() : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/users/logout',{});
+  }  
 
 
 }

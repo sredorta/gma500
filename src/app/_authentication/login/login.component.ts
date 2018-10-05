@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import {HttpService } from '../../_services/http.service';
 
+// Base 64 IMage display issues with unsafe image
+import { DomSanitizer } from '@angular/platform-browser';
+
+//User model
+import {User} from '../../_models/user';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +26,7 @@ export class LoginComponent implements OnInit {
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any  
 
-  constructor(private httpService: HttpService,private router : Router) { }
+  constructor(private httpService: HttpService,private router : Router,private _sanitizer: DomSanitizer) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -53,10 +59,11 @@ onSubmit(value) {
   this.loading = true;
   //request http here !
   this.httpService.userLogin(value.email,value.password).subscribe(
-      data => {
-          console.log(data);
-          //Here we need to store user in sessionStorage and then move to home again
-          
+      (user: User) => {
+          console.log("Recieved data:");
+          console.log(user);
+          user.isLoggedIn = true; //Update user loggin status
+          this.httpService.updateUser(user);
           //Redirect to home
           this.router.navigate(['']);  
       },

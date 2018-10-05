@@ -9,11 +9,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let userTestStatus: { id: number, firstName: string,lastName:string,email:string,mobile:string,password:string,isValidated:boolean }[] = [
-            { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212', isValidated: true},
-            { id: 1, firstName: 'Ser', lastName: 'Red', email:'ser@red.com', password: 'Secure0', mobile: '0611223344', isValidated: false}
+        let userTestStatus: { id: number, firstName: string,lastName:string,email:string,mobile:string,password:string,isValidated:boolean ,role:string, avatar:string}[] = [
+            { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212', isValidated: true, role: 'member', avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABgklEQVQoUxXK3UtTYRzA8e/PnalnzddxKoe9YIFTcbXIoPRagq6EMGKQSFB43bV/gf+DFHSjUUFBF6VFBb1AZCUFzczM8FQ729laj9tOO88jfa4/4uaeGktCRKAWWqx9XqM9btibPERLq01rrB2jQVR+1dSLP9h2C8zP32Fl5SNBI+B4up/LM1McPtpHxGpGyu6qUaU8Tx4+5v69ZRq1gFBrtDGcHj3BxelJOhMOkt94Yf6WiizcvM27569IJffTYlls+n+wO2JcuDrFYHrof3xpgjDg1o1FeqNCZqCfb7kc5XqIV1WMTU7Q0+Mg6+8fmCZAK0W8Umfnl4dfKJHo3YcndQ6eTGO3tSHe1mujQ0254PPh0RI/v3ynWKkizUKi7wDnsufpdhykuPXWqB3F1/VN3iwt44hgjPDsU47USIZLV7LsiceR2WszRqkqXsEnqv9x6kgS1/2NX2vgE2VoOMX4+BgycmzYRKwIaIjZNtmzo5zJDDB3/S7bfoUmEbq7OtgFbrOnl/fhFocAAAAASUVORK5CYII="},
+            { id: 2, firstName: 'Ser', lastName: 'Red', email:'ser@red.com', password: 'Secure0', mobile: '0611223344', isValidated: true, role:'member', avatar:'./assets/img/user-default.jpg'}
         ];        
-        let testUser = { id: 1, firstName: 'Sergi', lastName: 'Redorta', email:'sergi.redorta@hotmail.com', password: 'Secure0', mobile: '0623133212'};
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
@@ -34,12 +33,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log("We are in fake backend !");
                 let user = userTestStatus.find(i => i.email === request.body.email && i.password === request.body.password);
                 console.log(user);
-
                 if (user != null) {
                     if (!user.isValidated) {
                         return throwError({ error: { message: 'Vous devez valider votre email' } });
                     }
-                    return of(new HttpResponse({ status: 200 }));
+                    return of(new HttpResponse({ status: 200, body: user }));  //Return the user data
                 } else {
                     return throwError({ error: { message: 'Email ou mot de passe incorrecte' } });
                 }    
@@ -57,7 +55,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return of(new HttpResponse({ status: 200 }));
                 }
             } 
-
+            // Logout
+            if (request.url.endsWith('/users/logout') && request.method === 'POST') {
+                    return of(new HttpResponse({ status: 200 }));
+            } 
 
             return throwError({ error: { message: 'Erreur not connue' } });
             

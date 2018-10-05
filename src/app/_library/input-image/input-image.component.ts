@@ -9,7 +9,7 @@ import { FormControlName } from '@angular/forms';
 })
 export class InputImageComponent implements OnInit {
   isImgLoaded : boolean;    //Stores if image has been loaded or default is loaded
-  imgSize : number = 20;   //Final size of the image cropped
+  imgSize : number = 10;   //Final size of the image cropped
 
   constructor() { }
 
@@ -71,6 +71,7 @@ export class InputImageComponent implements OnInit {
     canvas.height= destSize;
     ctx.clearRect(0,0,canvas.width, canvas.heigth);
     ctx.drawImage(img, sourceX,sourceY, sourceSize, sourceSize, 0, 0, destSize,destSize);
+    this.onImageChange.emit(canvas.toDataURL());  //Emit the new image   
     return canvas.toDataURL();      
   }
 
@@ -102,10 +103,10 @@ export class InputImageComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.shadowImgElem.nativeElement.src = reader.result; //event.target.result;
-        this.onImageChange.emit(reader.result);  //Emit the new image
+
       }
       reader.onloadend = function(event) {
-        result.src = myObject.shadowImgToCanvas();
+        result.src = myObject.shadowImgToCanvas();     
     }
     this.isImgLoaded = true;
   }

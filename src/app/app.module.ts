@@ -61,6 +61,7 @@ import { MessageComponent } from './_library/message/message.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { InputImageComponent } from './_library/input-image/input-image.component';
 import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.component';
+import { ProfileComponent } from './_authentication/profile/profile.component';
 
 
 
@@ -77,7 +78,8 @@ import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.compo
     MessageComponent,
     ProductListComponent,
     InputImageComponent,
-    TermsDialogComponent
+    TermsDialogComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

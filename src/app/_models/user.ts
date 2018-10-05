@@ -5,6 +5,8 @@ export class User {
     mobile: string;
     firstName: string;
     lastName: string;
-    avatar: string;
+    avatar: any;
     role: string;   //Member, president...
+    isLoggedIn : boolean = false;
+
 }
