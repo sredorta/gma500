@@ -9,4 +9,8 @@ export class User {
     role: string;   //Member, president...
     isLoggedIn : boolean = false;
 
+    getAvatarUrl() {
+        return "url(" + this.avatar + ")";
+    }
+
 }

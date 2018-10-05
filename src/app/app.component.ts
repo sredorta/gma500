@@ -23,7 +23,8 @@ export class AppComponent {
           this.selectedRoute = event.url;
       }
     });
-    
+  }
+/*    
     this.httpService.getUser().subscribe(
       (res:User)=> {
         console.log("USER has changed !");
@@ -31,8 +32,8 @@ export class AppComponent {
         //this.user = res;
       }
     );
-  }
-
+  }*/
+  
   //We are now logging out
   logout() {
     this.httpService.userLogout().subscribe(res=> {
