@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
   httpMsgVisible = false; //Tells html to show result message
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any
-  avatar : string = "./assets/img/user-default.jpg";
+  avatar : string = './assets/img/user-default.jpg';
   terms : boolean = false; //Terms and conditions checkbox
 
   constructor(private httpService: HttpService, private router: Router,public dialog: MatDialog) { }

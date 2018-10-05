@@ -10,7 +10,7 @@
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/productlist'" color="secondary" routerLink="/productlist"  style="height:100%">Location Matériel</button>
 
       <div *ngIf="(user | async) as user">
-         <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="'url(' + user.avatar + ')'" style="background-size:cover;"></button> 
+         <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="user.avatar" style="background-size:cover;"></button> 
          <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
             <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
         </button> 
@@ -35,7 +35,7 @@
       </div>
       <div fxFlex="1 1 auto" fxLayoutAlign="end center">
         <div *ngIf="(user | async) as user">
-          <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="'url(' + user.avatar + ')'" style="background-size:cover;"></button> 
+          <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="user.avatar" style="background-size:cover;"></button> 
           <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
              <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
          </button> 

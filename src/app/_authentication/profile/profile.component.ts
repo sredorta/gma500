@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../_services/http.service';
-
+import { Router} from '@angular/router';
+import {User} from "../../_models/user";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -8,9 +9,17 @@ import { HttpService } from '../../_services/http.service';
 })
 export class ProfileComponent implements OnInit {
   user  = this.httpService.getUser();   //User data that is globally stored and sync
-  constructor(private httpService:HttpService) { }
+  constructor(private httpService:HttpService, private router: Router) { }
 
   ngOnInit() {
   }
 
+
+  //We are now logging out
+  logout() {
+    this.httpService.userLogout().subscribe(res=> {
+      this.httpService.updateUser(new User());
+      this.router.navigate([""]); //Go back home
+    });
+  }
 }

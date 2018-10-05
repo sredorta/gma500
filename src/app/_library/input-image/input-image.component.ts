@@ -34,7 +34,7 @@ export class InputImageComponent implements OnInit {
     console.log(this.defaultImg);
     if (this.defaultImg != null) {
       //this.defaultImg = "./assets/img/no-photo.png";
-      this.realImgElem.nativeElement.src = this.defaultImg;
+      this.realImgElem.nativeElement.src = "url("+this.defaultImg+")";
       this.onImageChange.emit(this.defaultImg);  //Emit the new image
     }
     this.isImgLoaded = false;
@@ -139,7 +139,7 @@ rotateImage() {
       ctx.drawImage(myImageData, 0, 0);     
       result.src = canvas.toDataURL();
       ctx.restore();
-      emitter.emit(result.src);  //Emit the new image
+      emitter.emit("url("+result.src+")");  //Emit the new image
 
       // clear the temporary image
       myImageData = null;       

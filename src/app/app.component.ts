@@ -33,11 +33,12 @@ export class AppComponent {
       }
     );
   }*/
-  
+
   //We are now logging out
   logout() {
     this.httpService.userLogout().subscribe(res=> {
       this.httpService.updateUser(new User());
+      this.router.navigate([""]); //Go back home
     });
   }
 

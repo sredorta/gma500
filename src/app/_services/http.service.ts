@@ -29,7 +29,7 @@ export class HttpService {
     user2.mobile= '0611223344';
     user2.isLoggedIn = true;
     user2.role='president';
-    user2.avatar="./assets/img/user-default.jpg";
+    user2.avatar='url(./assets/img/user-default.jpg)';
     this._user.next(user2);    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
