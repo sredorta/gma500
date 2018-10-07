@@ -1,11 +1,12 @@
-<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding:20px" >
+<div style="padding:20px" >
+  <h1>Présidence</h1>
   <div fxLayout="column">
     <div *ngFor="let user of presidents | async" fxLayoutAlign="center center" fxFlex="column">
-      <mat-card style="width:80%;max-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
+      <mat-card style="min-width:250px;max-width:300px;margin:10px;margin-top:20px;margin-bottom:20px">
           <mat-card-header>
             <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
             <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-            <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
+            <mat-card-subtitle style="color:blue">{{user.role}}</mat-card-subtitle>
           </mat-card-header>
           <!--
           <mat-card-content>  
@@ -30,7 +31,7 @@
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let user of boards | async" fxLayoutAlign="center center" style="width:100%">
-          <mat-card fxFlex="1 1 auto" style="margin:10px;">
+          <mat-card style="margin:10px;min-width:200px;max-width:250px">
               <mat-card-header>
                 <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
                 <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
@@ -41,7 +42,7 @@
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let user of bureaus | async" fxLayoutAlign="center center" fxFlex="1 1 auto">
-          <mat-card style="margin:10px;width:200px">
+          <mat-card style="margin:10px;min-width:200px;max-width:250px">
               <mat-card-header>
                 <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
                 <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
@@ -50,5 +51,18 @@
           </mat-card>
       </div>    
   </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+      <div *ngFor="let user of members | async" fxLayoutAlign="center center" fxFlex="1 1 auto">
+          <mat-card style="margin:10px;min-width:200px;max-width:250px">
+              <mat-card-header>
+                <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
+                <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
+                <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
+              </mat-card-header>
+          </mat-card>
+      </div>    
+  </div>
+
 </div>
 <app-footer></app-footer>

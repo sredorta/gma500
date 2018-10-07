@@ -20,7 +20,7 @@ export class MembersComponent implements OnInit {
   boards = this.httpService.getMembers("board");
 
   bureaus = this.httpService.getMembers("bureau");
-  members: any[];
+  members = this.httpService.getMembers("member");
 
 
 
