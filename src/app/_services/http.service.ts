@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { User } from '../_models/user';
+import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class HttpService {
   private _user = new BehaviorSubject<User>(new User());
   constructor(private http: HttpClient) { 
 
+
     //This is TMP to avoid loggin in manually  //////////////////////////////////////////////////////////////////
     let user2 = new User();
     user2.id = 3;
@@ -28,6 +30,8 @@ export class HttpService {
     user2.email='pierre@durin.com';
     user2.mobile= '0611223344';
     user2.isLoggedIn = true;
+    user2.isValidated = true;
+    user2.groups = ["admin","memeber"]
     user2.role='president';
     user2.avatar='url(./assets/img/user-default.jpg)';
     this._user.next(user2);    

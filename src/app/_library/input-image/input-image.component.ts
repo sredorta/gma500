@@ -33,7 +33,6 @@ export class InputImageComponent implements OnInit {
     if (this.isInputEnabled==null) {
       this.isInputEnabled = true;
     }
-    console.log(this.defaultImg);
     if (this.defaultImg != null) {
       this.defaultImageString = this.defaultImg;
       this.realImgElem.nativeElement.src = this.defaultImg;

@@ -12,6 +12,9 @@ import {TermsDialogComponent} from '../../_dialogs/terms-dialog/terms-dialog.com
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import { HttpService } from '../../_services/http.service';
 
+//User model
+import {User} from '../../_models/user';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -112,14 +115,15 @@ export class SignupComponent implements OnInit {
     this.httpMsgVisible = false;
     this.loading = true;
     this.httpService.userSignup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
-        data => {
-            console.log(data);
-            console.log("End of http service success !!!");
-            this.httpMsgVisible = false;
+        (user: User) => {
+              console.log("Recieved data:");
+              console.log(user);
+              user.isLoggedIn = true; //Update user loggin status
 
-            this.loading = false; //tmp
-            //Redirect to home
-            //this.router.navigate(['']);     ///////////////////////////         
+              //Redirect to home
+              this.httpService.updateUser(user);
+              this.router.navigate(['']);            
+            
         },
         error => {
             this.httpMsgVisible = true;

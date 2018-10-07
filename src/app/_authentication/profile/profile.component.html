@@ -20,9 +20,7 @@
             <div style="padding-bottom:5px">Groups</div>
             <mat-divider></mat-divider>
               <mat-chip-list style="padding:20px">
-                  <mat-chip>admin</mat-chip>
-                  <mat-chip>bureau</mat-chip>
-                  <mat-chip>soiree_montagne</mat-chip>
+                  <mat-chip *ngFor="let chip of user.groups">{{chip}}</mat-chip>
               </mat-chip-list>            
           </mat-card-content>           
         </mat-card> 

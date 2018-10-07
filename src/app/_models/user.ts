@@ -6,8 +6,10 @@ export class User {
     firstName: string;
     lastName: string;
     avatar: any;
-    role: string;   //Member, president...
+    role: string = "member";   //Member, president...
     isLoggedIn : boolean = false;
+    isValidated : boolean = false;
+    groups : string[] = ["none"]
 
  /*   getAvatarUrl() {
         return "url(" + this.avatar + ")";
