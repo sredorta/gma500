@@ -8,7 +8,7 @@ import {LoginComponent} from './_authentication/login/login.component';
 import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassword.component';
 import {ProductListComponent} from './product-list/product-list.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
-
+import {MembersComponent} from './members/members.component';
 
 
 const routes: Routes = [
@@ -33,14 +33,17 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: 'productlist',
-    component: ProductListComponent
-  },  
-  {
     path: 'profile',
     component: ProfileComponent
-  },    
-
+  }, 
+  {
+    path: 'members',
+    component: MembersComponent
+  },     
+  {
+    path: 'productlist',
+    component: ProductListComponent
+  }
 
 ];
 

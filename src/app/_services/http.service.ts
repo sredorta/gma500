@@ -64,5 +64,10 @@ export class HttpService {
     return this.http.post<any>(environment.apiURL +'/users/logout',{});
   }  
 
+  public getMembers(role:string) : Observable<any[]> {
+    return this.http.post<any>(environment.apiURL +'/users/list',{role});
+  }
+
+
 
 }
