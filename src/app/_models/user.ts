@@ -19,16 +19,22 @@ export class User {
         }
     }
     isPresident() {
-        return (this.roles.indexOf("president")>-1);
+        return (this.roles.indexOf("president")>-1?true:false);
     }
-    isBoard() {
-        return false;
+    isBoard() :boolean{
+        let result:boolean = false;
+        this.roles.forEach(el=> {
+            if (el!== "president" && el!=="bureau" && el!=="member") {
+                result = true;
+            }
+        });
+        return result;
     }
     isBureau() {
-        return (this.roles.indexOf("bureau")>-1);
+        return (this.roles.indexOf("bureau")>-1?true:false);
     }
     isMember() {
-        return (this.roles.indexOf("member")>-1);
+        return (this.roles.indexOf("member")>-1?true:false);
     }
     getRoles() {
         return "test";

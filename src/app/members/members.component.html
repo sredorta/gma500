@@ -1,11 +1,11 @@
-<div style="padding:20px"   fxLayoutAlign="center center" fxLayout="column">
-  <div fxLayout="column" style="width:90%;max-width:550px">
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
+  <div fxLayout="column" style="width:90%;max-width:590px">
   <mat-card stype="padding:5px;">
   <p class="header">Présidence</p>
   <mat-divider></mat-divider>
   <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-      <div *ngFor="let user of presidents | async">
-          <app-member-item [member]="user"></app-member-item>
+      <div *ngFor="let user1 of presidents | async">
+          <app-member-item [member]="user1" [isPresident]="true"></app-member-item>
       </div>
       <div *ngFor="let user of boards | async" >
           <app-member-item [member]="user"></app-member-item>
@@ -16,16 +16,18 @@
   <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
       <div *ngFor="let user of bureaus | async">
           <app-member-item [member]="user"></app-member-item>
-      </div> 
+      </div>
+      <ng-template #loading>Loading</ng-template>
   </div>
-
-  <p  class="header">Membres</p>
+  <ng-container *ngIf="members | async"> 
+  <p  class="header">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
   <mat-divider></mat-divider>
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-      <div *ngFor="let user of members | async">
-          <app-member-item [member]="user"></app-member-item>
+  <div fxLayout="row wrap" style="padding-top:5px">
+      <div *ngFor="let member of members | async">
+          <div style="margin:2.5px"><app-member-item [member]="member"></app-member-item></div>
       </div> 
   </div>
+</ng-container>  
 </mat-card>
 </div>
 </div>

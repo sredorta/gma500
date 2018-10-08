@@ -1,16 +1,16 @@
 
 <div *ngIf="(user | async) as user">
-<div fxLayout="column" style="padding:5px;padding-top:20px;width:150px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
+<div fxLayout="column" style="padding:5px;padding-top:20px;width:130px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
     <div fxFlex="2 2 auto" fxLayoutAlign="center center" fxLayout="column">
       <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:50px;height:50px;border-radius:50%"></div>
       <div fxLayout="column" fxLayoutAlign="center center" style="height:90px;">
-        <div style="margin-bottom:5px;font-weight:bold;font-size:14px">{{member.firstName}} {{member.lastName}}</div>
-        <small [ngClass]="{'isPresident' : memberIsPresident}">{{member.roles[0]}}</small>
+        <div style="margin-bottom:5px;font-weight:bold;font-size:14px"><span>{{member.firstName}} {{member.lastName}}</span></div>
+        <small [ngClass]="{'is-president' : isPresident}">{{member.roles[0]}}</small>
       </div>
     </div>  
     <div *ngIf="user.isLoggedIn" fxFlex="1 1 auto" fxLayoutAlign="space-around center" style="height:60px">
           <!--<button mat-mini-fab [style.backgroundImage]="'url(./assets/img/email.jpg)'" style="background-size:cover;"></button>-->
-          <div class="button-special" fxLayoutAlign="center center"><mat-icon>email</mat-icon></div>
+          <a class="button-special" fxLayoutAlign="center center"><mat-icon>email</mat-icon></a>
           <div class="button-special" fxLayoutAlign="center center"><mat-icon>phone</mat-icon></div>
     </div>
 </div>

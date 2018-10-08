@@ -2,8 +2,9 @@
 
 $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
-.isPresident {
+.is-president {
     color: mat-color($accent);
+    font-weight: bold;
 }
 
 .button-special {

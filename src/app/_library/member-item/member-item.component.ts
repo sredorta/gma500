@@ -10,7 +10,8 @@ import {User} from '../../_models/user';
 })
 export class MemberItemComponent implements OnInit {
   //Inputs
-  @Input() member : User;  //Member to display
+  @Input() member : User;           //Member to display
+  @Input() isPresident : boolean;
   user  = this.httpService.getUser();   //User data that is globally stored and sync
   memberIsPresident : boolean = false;
   constructor(private httpService:HttpService) {

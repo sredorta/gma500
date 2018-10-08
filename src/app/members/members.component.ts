@@ -10,17 +10,22 @@ import { map, filter, catchError, mergeMap } from 'rxjs/operators';
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
-  user  = this.httpService.getUser();   //User data that is globally stored and sync
+  myUser  = this.httpService.getUser();   //User data that is globally stored and sync
   presidents = this.httpService.getPresident();
+  boards=this.httpService.getBoard();
   bureaus=this.httpService.getBureau();
   members=this.httpService.getMembers();
-  boards:Observable<User[]>;
+  memberCount :number;
 
   constructor(private httpService:HttpService) {}
 
   ngOnInit() {
 
-
+    this.httpService.getMembers().subscribe(res=> this.memberCount = res.length);
+    this.myUser.subscribe(res=>{
+      console.log("myUser:");
+      console.log(res);
+    });
 
   }
 
