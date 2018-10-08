@@ -53,10 +53,27 @@ export class HttpService {
     return this.http.post<User>(environment.apiURL +'/users/logout',{});
   }  
 
-  public getMembers(role:string) : Observable<User[]> {
-    return this.http.post<User[]>(environment.apiURL +'/users/list',{role});
+  public getPresident() : Observable<User[]> {
+     let role : string = "president";
+     return this.http.post<User[]>(environment.apiURL +'/users/list',{role}).map((result:User[])=> {
+      result.forEach((el)=> {el.roles = ["Président"]});
+      return result;
+    });
   }
-
+  public getMembers() : Observable<User[]> {
+    let role : string = "member";
+    return this.http.post<User[]>(environment.apiURL +'/users/list',{role}).map((result:User[])=> {
+      result.forEach((el)=> {el.roles = ["Membre"]});
+      return result;
+    });
+  }
+  public getBureau() : Observable<User[]> {
+    let role : string = "bureau";
+    return this.http.post<User[]>(environment.apiURL +'/users/list', {role}).map((result:User[])=> {
+      result.forEach((el)=> {el.roles = ["Bureau"]});
+      return result;
+    });
+  }
 
 
 }

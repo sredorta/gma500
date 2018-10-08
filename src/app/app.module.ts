@@ -63,6 +63,7 @@ import { InputImageComponent } from './_library/input-image/input-image.componen
 import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.component';
 import { ProfileComponent } from './_authentication/profile/profile.component';
 import { MembersComponent } from './members/members.component';
+import { MemberItemComponent } from './_library/member-item/member-item.component';
 
 
 
@@ -81,7 +82,8 @@ import { MembersComponent } from './members/members.component';
     InputImageComponent,
     TermsDialogComponent,
     ProfileComponent,
-    MembersComponent
+    MembersComponent,
+    MemberItemComponent
   ],
   imports: [
     BrowserModule,

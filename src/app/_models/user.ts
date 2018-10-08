@@ -7,7 +7,7 @@ export class User {
     firstName: string;
     lastName: string;
     avatar: any;
-    role: string = "member";   //Member, president...
+    roles: string[] = [];   //Member, president...
     isLoggedIn : boolean = false;
     isValidated : boolean = false;
     groups : string[] = ["none"]
@@ -18,8 +18,22 @@ export class User {
             this[prop] = jsonObj[prop];
         }
     }
- /*   getAvatarUrl() {
-        return "url(" + this.avatar + ")";
-    }*/
+    isPresident() {
+        return (this.roles.indexOf("president")>-1);
+    }
+    isBoard() {
+        return false;
+    }
+    isBureau() {
+        return (this.roles.indexOf("bureau")>-1);
+    }
+    isMember() {
+        return (this.roles.indexOf("member")>-1);
+    }
+    getRoles() {
+        return "test";
+        return this.roles.toString();
+    }
+
 
 }

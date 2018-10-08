@@ -1,68 +1,32 @@
-<div style="padding:20px" >
-  <h1>Présidence</h1>
-  <div fxLayout="column">
-    <div *ngFor="let user of presidents | async" fxLayoutAlign="center center" fxFlex="column">
-      <mat-card style="min-width:250px;max-width:300px;margin:10px;margin-top:20px;margin-bottom:20px">
-          <mat-card-header>
-            <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
-            <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-            <mat-card-subtitle style="color:blue">{{user.role}}</mat-card-subtitle>
-          </mat-card-header>
-          <!--
-          <mat-card-content>  
-            <div style="padding-bottom:5px">Donnés</div>
-            <mat-divider></mat-divider>
-            <div style="padding:10px;" fxLayoutAlign="start center">
-                <img src="./assets/img/email.jpg" alt="email-icon" style="width:25px;height:25px;border-radius:15%;margin-right:20px;">
-                <div>{{president.email}}</div>
-            </div>  
-            <div style="padding:10px;padding-top:0px" fxLayoutAlign="start center">
-                <img src="./assets/img/phone.jpg" alt="phone-icon" style="width:25px;height:25px;border-radius:15%;margin-right:20px;">
-                <div>{{president.mobile}}</div>
-            </div>  
-            <div style="padding-bottom:5px">Groups</div>
-            <mat-divider></mat-divider>
-              <mat-chip-list style="padding:20px">
-                  <mat-chip *ngFor="let chip of president.groups">{{chip}}</mat-chip>
-              </mat-chip-list>            
-          </mat-card-content> -->    
-        </mat-card> 
-    </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
-      <div *ngFor="let user of boards | async" fxLayoutAlign="center center" style="width:100%">
-          <mat-card style="margin:10px;min-width:200px;max-width:250px">
-              <mat-card-header>
-                <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
-                <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-                <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
-              </mat-card-header>
-          </mat-card>
+<div style="padding:20px"   fxLayoutAlign="center center" fxLayout="column">
+  <div fxLayout="column" style="width:90%;max-width:550px">
+  <mat-card stype="padding:5px;">
+  <p class="header">Présidence</p>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
+      <div *ngFor="let user of presidents | async">
+          <app-member-item [member]="user"></app-member-item>
+      </div>
+      <div *ngFor="let user of boards | async" >
+          <app-member-item [member]="user"></app-member-item>
       </div>    
   </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
-      <div *ngFor="let user of bureaus | async" fxLayoutAlign="center center" fxFlex="1 1 auto">
-          <mat-card style="margin:10px;min-width:200px;max-width:250px">
-              <mat-card-header>
-                <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
-                <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-                <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
-              </mat-card-header>
-          </mat-card>
-      </div>    
+  <p class="header">Bureau</p>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
+      <div *ngFor="let user of bureaus | async">
+          <app-member-item [member]="user"></app-member-item>
+      </div> 
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center">
-      <div *ngFor="let user of members | async" fxLayoutAlign="center center" fxFlex="1 1 auto">
-          <mat-card style="margin:10px;min-width:200px;max-width:250px">
-              <mat-card-header>
-                <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
-                <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-                <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
-              </mat-card-header>
-          </mat-card>
-      </div>    
+  <p  class="header">Membres</p>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
+      <div *ngFor="let user of members | async">
+          <app-member-item [member]="user"></app-member-item>
+      </div> 
   </div>
-
+</mat-card>
+</div>
 </div>
 <app-footer></app-footer>
