@@ -1,10 +1,69 @@
+@import "../../styles.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+.is-president {
+    color: mat-color($accent);
+    font-weight: bold;
+}
+
+
+.size-small {
+    width:30px;
+    height:30px;
+    min-width:30px;
+    max-width:30px;
+    min-height:30px;
+    max-height:30px;
+}
+
+.size-medium {
+    width:40px;
+    height:40px;
+    min-width:40px;
+    max-width:40px;
+    min-height:40px;
+    max-height:40px;    
+}
+
+.button-special {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4);
+
+    border:1px solid;
+    border-radius:50%;
+    padding:0px;
+    width:30px !important;
+}
+.button-special:hover {
+    cursor:pointer;
+    border:1px solid mat-color($primary);
+    color: mat-color($primary);    
+    box-shadow: 2px 2px 5px mat-color($primary);
+}
+
+
+
+
+
+
 .canvas {
     width:100%;
-    overflow-y:auto;
     padding-top:10px;
-    padding-bottom:5px; 
-    max-height:200px;
-    height:200px;   
+    padding-bottom:5px;   
+}
+
+.main-product {
+    margin:2px;
+    padding:5px;
+    padding-top:20px;
+    border:1px solid black;
+    border-radius:5px; 
+    width:150px;
+    height:250px;  
+}
+.main-product:hover {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 small {

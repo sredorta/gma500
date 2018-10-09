@@ -24,7 +24,7 @@
         <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
         <mat-divider></mat-divider>
         <ng-container *ngIf="membersReady; else loading"> 
-        <div fxLayout="row wrap" fxLayoutGap="5px" style="padding-top:5px">
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px" style="padding-top:5px">
             <div *ngFor="let member of members">
                 <div style="margin-bottom:5px"><app-member-item [user]="user" [member]="member" activeRole="member"></app-member-item></div>
             </div> 
