@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import {User} from '../_models/user';
-
+import {Product} from '../_models/product';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -25,6 +25,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         new User({ id: 14, firstName: 'Ser5', lastName: 'Red5', email:'ser2@red2.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:false, isValidated: true, roles:['member'], groups:["member"], avatar:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABS0lEQVQoUx2Qu2obURRF1zlzRxpJiQgRCJyAbJGkDQQ37gzp1AelyR/kUadxZbC/IEV+wX9gtyFFKuNGhZsQgYUUDxkNRiNZM/ceMyl2sWGxYG/59enYVBSngqkSgkEw7s1IVVhKoNiWyPLLV0MUBYiEYIaGgJWe1Cs3phQhIP7ogxErRDUqSG0kYFsoVg3ywlF6kOrbyCQGEsHaikVC8WfNxfmSnV6L/ddPcJEil+/fWUehEcHTlscpfP55RZS0yO9y3g4GvOr2keuPh5aGiuZjIWpBvjJOz6a8GPb5PV+w8U2anUfI9/HYRDzFdk0ZSjKr+DGZMux3yaoNSTfGJYqcHIysXhrMU1ngbztmcndLIxbipMF0tqC498ibwUsLAr5O/ZBz7O0+o27TmzmzRYqLHbL7fGAaCYgASpZl7PR7+OBJ/+WUVfUffADEX5NLxCU8vgAAAABJRU5ErkJggg==)'}),
 
     ];
+
+    productTestList : Product[] = [
+        new Product({id:1,type:"ARVA",brand:"ortovox",description:"ARVA pour quand on est dans la merde",isAvailable:true,usage:"interieur",serialNumber:"AASSSXXBB",idGMA:"1",fabricatedOn:"10/02/2016",boughtOn:"10/03/2017",controls:[{year:"2016",comment:"A reenvoyer en 2018"},{year:"2018",comment:"A reenvoyer en 2019"}],docLink:"Link to doc",image:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABS0lEQVQoUx2Qu2obURRF1zlzRxpJiQgRCJyAbJGkDQQ37gzp1AelyR/kUadxZbC/IEV+wX9gtyFFKuNGhZsQgYUUDxkNRiNZM/ceMyl2sWGxYG/59enYVBSngqkSgkEw7s1IVVhKoNiWyPLLV0MUBYiEYIaGgJWe1Cs3phQhIP7ogxErRDUqSG0kYFsoVg3ywlF6kOrbyCQGEsHaikVC8WfNxfmSnV6L/ddPcJEil+/fWUehEcHTlscpfP55RZS0yO9y3g4GvOr2keuPh5aGiuZjIWpBvjJOz6a8GPb5PV+w8U2anUfI9/HYRDzFdk0ZSjKr+DGZMux3yaoNSTfGJYqcHIysXhrMU1ngbztmcndLIxbipMF0tqC498ibwUsLAr5O/ZBz7O0+o27TmzmzRYqLHbL7fGAaCYgASpZl7PR7+OBJ/+WUVfUffADEX5NLxCU8vgAAAABJRU5ErkJggg==)'}),
+        new Product({id:2,type:"ARVA",brand:"ortovox",description:"ARVA pour quand on est dans la merde",isAvailable:true,usage:"exterieur",serialNumber:"AARRMMMGG",idGMA:"2",fabricatedOn:"11/02/2014",boughtOn:"11/03/2016",controls:[{year:"2016",comment:"A reenvoyer en 2018"},{year:"2018",comment:"A reenvoyer en 2019"}],docLink:"Link to doc",image:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABS0lEQVQoUx2Qu2obURRF1zlzRxpJiQgRCJyAbJGkDQQ37gzp1AelyR/kUadxZbC/IEV+wX9gtyFFKuNGhZsQgYUUDxkNRiNZM/ceMyl2sWGxYG/59enYVBSngqkSgkEw7s1IVVhKoNiWyPLLV0MUBYiEYIaGgJWe1Cs3phQhIP7ogxErRDUqSG0kYFsoVg3ywlF6kOrbyCQGEsHaikVC8WfNxfmSnV6L/ddPcJEil+/fWUehEcHTlscpfP55RZS0yO9y3g4GvOr2keuPh5aGiuZjIWpBvjJOz6a8GPb5PV+w8U2anUfI9/HYRDzFdk0ZSjKr+DGZMux3yaoNSTfGJYqcHIysXhrMU1ngbztmcndLIxbipMF0tqC498ibwUsLAr5O/ZBz7O0+o27TmzmzRYqLHbL7fGAaCYgASpZl7PR7+OBJ/+WUVfUffADEX5NLxCU8vgAAAABJRU5ErkJggg==)'}),
+        new Product({id:3,type:"BATONS",brand:"grivel",description:"Batons de marche homme",isAvailable:false,usage:"exterieur",serialNumber:"CCDDEEFF",idGMA:"A13",fabricatedOn:"20/09/2016",boughtOn:"20/09/2017",controls:[null],docLink:"Link to doc",image:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABgklEQVQoUxXK3UtTYRzA8e/PnalnzddxKoe9YIFTcbXIoPRagq6EMGKQSFB43bV/gf+DFHSjUUFBF6VFBb1AZCUFzczM8FQ729laj9tOO88jfa4/4uaeGktCRKAWWqx9XqM9btibPERLq01rrB2jQVR+1dSLP9h2C8zP32Fl5SNBI+B4up/LM1McPtpHxGpGyu6qUaU8Tx4+5v69ZRq1gFBrtDGcHj3BxelJOhMOkt94Yf6WiizcvM27569IJffTYlls+n+wO2JcuDrFYHrof3xpgjDg1o1FeqNCZqCfb7kc5XqIV1WMTU7Q0+Mg6+8fmCZAK0W8Umfnl4dfKJHo3YcndQ6eTGO3tSHe1mujQ0254PPh0RI/v3ynWKkizUKi7wDnsufpdhykuPXWqB3F1/VN3iwt44hgjPDsU47USIZLV7LsiceR2WszRqkqXsEnqv9x6kgS1/2NX2vgE2VoOMX4+BgycmzYRKwIaIjZNtmzo5zJDDB3/S7bfoUmEbq7OtgFbrOnl/fhFocAAAAASUVORK5CYII=)'}),
+        new Product({id:4,type:"PELLE",brand:"ortovox",description:"Pelle 01",isAvailable:true,usage:"exterieur",serialNumber:"BBGGHHDDD",idGMA:"PE01",fabricatedOn:"12/02/2010",boughtOn:"12/03/2012",controls:[{year:"2015",comment:"Legerement fissurer a reviser en 2018"}],docLink:"Link to doc",image:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABS0lEQVQoUx2Qu2obURRF1zlzRxpJiQgRCJyAbJGkDQQ37gzp1AelyR/kUadxZbC/IEV+wX9gtyFFKuNGhZsQgYUUDxkNRiNZM/ceMyl2sWGxYG/59enYVBSngqkSgkEw7s1IVVhKoNiWyPLLV0MUBYiEYIaGgJWe1Cs3phQhIP7ogxErRDUqSG0kYFsoVg3ywlF6kOrbyCQGEsHaikVC8WfNxfmSnV6L/ddPcJEil+/fWUehEcHTlscpfP55RZS0yO9y3g4GvOr2keuPh5aGiuZjIWpBvjJOz6a8GPb5PV+w8U2anUfI9/HYRDzFdk0ZSjKr+DGZMux3yaoNSTfGJYqcHIysXhrMU1ngbztmcndLIxbipMF0tqC498ibwUsLAr5O/ZBz7O0+o27TmzmzRYqLHbL7fGAaCYgASpZl7PR7+OBJ/+WUVfUffADEX5NLxCU8vgAAAABJRU5ErkJggg==)'}),
+    ];
+
+
     static current: User =  new User({ id: 3, firstName: 'Pierre', lastName: 'Durin', email:'pierre@durin.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:true, isValidated: true, roles:['president','bureau','member'], groups:["member","admin","kk"], avatar:'url(./assets/img/user-default.jpg)'})   
 
 
@@ -92,44 +101,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.url.endsWith('/users/logout') && request.method === 'POST') {
                     return of(new HttpResponse({ status: 200 }));
             } 
- /*           // Members list
-            if (request.url.endsWith('/users/getPresident') && request.method === 'POST') {
-                console.log("We are in fake backend !");
-                let users : User[] = [];
-                console.log(this.userTestStatus);
-                let allUsers = this.userTestStatus;
-                    users.push(allUsers.find(i => i.isPresident()));
-                    let result : User[] = [];
-                    for (let entry of users) {
-                        entry.roles=["Président"];
-                        result.push(entry);
-                    }
-                    return of(new HttpResponse({ status: 200, body: result }));  //Return the user data
-   
-            } 
-            if (request.url.endsWith('/users/getMember') && request.method === 'POST') {
-                console.log("We are in fake backend !");
-                let users : User[] = [];
-                let allUsers = this.userTestStatus;
-                    users =allUsers.filter(i => i.isMember()===true);
-                    //users.forEach(user=> user.roles = ["Membre"]);
-                    return of(new HttpResponse({ status: 200, body: users }));  //Return the user data
-   
-            } 
-            if (request.url.endsWith('/users/getBureau') && request.method === 'POST') {
-                console.log("We are in fake backend !");
-                let users : User[] = [];
-                let allUsers = new Array<User>();
-
-                allUsers= this.userTestStatus;
-                    users =allUsers.filter(i => i.isBureau() === true);
-                    //users.push(this.userTestStatus.filter(i => i.isBureau()===true);
-                    //users.forEach(user=> user.roles = ["Bureau"]);
-                    console.log("BUREAU:");
-                    console.log(users);
-                    return of(new HttpResponse({ status: 200, body: users }));  //Return the user data  
-            } 
-*/
 
 
             // Members list
@@ -168,24 +139,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                         allUsers2.push(tmp2);
                     }                    
                     users2 = allUsers2.filter(i => i.isBoard() === true);
-
-                    //Remove all roles non related
-                    /*for (let entry3 of users2) {
-                        let roles = new Array();   
-                        for (let tt of entry3.roles) {
-                            roles.push(tt);
-                        }                     
-                        let index;
-                        index = roles.findIndex(x=> x==="president");
-                        if (index > -1) roles.splice(index);
-                        index = roles.findIndex(x=> x==="member");
-                        if (index > -1) roles.splice(index);
-                        index = roles.findIndex(x=> x==="bureau");
-                        if (index > -1) roles.splice(index);
-                        entry3.roles = roles;
-                    }*/
-                    console.log("board !");
-                    console.log(users2);
                     return of(new HttpResponse({ status: 200, body: users2 }));  //Return the user data
                 }
                 if (request.body.role === "bureau") {
@@ -202,6 +155,33 @@ export class FakeBackendInterceptor implements HttpInterceptor {
    
             } 
 
+            // Product list
+            if (request.url.endsWith('/products/list') && request.method === 'POST') {
+                //We create a copy of userTestStatus to avoid override later calls
+                let allProducts = new Array<Product>();
+                for (let entry of this.productTestList) {
+                    let tmp = new Product(null);
+                    tmp.id = entry.id;
+                    tmp.image = entry.image;
+                    tmp.type = entry.type;
+                    tmp.brand = entry.brand;
+                    tmp.description = entry.description;
+                    tmp.usage = entry.usage;
+                    tmp.serialNumber = entry.serialNumber;
+                    tmp.idGMA = entry.idGMA;
+                    tmp.fabricatedOn = entry.fabricatedOn;
+                    tmp.expiresOn = entry.expiresOn;
+                    tmp.controls = entry.controls;
+                    tmp.docLink = entry.docLink;
+                    tmp.comments = entry.comments;
+                    tmp.isAvailable= entry.isAvailable;
+                    allProducts.push(tmp);
+                }
+
+                let products : Product[] = [];
+                    allProducts.forEach(el=> products.push(el));
+                    return of(new HttpResponse({ status: 200, body: products }));  //Return the user data
+            } 
 
 
             return throwError({ error: { message: 'Erreur not connue' } });

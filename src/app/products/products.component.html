@@ -1,0 +1,50 @@
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
+  <div *ngIf="(user | async) as user" fxLayout="column" style="width:90%;max-width:588px;min-width:250px;">
+  <mat-card stype="padding:0px;">
+    <p class="header">Liste de matériel</p>
+    <ng-container *ngIf="productsReady; else loading"> 
+
+      <div fxLayout="row" fsLayoutAlign="start center" style="padding:3px">
+        <div fxLayoutAlign="center center" style="width:50px;border-radius:5px"><small>Photo</small></div>
+        <div fxLayoutAlign="center center" fxLayout="column" style="width:80px;max-width:80px;min-width:80px"><small>Type</small></div>
+        <div fxLayoutAlign="center center" fxLayout="column" style="width:80px;max-width:80px;min-width:80px"><small>Marque</small></div>
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center" fxLayout="column"><small>Description</small></div>
+        <div fxLayoutAlign="center center" fxLayout="column" style="width:50px;max-width:50px;min-width:50px"><small>Disponible</small></div>
+      </div>                  
+   
+      <div fxLayoutAlign="start start" fxLayout="column" fxLayoutGap="5px" class="canvas">
+          <div *ngFor="let product of products" style="width:100%">
+              <!--Needs to go into product-item-->
+                <!--header-->
+
+                <div fxLayout="row" fsLayoutAlign="start center" style="padding:3px;border:1px solid black; width:100%">
+                  <div mat-card-avatar [style.backgroundImage]="product.image" style="background-size:cover;width:50px;height:50px;border-radius:5px"></div>
+                  <div fxLayout="column" style="width:100%">
+                    <div fxLayout="row" style="width:100%">
+                      <div fxFlex="1 1 auto" fxLayoutAlign="center center"><small>{{product.type}}</small></div>
+                      <div fxFlex="1 1 auto" fxLayoutAlign="center center"><small>{{product.brand}}</small></div>
+                      <div fxFlex="1 1 auto" fxLayoutAlign="center center"><small>{{product.usage}}</small></div>
+                      <div fxFlex="1 1 auto" fxLayoutAlign="center center"><button mat-button><mat-icon>attach_file</mat-icon></button></div>
+                      <div fxLayoutAlign="center center" style="width:50px;max-width:50px;min-width:50px">
+                        <small><mat-icon *ngIf="product.isAvailable" style="color:green">thumb_up</mat-icon><mat-icon *ngIf="!product.isAvailable" style="color:red">thumb_down</mat-icon></small>
+                      </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="center center" style="width:100%"><small>{{product.description}}</small></div>
+                </div>
+              </div>
+              <!--<app-member-item [user]="user" [member]="member" activeRole="board"></app-member-item>-->
+          </div>    
+      </div>  
+    </ng-container>
+  </mat-card>
+</div>
+</div>
+
+<ng-template #loading >
+    <div style="height:242px;width:100%;" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <mat-spinner [diameter]="40"></mat-spinner><span class="primary-color">Chargement...</span>
+    </div>
+    </div>
+</ng-template>
+<app-footer></app-footer>

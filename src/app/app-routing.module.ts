@@ -6,7 +6,7 @@ import {AboutComponent} from './about/about.component';
 import {SignupComponent} from './_authentication/signup/signup.component';
 import {LoginComponent} from './_authentication/login/login.component';
 import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassword.component';
-import {ProductListComponent} from './product-list/product-list.component';
+import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {MembersComponent} from './members/members.component';
 
@@ -41,8 +41,8 @@ const routes: Routes = [
     component: MembersComponent
   },     
   {
-    path: 'productlist',
-    component: ProductListComponent
+    path: 'materiel',
+    component: ProductsComponent
   }
 
 ];

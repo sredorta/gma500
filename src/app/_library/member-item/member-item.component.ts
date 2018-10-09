@@ -34,7 +34,7 @@ export class MemberItemComponent implements OnInit {
     this.memberPhone= 'tel:' + this.member.mobile;
 
     if(this.activeRole == null) {
-      this.activeRole = this.member.getFormattedRole("all");
+      this.activeRole = this.member.getFormattedRoles();
     } else {
       this.activeRole = this.member.getFormattedRole(this.activeRole);
     }

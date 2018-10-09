@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { User } from '../_models/user';
+import { Product } from '../_models/product';
 import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
 @Injectable({
@@ -64,18 +65,10 @@ export class HttpService {
   public getMembers() : Observable<User[]> {
     let role : string = "member";
     return this.http.post<User[]>(environment.apiURL +'/users/list',{role});
-    /*.map((result:User[])=> {
-      result.forEach((el)=> {el.roles = ["Membre"]});
-      return result;
-    });*/
   }
   public getBureau() : Observable<User[]> {
     let role : string = "bureau";
     return this.http.post<User[]>(environment.apiURL +'/users/list', {role});
-    /*.map((result:User[])=> {
-      result.forEach((el)=> {el.roles = ["Bureau"]});
-      return result;
-    });*/
   }
   public getBoard() : Observable<User[]> {
     let role : string = "board";
@@ -85,5 +78,10 @@ export class HttpService {
       return result;
     });*/
   }
+  
+  public getProducts() : Observable<Product[]> {
+    let role : string = "member";
+    return this.http.post<Product[]>(environment.apiURL +'/products/list',{});
+  }  
 
 }

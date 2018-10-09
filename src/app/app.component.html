@@ -8,8 +8,8 @@
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/about'" color="secondary" routerLink="/about"  style="height:100%">About</button>
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/members'" color="primary" routerLink="/members"  style="height:100%">Membres</button>
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/members'" color="secondary" routerLink="/members"  style="height:100%">Membres</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/productlist'" color="primary" routerLink="/productlist"  style="height:100%">Location Matériel</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/productlist'" color="secondary" routerLink="/productlist"  style="height:100%">Location Matériel</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/materiel'" color="primary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
+      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/materiel'" color="secondary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
 
       <div *ngIf="(user | async) as user">
          <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="user.avatar" style="background-size:cover;"></button> 
@@ -67,7 +67,7 @@
           <a (click)="snav.toggle()" mat-list-item routerLink=""><span>Accueil</span></a>       
           <a (click)="snav.toggle()" mat-list-item routerLink="about"><span>A propos</span></a>
           <a (click)="snav.toggle()" mat-list-item routerLink="members"><span>Membres</span></a>
-          <a (click)="snav.toggle()" mat-list-item routerLink="productlist"><span>Location Matériel</span></a>
+          <a (click)="snav.toggle()" mat-list-item routerLink="materiel"><span>Location Matériel</span></a>
         </mat-nav-list>
       </mat-sidenav>
   

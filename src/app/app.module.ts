@@ -60,13 +60,13 @@ import { HttpService } from './_services/http.service';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 import { MessageComponent } from './_library/message/message.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { InputImageComponent } from './_library/input-image/input-image.component';
 import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.component';
 import { ProfileComponent } from './_authentication/profile/profile.component';
 import { MembersComponent } from './members/members.component';
 import { MemberItemComponent } from './_library/member-item/member-item.component';
 import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog.component';
+import { ProductsComponent } from './products/products.component';
 
 
 
@@ -81,13 +81,13 @@ import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog
     AboutComponent,
     FooterComponent,
     MessageComponent,
-    ProductListComponent,
     InputImageComponent,
     TermsDialogComponent,
     ProfileComponent,
     MembersComponent,
     MemberItemComponent,
-    ProfileDialogComponent
+    ProfileDialogComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
