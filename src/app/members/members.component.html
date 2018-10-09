@@ -1,34 +1,45 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
-  <div fxLayout="column" style="width:90%;max-width:590px">
-  <mat-card stype="padding:5px;">
-  <p class="header">Présidence</p>
-  <mat-divider></mat-divider>
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-      <div *ngFor="let user1 of presidents | async">
-          <app-member-item [member]="user1" [isPresident]="true"></app-member-item>
+  <div *ngIf="(user | async) as user" fxLayout="column" style="width:90%;max-width:588px;min-width:250px;">
+  <mat-card stype="padding:0px;">
+    <p class="header">Présidence</p>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="boardsReady; else loading"> 
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
+          <div *ngFor="let member of boards" >
+              <app-member-item [user]="user" [member]="member" activeRole="board"></app-member-item>
+          </div>    
+      </div>  
+    </ng-container>
+    <p class="header">Bureau</p>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="bureauReady; else loading">   
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
+          <div *ngFor="let member of bureau">
+              <app-member-item [user]="user" [member]="member" activeRole="bureau"></app-member-item>
+          </div>
       </div>
-      <div *ngFor="let user of boards | async" >
-          <app-member-item [member]="user"></app-member-item>
-      </div>    
-  </div>
-  <p class="header">Bureau</p>
-  <mat-divider></mat-divider>
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-      <div *ngFor="let user of bureaus | async">
-          <app-member-item [member]="user"></app-member-item>
-      </div>
-      <ng-template #loading>Loading</ng-template>
-  </div>
-  <ng-container *ngIf="members | async"> 
-  <p  class="header">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
-  <mat-divider></mat-divider>
-  <div fxLayout="row wrap" style="padding-top:5px">
-      <div *ngFor="let member of members | async">
-          <div style="margin:2.5px"><app-member-item [member]="member"></app-member-item></div>
-      </div> 
-  </div>
-</ng-container>  
-</mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="user.isLoggedIn"> 
+        <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="membersReady; else loading"> 
+        <div fxLayout="row wrap" fxLayoutGap="5px" style="padding-top:5px">
+            <div *ngFor="let member of members">
+                <div style="margin-bottom:5px"><app-member-item [user]="user" [member]="member" activeRole="member"></app-member-item></div>
+            </div> 
+        </div>
+        </ng-container>
+    </ng-container>
+  </mat-card>
 </div>
 </div>
+
+<ng-template #loading >
+    <div style="height:242px;width:100%;" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <mat-spinner [diameter]="40"></mat-spinner><span class="primary-color">Chargement...</span>
+    </div>
+    </div>
+</ng-template>
 <app-footer></app-footer>

@@ -10,22 +10,43 @@ import { map, filter, catchError, mergeMap } from 'rxjs/operators';
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
-  myUser  = this.httpService.getUser();   //User data that is globally stored and sync
-  presidents = this.httpService.getPresident();
-  boards=this.httpService.getBoard();
-  bureaus=this.httpService.getBureau();
-  members=this.httpService.getMembers();
+  user  = this.httpService.getUser();   //User data that is globally stored and sync
+  boards : User[] = [];
+  boardsReady :boolean = false;
+  members: User[] = [];
+  membersReady: boolean = false;
+  bureau : User[] = [];
+  bureauReady : boolean = false;
   memberCount :number;
 
   constructor(private httpService:HttpService) {}
 
   ngOnInit() {
+    //Load board and president
+    this.httpService.getPresident().subscribe((result:User[]) => {
+      this.boards.push(result[0]);
+      //Load board
+      this.httpService.getBoard().subscribe((result:User[]) => {
+        for(let res of result) {
+          this.boards.push(res);
+        }
+        this.boardsReady = true;
+      });
+    });    
 
-    this.httpService.getMembers().subscribe(res=> this.memberCount = res.length);
-    this.myUser.subscribe(res=>{
-      console.log("myUser:");
-      console.log(res);
+
+    //Load bureau elements
+    this.httpService.getBureau().subscribe((result:User[]) => {
+        this.bureau = result;
+        this.bureauReady = true;
     });
+
+    //Load member elements
+    this.httpService.getMembers().subscribe((result:User[]) => {
+      this.members = result;
+      this.membersReady = true;
+      this.memberCount = this.members.length;
+    });    
 
   }
 

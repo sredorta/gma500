@@ -25,7 +25,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         new User({ id: 14, firstName: 'Ser5', lastName: 'Red5', email:'ser2@red2.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:false, isValidated: true, roles:['member'], groups:["member"], avatar:'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABS0lEQVQoUx2Qu2obURRF1zlzRxpJiQgRCJyAbJGkDQQ37gzp1AelyR/kUadxZbC/IEV+wX9gtyFFKuNGhZsQgYUUDxkNRiNZM/ceMyl2sWGxYG/59enYVBSngqkSgkEw7s1IVVhKoNiWyPLLV0MUBYiEYIaGgJWe1Cs3phQhIP7ogxErRDUqSG0kYFsoVg3ywlF6kOrbyCQGEsHaikVC8WfNxfmSnV6L/ddPcJEil+/fWUehEcHTlscpfP55RZS0yO9y3g4GvOr2keuPh5aGiuZjIWpBvjJOz6a8GPb5PV+w8U2anUfI9/HYRDzFdk0ZSjKr+DGZMux3yaoNSTfGJYqcHIysXhrMU1ngbztmcndLIxbipMF0tqC498ibwUsLAr5O/ZBz7O0+o27TmzmzRYqLHbL7fGAaCYgASpZl7PR7+OBJ/+WUVfUffADEX5NLxCU8vgAAAABJRU5ErkJggg==)'}),
 
     ];
-    static current: User =  new User({ id: 3, firstName: 'Pierre', lastName: 'Durin', email:'pierre@durin.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:true, isValidated: true, role:['president','bureau'], groups:["member","admin","kk"], avatar:'url(./assets/img/user-default.jpg)'})   
+    static current: User =  new User({ id: 3, firstName: 'Pierre', lastName: 'Durin', email:'pierre@durin.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:true, isValidated: true, roles:['president','bureau','member'], groups:["member","admin","kk"], avatar:'url(./assets/img/user-default.jpg)'})   
 
 
     constructor() { 
@@ -150,7 +150,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 let users : User[] = [];
                 if (request.body.role === "president") {
                     users.push(allUsers.find(i => i.isPresident()));
-                    users.map((user)=> user.roles = ["Président"]);
+                    //users.map((user)=> user.roles = ["president"]);
                     return of(new HttpResponse({ status: 200, body: users }));  //Return the user data
                 }
                 if (request.body.role === "board") {
@@ -168,28 +168,34 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                         allUsers2.push(tmp2);
                     }                    
                     users2 = allUsers2.filter(i => i.isBoard() === true);
+
                     //Remove all roles non related
-                    for (let entry3 of users2) {
+                    /*for (let entry3 of users2) {
+                        let roles = new Array();   
+                        for (let tt of entry3.roles) {
+                            roles.push(tt);
+                        }                     
                         let index;
-                        index = entry3.roles.findIndex(x=> x==="president");
-                        if (index > -1) entry3.roles.splice(index);
-                        index = entry3.roles.findIndex(x=> x==="member");
-                        if (index > -1) entry3.roles.splice(index);
-                        index = entry3.roles.findIndex(x=> x==="bureau");
-                        if (index > -1) entry3.roles.splice(index);
-                    }
+                        index = roles.findIndex(x=> x==="president");
+                        if (index > -1) roles.splice(index);
+                        index = roles.findIndex(x=> x==="member");
+                        if (index > -1) roles.splice(index);
+                        index = roles.findIndex(x=> x==="bureau");
+                        if (index > -1) roles.splice(index);
+                        entry3.roles = roles;
+                    }*/
                     console.log("board !");
                     console.log(users2);
                     return of(new HttpResponse({ status: 200, body: users2 }));  //Return the user data
                 }
                 if (request.body.role === "bureau") {
                     users = allUsers.filter(i => i.isBureau() === true);
-                    users.map((user)=> user.roles = ["Bureau"]);
+                    //users.map((user)=> user.roles = ["bureau"]);
                     return of(new HttpResponse({ status: 200, body: users }));  //Return the user data
                 }                
                 if (request.body.role === "member") {
                     users = allUsers.filter(i => i.isMember() === true);
-                    users.map((user)=> user.roles = ["Membre"]);                   
+                    //users.map((user)=> user.roles = ["membre"]);                   
                     return of(new HttpResponse({ status: 200, body: users }));  //Return the user data
                 }  
                 return throwError({ error: { message: 'Role innexistant !' } });
@@ -209,7 +215,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .pipe(materialize())
-        .pipe(delay(2500))
+        .pipe(delay(1000))
         .pipe(dematerialize());
     }
 }

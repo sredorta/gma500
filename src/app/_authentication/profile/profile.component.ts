@@ -12,9 +12,15 @@ export class ProfileComponent implements OnInit {
   constructor(private httpService:HttpService, private router: Router) { }
 
   ngOnInit() {
-
+    this.httpService.getUser().subscribe(res=> {
+      console.log("REsult is:");
+      console.log(res);
+    });
   }
 
+  getRoles() {
+    return "test";
+  }
 
   //We are now logging out
   logout() {

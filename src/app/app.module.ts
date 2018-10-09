@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
 import {FormBuilder, FormGroup, FormControl,ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -64,6 +66,7 @@ import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.compo
 import { ProfileComponent } from './_authentication/profile/profile.component';
 import { MembersComponent } from './members/members.component';
 import { MemberItemComponent } from './_library/member-item/member-item.component';
+import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog.component';
 
 
 
@@ -83,7 +86,8 @@ import { MemberItemComponent } from './_library/member-item/member-item.componen
     TermsDialogComponent,
     ProfileComponent,
     MembersComponent,
-    MemberItemComponent
+    MemberItemComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,7 @@ import { MemberItemComponent } from './_library/member-item/member-item.componen
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    DeviceDetectorModule.forRoot(),
     ReactiveFormsModule,
     [  MatAutocompleteModule,
       MatBadgeModule,
@@ -128,7 +133,7 @@ import { MemberItemComponent } from './_library/member-item/member-item.componen
       MatTooltipModule,
       MatTreeModule],          
   ],
-  entryComponents: [TermsDialogComponent],
+  entryComponents: [TermsDialogComponent, ProfileDialogComponent],
   providers: [
     HttpService, 
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 

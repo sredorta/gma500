@@ -1,40 +1,16 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding:20px" >
   <div *ngIf="(user | async) as user" fxLayoutAlign="center center">
-      <mat-card style="width:80%;max-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
-          <mat-card-header>
-            <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;"></div>
-            <mat-card-title style="font-size:16px;" >{{user.firstName}} {{user.lastName}}</mat-card-title>
-            <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>  
-            <div style="padding-bottom:5px">Donnés</div>
-            <mat-divider></mat-divider>
-            <div style="padding:10px;" fxLayoutAlign="start center">
-                <img src="./assets/img/email.jpg" alt="email-icon" style="width:25px;height:25px;border-radius:15%;margin-right:20px;">
-                <div>{{user.email}}</div>
-            </div>  
-            <div style="padding:10px;padding-top:0px" fxLayoutAlign="start center">
-                <img src="./assets/img/phone.jpg" alt="phone-icon" style="width:25px;height:25px;border-radius:15%;margin-right:20px;">
-                <div>{{user.mobile}}</div>
-            </div>  
-            <div style="padding-bottom:5px">Groups</div>
-            <mat-divider></mat-divider>
-              <mat-chip-list style="padding:20px">
-                  <mat-chip *ngFor="let chip of user.groups">{{chip}}</mat-chip>
-              </mat-chip-list>            
-          </mat-card-content>           
-        </mat-card> 
+      <mat-card style="max-width:500px;min-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
+          <div fxLayout.xs="column" fxLayout="row" style="padding-bottom:20px">
+            <button mat-button color="primary" fxFlex="1 1 auto" (click)="logout()">Me déconnecter</button>
+            <button mat-button color="primary" fxFlex="1 1 auto">Modifier profil</button>
+            <button mat-button color="primary" fxFlex="1 1 auto">Me desinscrire</button>      
+          </div>                        
+          <div fxLayoutAlign="center center" fxLayout="column">
+            <app-member-item [user]="user" [member]="user" [short]="false"></app-member-item>  
+          </div>
+      </mat-card> 
   </div>
-  <div fxLayoutGap="10px" fxLayout.xs="column">
-      <button mat-button color="primary" class="main-button" fxFlex="1 1 auto" (click)="logout()">
-         Me déconnecter
-      </button>
-      <button mat-button color="primary" class="main-button" fxFlex="1 1 auto">
-          Modifier profil
-       </button>
-       <button mat-button color="primary" class="main-button" fxFlex="1 1 auto">
-          Me desinscrire
-       </button>
-    </div>  
+
 </div>
 <app-footer></app-footer>

@@ -7,13 +7,29 @@ $accent: map-get($main-app-theme,accent);
     font-weight: bold;
 }
 
-.button-special {
+
+.size-small {
+    width:30px;
+    height:30px;
+    min-width:30px;
+    max-width:30px;
+    min-height:30px;
+    max-height:30px;
+}
+
+.size-medium {
     width:40px;
     height:40px;
     min-width:40px;
     max-width:40px;
     min-height:40px;
-    max-height:40px;
+    max-height:40px;    
+}
+
+.button-special {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4);
+
     border:1px solid;
     border-radius:50%;
     padding:0px;

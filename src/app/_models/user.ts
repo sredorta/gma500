@@ -18,7 +18,11 @@ export class User {
             this[prop] = jsonObj[prop];
         }
     }
+
     isPresident() {
+        console.log("isPresident::::::::");
+        console.log(this.roles);
+        console.log(this.roles.indexOf("president")>-1?true:false);
         return (this.roles.indexOf("president")>-1?true:false);
     }
     isBoard() :boolean{
@@ -36,9 +40,40 @@ export class User {
     isMember() {
         return (this.roles.indexOf("member")>-1?true:false);
     }
-    getRoles() {
-        return "test";
-        return this.roles.toString();
+
+    getFormattedRole(type:string) : string {
+        let value = "";
+        switch (type) {
+            case "bureau":
+                value = "Bureau";
+                break;
+            case "member":
+                value = "Membre";
+                break;
+            case "board":    
+                let result : string = "";
+                this.roles.forEach(el => {
+                    if (el != "bureau" && el !="member" && el !="president") {
+                        value = el.toString();
+                    } 
+                    if (el === "president") {
+                        value = "Président";
+                    }
+                });   
+                break
+            default: {
+                this.roles.forEach(res => {
+                    if (value === "") {
+                        value = value + res.toString()
+                    } else {
+                        value = value + " / " + res.toString(); 
+                    }
+                });
+                break;
+            }                
+        }
+        console.log("Final value : " + value);
+        return value;
     }
 
 
