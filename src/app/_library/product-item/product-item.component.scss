@@ -46,13 +46,22 @@ $accent: map-get($main-app-theme,accent);
     padding-top:20px;
     border:1px solid black;
     border-radius:5px; 
-    width:150px;
-    height:250px;  
+    width:130px;
+    height:280px;  
 }
+
+.main-product-short {
+    height:210px;
+}
+
 .main-product:hover {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 small {
     font-size:12px;
+}
+
+.title {
+    opacity:0.8;
 }

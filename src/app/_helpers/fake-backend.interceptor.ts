@@ -182,10 +182,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     tmp.isAvailable= entry.isAvailable;
                     allProducts.push(tmp);
                 }
-
-                let products : Product[] = [];
+                if (request.body.id == undefined) {
+                    let products : Product[] = [];
                     allProducts.forEach(el=> products.push(el));
                     return of(new HttpResponse({ status: 200, body: products }));  //Return the user data
+                } else {
+                    let tmp = new Product(null);
+                    tmp = allProducts.find(i => i.id === request.body.id);
+                    console.log(tmp);
+                    return of(new HttpResponse({ status: 200, body: tmp }));  //Return the user data
+
+                }
             } 
 
 

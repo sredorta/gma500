@@ -9,7 +9,7 @@ import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassw
 import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {MembersComponent} from './members/members.component';
-
+import {ProductDetailsComponent} from './product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -43,8 +43,11 @@ const routes: Routes = [
   {
     path: 'materiel',
     component: ProductsComponent
+  },
+  {
+    path: 'materiel-details/:id',
+    component: ProductDetailsComponent
   }
-
 ];
 
 @NgModule({

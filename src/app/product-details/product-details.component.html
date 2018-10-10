@@ -1,19 +1,17 @@
+
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
   <div *ngIf="(user | async) as user" fxLayout="column" style="width:90%;max-width:820px;min-width:250px;">
   <mat-card stype="padding:0px;">
-    <ng-container *ngIf="productsReady; else loading"> 
-      <p class="header">Liste de matériel <span style="font-weight:bold">({{products.length}})</span></p>
+    <ng-container *ngIf="productReady; else loading"> 
+      <p class="header">Détails</p>
       <mat-divider></mat-divider>
       <div fxLayoutAlign="center center" fxLayout="row wrap" class="canvas">
-          <div *ngFor="let product of products">
-                <app-product-item [user]="user" [product]="product"></app-product-item>
-          </div>    
+                <app-product-item [user]="user" [product]="product" [short]="false"></app-product-item> 
       </div>  
     </ng-container>
   </mat-card>
 </div>
 </div>
-
 <ng-template #loading >
     <div style="height:242px;width:100%;" fxLayout="row" fxLayoutAlign="center center">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
@@ -21,4 +19,20 @@
     </div>
     </div>
 </ng-template>
-<app-footer></app-footer>
+
+
+<!--
+id: number;
+type: string;   
+brand: string;   
+description: string;
+usage: string;
+serialNumber: string;
+idGMA: string;
+fabricatedOn : string;
+boughtOn:   string;
+expiresOn:  string;
+controls : string[] = null;
+docLink: string = null;
+comments: string[] = null;
+isAvailable: false;-->

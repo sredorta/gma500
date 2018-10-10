@@ -18,12 +18,13 @@ export class ProductItemComponent implements OnInit {
   @Input() product : Product;           //Product to display
   @Input() user : User;
   @Input() short: boolean = true;       //Short or long view
-  
-  isMobile = this.deviceService.isMobile();
 
+  isMobile = this.deviceService.isMobile();
+  isMember : boolean = false;
   constructor( private httpService:HttpService, private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.isMember = this.user.isMember();
   }
 
 }

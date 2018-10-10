@@ -80,8 +80,10 @@ export class HttpService {
   }
   
   public getProducts() : Observable<Product[]> {
-    let role : string = "member";
     return this.http.post<Product[]>(environment.apiURL +'/products/list',{});
   }  
+  public getProduct(id:number) : Observable<Product> {
+    return this.http.post<Product>(environment.apiURL +'/products/list',{id});
+  }    
 
 }
