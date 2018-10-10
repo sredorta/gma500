@@ -1,0 +1,19 @@
+
+<div *ngIf="short">
+    <div fxLayout="column" fxLayoutAlign="center center" class="main-product">
+        <div mat-card-avatar [style.backgroundImage]="product.image" style="background-size:cover;width:70px;height:70px;border-radius:50%"></div>
+        <div fxLayoutAlign="center center" style="padding:5px"><small>{{product.type}}</small></div>
+        <div fxFlex="1 1 auto" fxLayout="row wrap" fxLayoutAlign="center center" style="width:100%;padding:5px;"><small>{{product.description}}</small></div>
+        <div fxLayoutAlign="center center">
+            <div *ngIf="product.isAvailable"  fxLayout="row" fxLayoutAlign="center center"><div style="margin:10px;background-color:green; min-width:10px;width:10px;height:10px;min-height:10px;border-radius:50%"></div><small style="color:green">Disponible</small></div>
+            <div *ngIf="!product.isAvailable" fxLayout="row" fxLayoutAlign="center center"><div style="margin:10px;background-color:red; width:10px;height:10px;border-radius:50%"></div><small style="color:red">Non disponible</small></div>
+        </div>
+        <div fxLayoutAlign="space-around center" fxLayout="column">
+            <div class="button-special size-medium" fxlayout="column" fxLayoutAlign="center center" (click)="openProduct()"><mat-icon>more_horiz</mat-icon></div>
+        </div>
+      </div>
+</div>
+
+<div *ngIf="!short">
+
+</div>

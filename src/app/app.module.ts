@@ -67,6 +67,7 @@ import { MembersComponent } from './members/members.component';
 import { MemberItemComponent } from './_library/member-item/member-item.component';
 import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductItemComponent } from './_library/product-item/product-item.component';
 
 
 
@@ -87,7 +88,8 @@ import { ProductsComponent } from './products/products.component';
     MembersComponent,
     MemberItemComponent,
     ProfileDialogComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductItemComponent
   ],
   imports: [
     BrowserModule,
