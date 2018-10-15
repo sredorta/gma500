@@ -1,5 +1,5 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding:20px" >
-  <div *ngIf="(user | async) as user" fxLayoutAlign="center center">
+  <div *ngIf="(user$ | async) as user" fxLayoutAlign="center center">
       <mat-card style="max-width:500px;min-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
           <div fxLayout.xs="column" fxLayout="row" style="padding-bottom:20px">
             <button mat-button color="primary" fxFlex="1 1 auto" (click)="logout()">Me déconnecter</button>

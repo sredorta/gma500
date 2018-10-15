@@ -2,7 +2,7 @@ import { Component, OnInit,Input,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 //Dialogs
 import {ProfileDialogComponent} from '../../_dialogs/profile-dialog/profile-dialog.component';
-import {HttpService} from '../../_services/http.service';
+import {UserService} from '../../_services/user.service';
 import {User} from '../../_models/user';
 import { Location } from '@angular/common';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -25,7 +25,7 @@ export class MemberItemComponent implements OnInit {
   memberEmail:String = "";
   isMobile = this.deviceService.isMobile();
 
-  constructor(private location: Location, private httpService:HttpService, private deviceService: DeviceDetectorService,public dialog: MatDialog) {
+  constructor(private location: Location, private userService:UserService, private deviceService: DeviceDetectorService,public dialog: MatDialog) {
 
   }
 

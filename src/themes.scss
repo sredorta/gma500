@@ -1,5 +1,4 @@
-
-/*@import '~@angular/material/theming';
+@import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -25,6 +24,9 @@ $navbar-app-theme: mat-dark-theme($navbar-app-primary, $navbar-app-accent, $navb
 $footer-primary: mat-palette($mat-amber,300,100,900);
 $footer-accent : mat-palette($mat-orange, A200,A100,A400);
 $footer-warn: mat-palette($mat-red);
+
+
+
 
 //$footer-app-theme:  mat-dark-theme($footer-app-primary, $footer-app-accent, $footer-app-warn);
 // custom background and foreground palettes
@@ -70,9 +72,11 @@ $footer-theme-foreground: (
     warn: $warn,
     is-dark: true,
     foreground: $footer-theme-foreground,
-    background: $footer-theme-background,
+    background: $footer-theme-background
   );
 }
+
+$footer-app-theme : create-footer-theme($navbar-app-primary, $navbar-app-accent, $navbar-app-warn);
 
 // The rest of this is like a normal theme.scss file. The only difference being that we use create-wonky-theme instead of mat-light-theme
 $footer-theme-primary: mat-palette($mat-green);
@@ -80,58 +84,15 @@ $footer-theme-accent: mat-palette($mat-blue);
 $footer-theme-warn: mat-palette($mat-red);
 
 $footer-theme: create-footer-theme($footer-theme-primary, $footer-theme-accent, $footer-theme-warn);
-
-*/
-
-//Import all themes definitions
-@import './themes.scss';
-
-
-
-
-$colorPrimary : #2e7d32;
-$colorPrimaryDark : #1b5e20;
-$colorAccent :#8bc34a;
-
-///////////////////////////////////////////////////////////////
-// Global settings
-///////////////////////////////////////////////////////////////
-//Remove body margins/paddings
 body {
-    margin: 0 0 auto;
-    padding:0px;
-    font-family: "Calibri",Helvetica,Arial,sans-serif;
-    min-width: 300px;
+@include angular-material-theme($main-app-theme);
 }
 
-html {
-    overflow-y:scroll;
+.navbar-theme, .navbar-theme *{
+    @include angular-material-theme($navbar-app-theme);
 }
 
-mat-icon {
-    vertical-align: middle;
+.footer-theme, .footer-theme *{
+    @include angular-material-theme($navbar-app-theme);
 }
 
-//Avoid text selection and blue outline
-span,p,h1,h2,h3,small,mat-icon,a {
--webkit-touch-callout: none !important;
--webkit-user-select: none !important;
--khtml-user-select: none !important;
--moz-user-select: none !important;
--ms-user-select: none !important;
-user-select: none !important;
-outline:none !important;
-}
-
-//Small button like mini fab but stroked like
-.custom-stroked-button {
-    opacity: 0.5;
-    border-radius: 50%;
-    max-width:40px;
-    min-width:40px;
-    width:40px;
-    min-height:40px;
-    max-height:40px;
-    height:40px;
-    padding:0px;
-}

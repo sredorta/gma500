@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../_services/http.service';
+import { UserService } from '../../_services/user.service';
 import { Router} from '@angular/router';
 import {User} from "../../_models/user";
 @Component({
@@ -8,8 +8,8 @@ import {User} from "../../_models/user";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user  = this.httpService.getUser();   //User data that is globally stored and sync
-  constructor(private httpService:HttpService, private router: Router) { }
+  user$  = this.userService.getCurrent();   //User data that is globally stored and sync
+  constructor(private userService:UserService, private router: Router) { }
 
   ngOnInit() {
 
@@ -18,8 +18,8 @@ export class ProfileComponent implements OnInit {
 
   //We are now logging out
   logout() {
-    this.httpService.userLogout().subscribe(res=> {
-      this.httpService.updateUser(new User(null));
+    this.userService.logout().subscribe(res=> {
+      this.userService.setCurrent(new User(null));
       this.router.navigate([""]); //Go back home
     });
   }

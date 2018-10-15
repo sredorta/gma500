@@ -3,7 +3,7 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 //Animations
 import {routerTransition} from "./_helpers/animations"
 import {User} from "./_models/user";
-import { HttpService } from './_services/http.service';
+import { UserService } from './_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +14,9 @@ import { HttpService } from './_services/http.service';
 export class AppComponent {
   title = 'gma500';
   selectedRoute : string;               //We store the selected route in this variable
-  user  = this.httpService.getUser();   //User data that is globally stored and sync
+  user$  = this.userService.getCurrent();   //User data that is globally stored and sync
 
-  constructor(private router : Router, private httpService:HttpService ) {
+  constructor(private router : Router, private userService:UserService ) {
     //Detect router changes and then add class accordingly with selectedRoute property
     router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -36,8 +36,8 @@ export class AppComponent {
 
   //We are now logging out
   logout() {
-    this.httpService.userLogout().subscribe(res=> {
-      this.httpService.updateUser(new User(null));
+    this.userService.logout().subscribe(res=> {
+      this.userService.setCurrent(new User(null));
       this.router.navigate([""]); //Go back home
     });
   }

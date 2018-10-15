@@ -4,7 +4,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 //Dialogs
 import {ProfileDialogComponent} from '../../_dialogs/profile-dialog/profile-dialog.component';
 
-import {HttpService} from '../../_services/http.service';
+import {UserService} from '../../_services/user.service';
 import {User} from '../../_models/user';
 import {Product} from '../../_models/product';
 
@@ -21,7 +21,7 @@ export class ProductItemComponent implements OnInit {
 
   isMobile = this.deviceService.isMobile();
   isMember : boolean = false;
-  constructor( private httpService:HttpService, private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
+  constructor( private userService:UserService, private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.isMember = this.user.isMember();

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {HttpService} from '../_services/http.service';
+import {UserService} from '../_services/user.service';
+import {ProductService} from '../_services/product.service';
 import {Product} from '../_models/product';
 
 @Component({
@@ -10,18 +11,18 @@ import {Product} from '../_models/product';
 })
 export class ProductDetailsComponent implements OnInit {
   id:number;
-  user = this.httpService.getUser();  //Get current user for detecting rights...
+  user$ = this.userService.getCurrent();  //Get current user for detecting rights...
   productReady :boolean = false;
   product : Product = null;
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private productService: ProductService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
 
       //Load details now
-      this.httpService.getProduct(this.id).subscribe(result => {
+      this.productService.getProduct(this.id).subscribe(result => {
           this.product = new Product(result);
           this.productReady = true;
       });

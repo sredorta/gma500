@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import {  FormGroup,FormControl,Validators } from '@angular/forms';
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
-import { HttpService } from '../../_services/http.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-resetpassword',
@@ -19,7 +19,7 @@ export class ResetpasswordComponent implements OnInit {
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any
 
-  constructor(private _location: Location, private httpService : HttpService) { }
+  constructor(private _location: Location, private userService : UserService) { }
 
   ngOnInit() {
     this.myForm = this.createForm(); 
@@ -44,7 +44,7 @@ export class ResetpasswordComponent implements OnInit {
     this.httpMsgVisible = false;
     this.loading = true;
     //request http here !
-    this.httpService.userResetPassword(value.email).subscribe(
+    this.userService.resetPassword(value.email).subscribe(
         data => {
             console.log(data);
             console.log("End of http service success !!!");

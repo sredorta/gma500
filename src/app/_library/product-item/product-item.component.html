@@ -10,7 +10,7 @@
             <div *ngIf="!product.isAvailable" fxLayout="row" fxLayoutAlign="center center"><div style="margin:10px;background-color:red; width:10px;height:10px;border-radius:50%"></div><small style="color:red">Non disponible</small></div>
         </div>
         <div fxLayoutAlign="space-around center" fxLayout="column">
-            <div class="button-special size-medium" fxlayout="column" fxLayoutAlign="center center" [routerLink]="['/materiel-details', product.id]"><mat-icon>more_horiz</mat-icon></div>
+            <button class="custom-stroked-button" mat-stroked-button [routerLink]="['/materiel-details', product.id]"><mat-icon>more_horiz</mat-icon></button>
         </div>
         </ng-container>
       </div>

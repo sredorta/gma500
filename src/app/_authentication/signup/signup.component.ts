@@ -10,7 +10,7 @@ import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom
 import {TermsDialogComponent} from '../../_dialogs/terms-dialog/terms-dialog.component'
 //Directives
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
-import { HttpService } from '../../_services/http.service';
+import { UserService } from '../../_services/user.service';
 
 //User model
 import {User} from '../../_models/user';
@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
   avatar : string = './assets/img/user-default.jpg';
   terms : boolean = false; //Terms and conditions checkbox
 
-  constructor(private httpService: HttpService, private router: Router,public dialog: MatDialog) { }
+  constructor(private userService: UserService, private router: Router,public dialog: MatDialog) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -114,14 +114,14 @@ export class SignupComponent implements OnInit {
     //Valid form part
     this.httpMsgVisible = false;
     this.loading = true;
-    this.httpService.userSignup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
+    this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
         (user: User) => {
               console.log("Recieved data:");
               console.log(user);
               user.isLoggedIn = true; //Update user loggin status
 
               //Redirect to home
-              this.httpService.updateUser(user);
+              this.userService.setCurrent(user);
               this.router.navigate(['']);            
             
         },

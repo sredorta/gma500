@@ -10,6 +10,8 @@ import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {MembersComponent} from './members/members.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
+import { LoggedInGuard } from './_guards/logged-in.guard';
+import { LoggedOutGuard } from './_guards/logged-out.guard';
 
 const routes: Routes = [
   {
@@ -18,15 +20,18 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
+    canActivate: [LoggedOutGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [LoggedOutGuard]
   },
   {
     path: 'resetpassword',
-    component: ResetpasswordComponent
+    component: ResetpasswordComponent,
+    canActivate: [LoggedOutGuard]
   }, 
   {
     path: 'about',
@@ -34,7 +39,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [LoggedInGuard]
   }, 
   {
     path: 'members',

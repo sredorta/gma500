@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../_services/http.service';
+import { UserService } from '../_services/user.service';
+import { ProductService } from '../_services/product.service';
 import { Router} from '@angular/router';
 import {Product} from "../_models/product";
 import {User} from "../_models/user";
@@ -11,15 +12,15 @@ import {User} from "../_models/user";
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  user  = this.httpService.getUser();
+  user$  = this.userService.getCurrent();
   productsReady :boolean = false;
   products: Product[] = [];
   
-  constructor(private httpService:HttpService) { }
+  constructor(private userService:UserService, private productService:ProductService) { }
 
   ngOnInit() {
     //Load all products
-    this.httpService.getProducts().subscribe((result:Product[]) => {
+    this.productService.getProducts().subscribe((result:Product[]) => {
       this.products = result;
       this.productsReady = true;
       console.log(this.products);

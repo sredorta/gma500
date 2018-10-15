@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../_services/http.service';
+import { UserService } from '../_services/user.service';
 import { Router} from '@angular/router';
 import {User} from "../_models/user";
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { map, filter, catchError, mergeMap } from 'rxjs/operators';
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
-  user  = this.httpService.getUser();   //User data that is globally stored and sync
+  user$  = this.userService.getCurrent();   //User data that is globally stored and sync
   boards : User[] = [];
   boardsReady :boolean = false;
   members: User[] = [];
@@ -19,14 +19,14 @@ export class MembersComponent implements OnInit {
   bureauReady : boolean = false;
   memberCount :number;
 
-  constructor(private httpService:HttpService) {}
+  constructor(private userService:UserService) {}
 
   ngOnInit() {
     //Load board and president
-    this.httpService.getPresident().subscribe((result:User[]) => {
+    this.userService.getPresident().subscribe((result:User[]) => {
       this.boards.push(result[0]);
       //Load board
-      this.httpService.getBoard().subscribe((result:User[]) => {
+      this.userService.getBoard().subscribe((result:User[]) => {
         for(let res of result) {
           this.boards.push(res);
         }
@@ -36,13 +36,13 @@ export class MembersComponent implements OnInit {
 
 
     //Load bureau elements
-    this.httpService.getBureau().subscribe((result:User[]) => {
+    this.userService.getBureau().subscribe((result:User[]) => {
         this.bureau = result;
         this.bureauReady = true;
     });
 
     //Load member elements
-    this.httpService.getMembers().subscribe((result:User[]) => {
+    this.userService.getMembers().subscribe((result:User[]) => {
       this.members = result;
       this.membersReady = true;
       this.memberCount = this.members.length;

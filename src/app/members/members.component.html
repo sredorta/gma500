@@ -1,5 +1,5 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
-  <div *ngIf="(user | async) as user" fxLayout="column" style="width:90%;max-width:588px;min-width:250px;">
+  <div *ngIf="(user$ | async) as user" fxLayout="column" style="width:90%;max-width:588px;min-width:250px;">
   <mat-card stype="padding:0px;">
     <p class="header">Présidence</p>
     <mat-divider></mat-divider>

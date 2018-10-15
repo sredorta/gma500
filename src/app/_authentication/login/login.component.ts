@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
-import {HttpService } from '../../_services/http.service';
+import {UserService } from '../../_services/user.service';
 
 // Base 64 IMage display issues with unsafe image
 import { DomSanitizer } from '@angular/platform-browser';
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any  
 
-  constructor(private httpService: HttpService,private router : Router,private _sanitizer: DomSanitizer) { }
+  constructor(private userService: UserService,private router : Router,private _sanitizer: DomSanitizer) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -58,12 +58,10 @@ onSubmit(value) {
   this.httpMsgVisible = false;
   this.loading = true;
   //request http here !
-  this.httpService.userLogin(value.email,value.password).subscribe(
+  this.userService.login(value.email,value.password).subscribe(
       (user: User) => {
-          console.log("Recieved data:");
-          console.log(user);
           user.isLoggedIn = true; //Update user loggin status
-          this.httpService.updateUser(user);
+          this.userService.setCurrent(user);
           //Redirect to home
           this.router.navigate(['']);  
       },

@@ -57,6 +57,7 @@ import { SignupComponent } from './_authentication/signup/signup.component';
 import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './_common/footer/footer.component';
 import { HttpService } from './_services/http.service';
+import { UserService } from './_services/user.service';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 import { MessageComponent } from './_library/message/message.component';
@@ -69,6 +70,7 @@ import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog
 import { ProductsComponent } from './products/products.component';
 import { ProductItemComponent } from './_library/product-item/product-item.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductService } from './_services/product.service';
 
 
 
@@ -139,7 +141,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
   ],
   entryComponents: [TermsDialogComponent, ProfileDialogComponent],
   providers: [
-    HttpService, 
+    HttpService, UserService, ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
   ],

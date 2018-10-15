@@ -40,7 +40,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
 
     static current: User =  new User({ id: 3, firstName: 'Pierre', lastName: 'Durin', email:'pierre@durin.com', password: 'Secure0', mobile: '0611223344', isLoggedIn:true, isValidated: true, roles:['president','bureau','member'], groups:["member","admin","kk"], avatar:'url(./assets/img/user-default.jpg)'})   
-
+    //static current: User = new User(null);
 
     constructor() { 
 
