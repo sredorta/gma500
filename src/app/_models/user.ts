@@ -19,6 +19,16 @@ export class User {
         }
     }
 
+
+
+    static saveToken(token:string) {
+        sessionStorage.setItem('token',token);
+    }
+    static getToken() : string {
+        return sessionStorage.getItem('token');
+    }
+
+
     isPresident() {
         return (this.roles.indexOf("president")>-1?true:false);
     }

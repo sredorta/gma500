@@ -9,7 +9,7 @@ import { FormControlName } from '@angular/forms';
 })
 export class InputImageComponent implements OnInit {
   isImgLoaded : boolean;    //Stores if image has been loaded or default is loaded
-  imgSize : number = 50;   //Final size of the image cropped
+  imgSize : number = 30;   //Final size of the image cropped
 
   defaultImageString : string;
 

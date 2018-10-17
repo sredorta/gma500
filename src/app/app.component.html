@@ -1,3 +1,6 @@
+
+
+<div *ngIf="(isConfigDone$ | async) ; else loading">
 <div class="navbar-theme">
   <!--Wide screens-->
   <div fxHide.xs>
@@ -12,7 +15,14 @@
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/materiel'" color="secondary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
 
       <div *ngIf="(user$ | async) as user">
-         <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="user.avatar" style="background-size:cover;"></button> 
+          <div *ngIf="user.isLoggedIn">
+              <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
+              <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+                  <button mat-menu-item routerLink='/profile'>Mon profile</button>
+                  <button mat-menu-item>Mes messages</button>
+                  <button mat-menu-item (click)="logout()">Me déconnecter</button>
+              </mat-menu>            
+            </div>        
          <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
             <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
         </button> 
@@ -37,7 +47,13 @@
       </div>
       <div fxFlex="1 1 auto" fxLayoutAlign="end center">
         <div *ngIf="(user$ | async) as user">
-          <button *ngIf="user.isLoggedIn" mat-mini-fab color="warn" routerLink='/profile' [style.backgroundImage]="user.avatar" style="background-size:cover;"></button> 
+           <div *ngIf="user.isLoggedIn">
+            <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
+            <mat-menu #userMenu="matMenu">
+                <button mat-menu-item routerLink='/profile'>Profile</button>
+                <button mat-menu-item>Item 2</button>
+            </mat-menu>            
+          </div>
           <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
              <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
          </button> 
@@ -77,4 +93,12 @@
         </main>
       </mat-sidenav-content>
     </mat-sidenav-container>
+</div>
+
+<ng-template #loading>
+  <div fxLayout="column" fxLayoutAlign="center center" style="width:100vw;height:100vh">
+    <img src="./assets/img/logo.jpg" alt="brand" style="height:150px;border-radius:15%">
+    <p style="opacity:0.4">Chargement...</p>
+  </div>
+</ng-template>
    

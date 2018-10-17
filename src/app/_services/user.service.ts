@@ -12,7 +12,7 @@ import 'rxjs/add/observable/throw';
 
 import { User } from '../_models/user';
 import { Product } from '../_models/product';
-import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
+//import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { 
     //This is TMP to avoid loggin in manually  //////////////////////////////////////////////////////////////////
-    let user2 = FakeBackendInterceptor.current;
+    let user2 = new User(null); //FakeBackendInterceptor.current;
     this._user.next(user2);    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -33,6 +33,9 @@ export class UserService {
       this.isLoggedIn = result.isLoggedIn;
     });
   }
+
+
+
 
   //Returns current user
   getCurrent() : Observable<User> {
@@ -44,16 +47,39 @@ export class UserService {
     this._user.next(user);
   }
 
+  public test() {
+    this.http.post<any>(environment.apiURL +'/auth/login', {email:"sergi.redorta@hotmail.com",password:"Secure0"}).subscribe(res=> {
+      console.log(res);
+    },
+    err=> {
+      console.log(err);
+    });    
+    /*this.http.post<any>(environment.apiURL +'/config/product/cathegories', {name:"test2"}).subscribe(res=> {
+      console.log(res);
+    },
+    err=> {
+      console.log(err);
+    });*/
+  }
+
+
+  public getMyUser() : Observable<any> {
+    return this.http.get<any>(environment.apiURL+'/user');
+  }
+
+
+  public login(email:string, password:string) : Observable<any> {   
+    return this.http.post<any>(environment.apiURL +'/auth/login', {email, password});
+  }
+
 
   public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) {   
     let o = {firstName:firstName,lastName:lastName,email:email,mobile:mobile,password:password,avatar:avatar};
     console.log(o);
-    return this.http.post<User>(environment.apiURL +'/users/create', {firstName,lastName,email,mobile,password,avatar});
+    return this.http.post<any>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar});
   }
 
-  public login(email:string, password:string) : Observable<User> {   
-    return this.http.post<User>(environment.apiURL +'/users/login', {email, password});
-  }
+
 
   public resetPassword(email:string) : Observable<any> {
     return this.http.post<User>(environment.apiURL +'/users/resetpassword', {email});

@@ -1,6 +1,7 @@
 export class Product {
     id: number;
     image: string;
+    cathegory: string;  //Cathegory: Securité,escalade... (defined in config table)
     type: string;    //ARVA...
     brand: string;      //ortovox...
     description: string;

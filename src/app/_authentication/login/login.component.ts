@@ -49,6 +49,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.userService.getMyUser().subscribe(res=> {
+      console.log("Result of getMyUser :");
+      console.log(res);
+    });
   }
 //From submit
 onSubmit(value) {
@@ -59,11 +63,27 @@ onSubmit(value) {
   this.loading = true;
   //request http here !
   this.userService.login(value.email,value.password).subscribe(
-      (user: User) => {
-          user.isLoggedIn = true; //Update user loggin status
-          this.userService.setCurrent(user);
+      (result: any) => {
+          console.log("Token result is:");
+          console.log(result);
+          User.saveToken(result.token);   //Save Token to session storage
+          //We need to download here the profile of the user
+          this.userService.getMyUser().subscribe(res=> {
+            console.log("Result of getMyUser :");
+            console.log(res);
+          });
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //Add in requests now : Authorization: Bearer <token>
+
+
+
+
+
+          //user.isLoggedIn = true; //Update user loggin status
+          
+          //this.userService.setCurrent(user);
           //Redirect to home
-          this.router.navigate(['']);  
+          //this.router.navigate(['']);  
       },
       error => {
           this.httpMsgText = error;

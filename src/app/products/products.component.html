@@ -1,6 +1,28 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
   <div *ngIf="(user$ | async) as user" fxLayout="column" style="width:90%;max-width:820px;min-width:250px;">
   <mat-card stype="padding:0px;">
+      <mat-form-field>
+          <mat-select placeholder="Cathegorie" (selectionChange)="onCathegoriesChange($event)">
+            <mat-option [value]="all">Tous</mat-option>
+            <mat-option *ngFor="let cathegory of config.productCathegories" [value]="cathegory">{{cathegory}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    <p class="header">Liste de matériel <span style="font-weight:bold" *ngIf="productsCount>=0">({{productsCount}})</span></p>
+    <mat-divider></mat-divider> 
+    <ng-container *ngIf="productsCount>0"> 
+        <div fxLayoutAlign="center center" fxLayout="row wrap" class="canvas">
+          <app-product-item *ngFor="let product$ of products$" [user]="user" [product$]="product$"></app-product-item>  
+        </div>  
+    </ng-container>
+  </mat-card>
+</div>
+</div>
+<app-footer></app-footer>
+
+<!--
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
+  <div *ngIf="(user$ | async) as user" fxLayout="column" style="width:90%;max-width:820px;min-width:250px;">
+  <mat-card stype="padding:0px;">
     <ng-container *ngIf="productsReady; else loading"> 
       <p class="header">Liste de matériel <span style="font-weight:bold">({{products.length}})</span></p>
       <mat-divider></mat-divider>
@@ -22,3 +44,4 @@
     </div>
 </ng-template>
 <app-footer></app-footer>
+-->

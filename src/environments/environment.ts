@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL: '/php'
+  apiURL: 'http://localhost:8000/api',
+  MIN_INIT_WAITING_DELAY: 1000
+  
 };
 
 /*

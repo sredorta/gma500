@@ -1,0 +1,26 @@
+import {
+    HttpEvent,
+    HttpInterceptor,
+    HttpHandler,
+    HttpRequest,
+  } from '@angular/common/http';
+  import { Observable, of, throwError } from 'rxjs';
+  import {User} from './../_models/user';
+
+  //Intercept any http request we do and then add the Authorisation bearer in the header with our token
+  //This is then extracted in the API for authenticating us
+  
+  export class HttpHeaderInterceptor implements HttpInterceptor {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      // Clone the request to add the new header
+      let token = User.getToken();
+
+      if (token !== null && token != undefined) {
+        console.log("Adding Auth in header !!!!!");
+        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) }) );
+      } else {
+        console.log("Not adding Auth in header !!!!!");  
+        return next.handle( req.clone() );
+      } 
+    }
+  }

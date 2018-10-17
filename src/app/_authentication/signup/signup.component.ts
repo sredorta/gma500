@@ -115,14 +115,15 @@ export class SignupComponent implements OnInit {
     this.httpMsgVisible = false;
     this.loading = true;
     this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
-        (user: User) => {
+        (result: any) => {
+              User.saveToken(result.token);   //Save Token to session storage
               console.log("Recieved data:");
-              console.log(user);
-              user.isLoggedIn = true; //Update user loggin status
+              console.log(result);
+              //result.isLoggedIn = true; //Update user loggin status
 
               //Redirect to home
-              this.userService.setCurrent(user);
-              this.router.navigate(['']);            
+              //this.userService.setCurrent(user);
+              //this.router.navigate(['']);            
             
         },
         error => {

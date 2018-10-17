@@ -3,8 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DeviceDetectorService } from 'ngx-device-detector';
 //Dialogs
 import {ProfileDialogComponent} from '../../_dialogs/profile-dialog/profile-dialog.component';
-
-import {UserService} from '../../_services/user.service';
+import { Observable } from 'rxjs';
 import {User} from '../../_models/user';
 import {Product} from '../../_models/product';
 
@@ -15,13 +14,13 @@ import {Product} from '../../_models/product';
 })
 export class ProductItemComponent implements OnInit {
   //Inputs
-  @Input() product : Product;           //Product to display
-  @Input() user : User;
-  @Input() short: boolean = true;       //Short or long view
+  @Input() product$ : Observable<Product>;          //Product to display
+  @Input() user : User;                             //Current user
+  @Input() short: boolean = true;                   //Short or long view
 
   isMobile = this.deviceService.isMobile();
   isMember : boolean = false;
-  constructor( private userService:UserService, private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
+  constructor( private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.isMember = this.user.isMember();

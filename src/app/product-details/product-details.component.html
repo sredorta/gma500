@@ -2,23 +2,15 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
   <div *ngIf="(user$ | async) as user" fxLayout="column" style="width:90%;max-width:820px;min-width:250px;">
   <mat-card stype="padding:0px;">
-    <ng-container *ngIf="productReady; else loading"> 
       <p class="header">Détails</p>
       <mat-divider></mat-divider>
       <div fxLayoutAlign="center center" fxLayout="row wrap" class="canvas">
-                <app-product-item [user]="user" [product]="product" [short]="false"></app-product-item> 
+                <app-product-item [user]="user" [product$]="product$" [short]="false"></app-product-item>
       </div>  
-    </ng-container>
   </mat-card>
+  </div>
 </div>
-</div>
-<ng-template #loading >
-    <div style="height:242px;width:100%;" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <mat-spinner [diameter]="40"></mat-spinner><span class="primary-color">Chargement...</span>
-    </div>
-    </div>
-</ng-template>
+
 
 
 <!--
