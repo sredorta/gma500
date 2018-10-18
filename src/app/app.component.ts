@@ -15,26 +15,19 @@ import { ConfigService } from './_services/config.service';
 })
 export class AppComponent {
   title = 'gma500';
-  selectedRoute : string;               //We store the selected route in this variable
-  user$  = this.userService.getCurrent();   //User data that is globally stored and sync
-  isConfigDone$ = this.configService.isCompleted();
+  selectedRoute : string;                           //We store the selected route in this variable
+  user$  = this.userService.getCurrent();           //User data that is globally stored and sync
+  isConfigDone$ = this.configService.isCompleted(); //Data download completion
 
   constructor(private router : Router, private userService:UserService, private configService: ConfigService ) {
-    this.configService.init();
-    this.configService.isCompleted().subscribe(result => {
-      console.log("Completed result :");
-      console.log(result);
-    })
+    this.configService.init();  //Download all initial data required, when finishes the isCompleted Observable becomes true
+
     //Detect router changes and then add class accordingly with selectedRoute property
     router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
           this.selectedRoute = event.url;
       }
     });
-    this.userService.getCurrent().subscribe(res => {
-      console.log("Current user:");
-      console.log(res);
-    })
   }
 /*    
     this.httpService.getUser().subscribe(

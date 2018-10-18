@@ -47,32 +47,24 @@ export class UserService {
     this._user.next(user);
   }
 
-  public test() {
-    this.http.post<any>(environment.apiURL +'/auth/login', {email:"sergi.redorta@hotmail.com",password:"Secure0"}).subscribe(res=> {
-      console.log(res);
-    },
-    err=> {
-      console.log(err);
-    });    
-    /*this.http.post<any>(environment.apiURL +'/config/product/cathegories', {name:"test2"}).subscribe(res=> {
-      console.log(res);
-    },
-    err=> {
-      console.log(err);
-    });*/
+  //Gets the authenticated user (current user, or null if token is not valid or no token)
+  public getAuthUser() : Observable<any> {
+    return this.http.get<any>(environment.apiURL+'/auth/user');
   }
 
-
-  public getMyUser() : Observable<any> {
-    return this.http.get<any>(environment.apiURL+'/user');
+  //Invalidates token for logout
+  public logout() : Observable<any> {   
+    //this.setCurrent(null);
+    //User.removeToken();
+    return this.http.post<any>(environment.apiURL +'/auth/logout', {});
   }
 
-
-  public login(email:string, password:string) : Observable<any> {   
-    return this.http.post<any>(environment.apiURL +'/auth/login', {email, password});
+  //Return token from credentials
+  public login(email:string, password:string, keepconnected:boolean) : Observable<any> {   
+    return this.http.post<any>(environment.apiURL +'/auth/login', {email, password, keepconnected});
   }
 
-
+  //Creates user and returns token
   public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) {   
     let o = {firstName:firstName,lastName:lastName,email:email,mobile:mobile,password:password,avatar:avatar};
     console.log(o);
@@ -85,9 +77,6 @@ export class UserService {
     return this.http.post<User>(environment.apiURL +'/users/resetpassword', {email});
   }
 
-  public logout() : Observable<any> {
-    return this.http.post<User>(environment.apiURL +'/users/logout',{});
-  }  
 
 
 

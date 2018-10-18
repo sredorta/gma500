@@ -15,7 +15,7 @@
       <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/materiel'" color="secondary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
 
       <div *ngIf="(user$ | async) as user">
-          <div *ngIf="user.isLoggedIn">
+          <div *ngIf="user">
               <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
               <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
                   <button mat-menu-item routerLink='/profile'>Mon profile</button>
@@ -23,7 +23,7 @@
                   <button mat-menu-item (click)="logout()">Me déconnecter</button>
               </mat-menu>            
             </div>        
-         <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
+         <button *ngIf="!user"  mat-mini-fab color="warn" routerLink='/login'>
             <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
         </button> 
       </div>
@@ -47,14 +47,14 @@
       </div>
       <div fxFlex="1 1 auto" fxLayoutAlign="end center">
         <div *ngIf="(user$ | async) as user">
-           <div *ngIf="user.isLoggedIn">
+           <div *ngIf="user">
             <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
             <mat-menu #userMenu="matMenu">
                 <button mat-menu-item routerLink='/profile'>Profile</button>
                 <button mat-menu-item>Item 2</button>
             </mat-menu>            
           </div>
-          <button *ngIf="!user.isLoggedIn"  mat-mini-fab color="warn" routerLink='/login'>
+          <button *ngIf="!user"  mat-mini-fab color="warn" routerLink='/login'>
              <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
          </button> 
         </div>
@@ -67,11 +67,11 @@
         <mat-nav-list>
           <!--Short access-->
           <div *ngIf="(user | async) as user">
-              <div *ngIf="!user.isLoggedIn"> 
+              <div *ngIf="!user"> 
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">Login</button></div>
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">Signup</button></div>
               </div>  
-              <div *ngIf="user.isLoggedIn"> 
+              <div *ngIf="user"> 
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
                </div>               
            </div>

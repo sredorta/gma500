@@ -20,12 +20,16 @@ export class User {
     }
 
 
+    
+    static removeToken() {
+        localStorage.removeItem('jwt-token')
+    }
 
     static saveToken(token:string) {
-        sessionStorage.setItem('token',token);
+        localStorage.setItem('jwt-token',token);
     }
     static getToken() : string {
-        return sessionStorage.getItem('token');
+        return localStorage.getItem('jwt-token');
     }
 
 

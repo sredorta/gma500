@@ -49,10 +49,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.userService.getMyUser().subscribe(res=> {
-      console.log("Result of getMyUser :");
-      console.log(res);
-    });
+    this.userService.getCurrent().subscribe(res=>{console.log("Current user is: ");console.log(res)});
   }
 //From submit
 onSubmit(value) {
@@ -61,14 +58,17 @@ onSubmit(value) {
   }
   this.httpMsgVisible = false;
   this.loading = true;
+  console.log("Form data is:");
+  console.log(value);
+
   //request http here !
-  this.userService.login(value.email,value.password).subscribe(
+  this.userService.login(value.email,value.password,value.keepconnected).subscribe(
       (result: any) => {
           console.log("Token result is:");
           console.log(result);
           User.saveToken(result.token);   //Save Token to session storage
           //We need to download here the profile of the user
-          this.userService.getMyUser().subscribe(res=> {
+          this.userService.getAuthUser().subscribe(res=> {
             console.log("Result of getMyUser :");
             console.log(res);
           });
