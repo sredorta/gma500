@@ -1,3 +1,26 @@
+import { Timestamp } from "rxjs";
+
+export interface UserTokenInterface {
+    token:string;
+}
+
+export interface UserInterface {
+    id?:number;
+    email?:string;
+    mobile?: string;
+    firstName?:string;
+    lastName?:string;
+    avatar?: string;
+    isMember?: boolean;
+    isBoard?: boolean;
+    isBureau?: boolean;
+    title?: boolean;
+    isEmailValidated?:boolean;
+    emailValidationKey?:boolean;
+    created_at?: string;
+    updated_at?: string;  
+}
+
 
 export class User {
     id: number;
@@ -6,10 +29,17 @@ export class User {
     password: string;
     firstName: string;
     lastName: string;
-    avatar: any;
-    roles: string[] = [];   //Member, president...
-    isLoggedIn : boolean = false;
-    isValidated : boolean = false;
+    avatar: string;
+    isMember: boolean;
+    isBoard: boolean;
+    isBureau: boolean;
+    title: boolean;
+    isEmailValidated:boolean;
+    emailValidationKey:boolean;
+    created_at: string;
+    updated_at: string;  
+
+
     groups : string[] = ["none"]
  
     
@@ -20,7 +50,7 @@ export class User {
     }
 
 
-    
+
     static removeToken() {
         localStorage.removeItem('jwt-token')
     }
@@ -32,8 +62,17 @@ export class User {
         return localStorage.getItem('jwt-token');
     }
 
+    static hasValidToken() : boolean {
+        console.log("Token value is: " + localStorage.getItem('jwt-token'));
+        //Here we need to validate the token
+        if (localStorage.getItem('jwt-token')== null) 
+           return false;
+        return true;
+    }
 
-    isPresident() {
+
+
+/*    isPresident() {
         return (this.roles.indexOf("president")>-1?true:false);
     }
     isBoard() :boolean{
@@ -88,6 +127,6 @@ export class User {
         }
         return value;
     }
-
+*/
 
 }

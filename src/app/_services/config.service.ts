@@ -20,6 +20,7 @@ import 'rxjs/add/operator/delay';
 
 import {UserService} from './user.service';
 import { Config } from '../_models/config';
+import {User, UserInterface } from '../_models/user';
 
 
 @Injectable({
@@ -43,11 +44,11 @@ export class ConfigService {
     //Catch if token is expired
       Observable.forkJoin(
         Observable.of(delay).delay(environment.MIN_INIT_WAITING_DELAY),                  //Wait for a mimum delay of 2s
-        this.userService.getAuthUser().catch(res => Observable.of({})),
+        this.userService.getAuthUser().catch(res => Observable.of(null)),
         this.http.get<any[]>(environment.apiURL +'/config/product/cathegories',{}),
         this.http.get<any[]>(environment.apiURL +'/config/product/types',{}),
       ).subscribe(data => {
-        this.userService.setCurrent(data[1]);
+        this.userService.setCurrent(new User(data[1]));
         this._data.productCathegories = data[2];
         this._data.productTypes = data[3];
         console.log("Initial data:");

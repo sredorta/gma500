@@ -96,3 +96,7 @@ body {
     @include angular-material-theme($navbar-app-theme);
 }
 
+.main-theme, .main-theme * {
+    @include angular-material-theme($main-app-theme);
+}
+

@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { User } from '../_models/user';
+import { User, UserInterface,UserTokenInterface } from '../_models/user';
 import { Product } from '../_models/product';
 //import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
@@ -21,6 +21,9 @@ export class UserService {
 
   public isLoggedIn : boolean = false; //This is used for Guards
   private _user = new BehaviorSubject<User>(new User(null)); //Stores the current user
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+
+
 
   constructor(private http: HttpClient) { 
     //This is TMP to avoid loggin in manually  //////////////////////////////////////////////////////////////////
@@ -29,8 +32,9 @@ export class UserService {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //Needed for guards
-    this._user.subscribe(result => {
-      this.isLoggedIn = result.isLoggedIn;
+    this._isLoggedIn.subscribe(result => {
+      console.log("Setting guard to : isLoggedIn : " + result)
+      this.isLoggedIn = result;
     });
   }
 
@@ -44,12 +48,32 @@ export class UserService {
 
   //Sets current user
   setCurrent(user:User) {
+    console.log("Storing in setCurrent :");
+    console.log(user);
+    console.log(user.id);
     this._user.next(user);
+    //Broadcast if we are now loggedIn or not
+    if (user.id !== undefined && user.id>=0) {
+      this.setLogged(true);
+    } else {
+      this.setLogged(false);
+    }
   }
 
+  //Returns observable with user if loggedIn or not
+  public isLogged() : Observable<boolean> {
+    return this._isLoggedIn;
+  }
+
+  //Sets value that tracks if user is loggedIn or not
+  public setLogged(value:boolean) {
+    this._isLoggedIn.next(value);
+  }
+
+
   //Gets the authenticated user (current user, or null if token is not valid or no token)
-  public getAuthUser() : Observable<any> {
-    return this.http.get<any>(environment.apiURL+'/auth/user');
+  public getAuthUser() : Observable<UserInterface> {
+    return this.http.get<UserInterface>(environment.apiURL+'/auth/user').map(res => <UserInterface>res);
   }
 
   //Invalidates token for logout
@@ -60,15 +84,13 @@ export class UserService {
   }
 
   //Return token from credentials
-  public login(email:string, password:string, keepconnected:boolean) : Observable<any> {   
-    return this.http.post<any>(environment.apiURL +'/auth/login', {email, password, keepconnected});
+  public login(email:string, password:string, keepconnected:boolean) : Observable<UserTokenInterface> {   
+    return this.http.post<UserTokenInterface>(environment.apiURL +'/auth/login', {email, password, keepconnected}).map(res => <UserTokenInterface>res);
   }
 
   //Creates user and returns token
-  public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) {   
-    let o = {firstName:firstName,lastName:lastName,email:email,mobile:mobile,password:password,avatar:avatar};
-    console.log(o);
-    return this.http.post<any>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar});
+  public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) : Observable<UserTokenInterface> {   
+    return this.http.post<UserTokenInterface>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar}).map(res => <UserTokenInterface>res);
   }
 
 
@@ -80,7 +102,7 @@ export class UserService {
 
 
 
-
+/*
   public getPresident() : Observable<User[]> {
      let role : string = "president";
      return this.http.post<User[]>(environment.apiURL +'/users/list',{role});
@@ -99,6 +121,6 @@ export class UserService {
     let role : string = "board";
     return this.http.post<User[]>(environment.apiURL +'/users/list', {role});
   }
-  
+  */
 
 }

@@ -12,7 +12,6 @@ import 'rxjs/add/observable/throw';
 
 import { User } from '../_models/user';
 import { Product } from '../_models/product';
-import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
 @Injectable({
   providedIn: 'root'

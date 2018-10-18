@@ -63,27 +63,15 @@ onSubmit(value) {
 
   //request http here !
   this.userService.login(value.email,value.password,value.keepconnected).subscribe(
-      (result: any) => {
-          console.log("Token result is:");
-          console.log(result);
+      (result) => {
           User.saveToken(result.token);   //Save Token to session storage
           //We need to download here the profile of the user
           this.userService.getAuthUser().subscribe(res=> {
             console.log("Result of getMyUser :");
             console.log(res);
+            this.userService.setCurrent(res as User);
+            this.router.navigate(['']);  
           });
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //Add in requests now : Authorization: Bearer <token>
-
-
-
-
-
-          //user.isLoggedIn = true; //Update user loggin status
-          
-          //this.userService.setCurrent(user);
-          //Redirect to home
-          //this.router.navigate(['']);  
       },
       error => {
           this.httpMsgText = error;

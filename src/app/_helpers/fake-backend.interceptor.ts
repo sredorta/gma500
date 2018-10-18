@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
@@ -113,7 +113,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                         tmpuser.email = request.body.email;
                         tmpuser.mobile = request.body.mobile;
                         tmpuser.password = request.body.password;
-                        tmpuser.avatar = "url("+request.body.avatar+")";
+                        //tmpuser.avatar = "url("+request.body.avatar+")";
                         tmpuser.roles = ["member"];
                         tmpuser.groups= ["member"];
                         tmpuser.isValidated= true;
@@ -266,4 +266,4 @@ export let fakeBackendProvider = {
     provide: HTTP_INTERCEPTORS,
     useClass: FakeBackendInterceptor,
     multi: true
-};
+};*/

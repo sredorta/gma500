@@ -23,7 +23,7 @@ export class ProductItemComponent implements OnInit {
   constructor( private deviceService: DeviceDetectorService,public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.isMember = this.user.isMember();
+    this.isMember = false;
   }
 
 }
