@@ -11,30 +11,46 @@ import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 })
 export class MembersComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
-  boards : User[] = [];
+  isLogged: boolean = false;
+  boards$ : Observable<User>[] = new Array;
   boardsReady :boolean = false;
-  members: User[] = [];
-  membersReady: boolean = false;
-  bureau : User[] = [];
-  bureauReady : boolean = false;
+  bureaus$ : Observable<User>[] = new Array;
+  bureausReady :boolean = false;
+  members$ : Observable<User>[] = new Array;
+  membersReady :boolean = false;
+
+
   memberCount :number;
 
   constructor(private userService:UserService) {}
 
   ngOnInit() {
-    //Load board and president
-    this.userService.getPresident().subscribe((result:User[]) => {
-      this.boards.push(result[0]);
-      //Load board
-      this.userService.getBoard().subscribe((result:User[]) => {
+    this.userService.isLogged().subscribe(res=> this.isLogged = res);
+    //Load board
+    this.userService.getUsersByType("board").subscribe((result) => {
         for(let res of result) {
-          this.boards.push(res);
+          this.boards$.push(this.userService.getUserById(res.id));
         }
         this.boardsReady = true;
-      });
-    });    
+    });
+    //Load bureaus
+    this.userService.getUsersByType("bureau").subscribe((result) => {
+      for(let res of result) {
+        this.bureaus$.push(this.userService.getUserById(res.id));
+      }
+      this.bureausReady = true;
+  });
+    //Load members
+    this.userService.getUsersByType("member").subscribe((result) => {
+      for(let res of result) {
+        this.members$.push(this.userService.getUserById(res.id));
+      }
+      this.memberCount = this.members$.length;
+      this.membersReady = true;
+  });
 
 
+/*
     //Load bureau elements
     this.userService.getBureau().subscribe((result:User[]) => {
         this.bureau = result;
@@ -47,7 +63,7 @@ export class MembersComponent implements OnInit {
       this.membersReady = true;
       this.memberCount = this.members.length;
     });    
-
+*/
   }
 
 }

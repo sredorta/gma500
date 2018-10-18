@@ -19,23 +19,19 @@ import { Product } from '../_models/product';
 })
 export class UserService {
 
-  public isLoggedIn : boolean = false; //This is used for Guards
+  //public isLoggedIn : boolean = false; //This is used for Guards
   private _user = new BehaviorSubject<User>(new User(null)); //Stores the current user
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
 
 
 
   constructor(private http: HttpClient) { 
-    //This is TMP to avoid loggin in manually  //////////////////////////////////////////////////////////////////
-    let user2 = new User(null); //FakeBackendInterceptor.current;
-    this._user.next(user2);    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //Needed for guards
-    this._isLoggedIn.subscribe(result => {
+ /*   this._isLoggedIn.subscribe(result => {
       console.log("Setting guard to : isLoggedIn : " + result)
       this.isLoggedIn = result;
-    });
+    });*/
   }
 
 
@@ -99,8 +95,16 @@ export class UserService {
     return this.http.post<User>(environment.apiURL +'/users/resetpassword', {email});
   }
 
+  //Returns the list of users (only indexes) matching the type : member,bureau,board
+  public getUsersByType(type:string) : Observable<any[]> {  
+    //Type has to be one of: member, board, bureau 
+    return this.http.post<any[]>(environment.apiURL +'/users/indexes', {type});
+  }
 
-
+  //Returns the data of the user specified in the id
+  public getUserById(id:number) : Observable<any> {  
+    return this.http.get<any>(environment.apiURL +'/users/'+ id);
+  }
 
 /*
   public getPresident() : Observable<User[]> {

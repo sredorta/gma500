@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost:8000/api',
-  MIN_INIT_WAITING_DELAY: 3000
+  MIN_INIT_WAITING_DELAY: 1000
   
 };
 

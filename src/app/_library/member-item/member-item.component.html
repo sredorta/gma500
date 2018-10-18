@@ -1,24 +1,31 @@
 
 <div *ngIf="short">
-  <div fxLayout="column" style="padding:5px;padding-top:20px;width:130px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
-      <div fxFlex="2 2 auto" fxLayoutAlign="center center" fxLayout="column">
-        <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:50px;height:50px;border-radius:50%"></div>
-        <div fxLayout="column" fxLayoutAlign="center center" style="height:90px;">
-          <div style="margin-bottom:5px;font-weight:bold;font-size:14px"><div fxLayout="row wrap" fxLayoutAlign="center center"><div style="margin-right:5px">{{member.firstName}}</div> <div>{{member.lastName}}</div></div></div>
-          <small [ngClass]="{'is-president' : memberIsPresident === true && activeRole === 'Président'}">{{activeRole}}</small>
+  <div *ngIf="member$ | async as member ; else loading">  
+    <div fxLayout="column" style="padding:5px;padding-top:20px;width:130px;height:170px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
+        <div fxFlex="2 2 auto" fxLayoutAlign="center center" fxLayout="column">
+            <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:50px;height:50px;border-radius:50%"></div>
+            <div fxLayout="column" fxLayoutAlign="center center" style="height:90px;">
+            <div style="margin-bottom:5px;font-weight:bold;font-size:14px"><div fxLayout="row wrap" fxLayoutAlign="center center"><div style="margin-right:5px">{{member.firstName}}</div> <div>{{member.lastName}}</div></div></div>
+            <small [ngClass]="{'is-president' : memberIsPresident === true && activeRole === 'Président'}">{{activeRole}}</small>
+            </div>
+        </div>  
+        <div *ngIf="user.isLoggedIn" fxFlex="1 1 auto" style="height:60px">
+            <div *ngIf="isMobile" fxLayoutAlign="space-around center">
+                <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberEmail"><mat-icon>email</mat-icon></a>
+                <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberPhone"><mat-icon>phone</mat-icon></a>
+                <div class="button-special size-small" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
+            </div>
+            <div *ngIf="!isMobile" fxLayoutAlign="space-around center" fxLayout="column">
+                <div class="button-special size-medium" fxlayout="column" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
+            </div>     
         </div>
-      </div>  
-      <div *ngIf="user.isLoggedIn" fxFlex="1 1 auto" style="height:60px">
-        <div *ngIf="isMobile" fxLayoutAlign="space-around center">
-            <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberEmail"><mat-icon>email</mat-icon></a>
-            <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberPhone"><mat-icon>phone</mat-icon></a>
-            <div class="button-special size-small" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
-        </div>
-        <div *ngIf="!isMobile" fxLayoutAlign="space-around center" fxLayout="column">
-            <div class="button-special size-medium" fxlayout="column" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
-        </div>     
-      </div>
+    </div>
   </div>
+  <ng-template #loading>
+        <div fxLayout="column" fxLayoutAlign="center center" style="padding:5px;padding-top:20px;width:130px;height:170px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
+            <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+  </ng-template>   
 </div>
 <div *ngIf="!short">
     <div fxLayout="column" style="padding:5px;padding-top:20px;width:240px">

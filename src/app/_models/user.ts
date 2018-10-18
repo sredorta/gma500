@@ -14,7 +14,7 @@ export interface UserInterface {
     isMember?: boolean;
     isBoard?: boolean;
     isBureau?: boolean;
-    title?: boolean;
+    title?: string;
     isEmailValidated?:boolean;
     emailValidationKey?:boolean;
     created_at?: string;
@@ -33,7 +33,7 @@ export class User {
     isMember: boolean;
     isBoard: boolean;
     isBureau: boolean;
-    title: boolean;
+    title: string;
     isEmailValidated:boolean;
     emailValidationKey:boolean;
     created_at: string;

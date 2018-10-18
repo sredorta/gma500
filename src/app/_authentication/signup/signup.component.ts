@@ -111,6 +111,8 @@ export class SignupComponent implements OnInit {
       return;
     }
 
+    console.log("This is what we submit for avatar:");
+    console.log(this.avatar);
     //Valid form part
     this.httpMsgVisible = false;
     this.loading = true;

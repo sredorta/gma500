@@ -16,10 +16,8 @@ import {
       let token = User.getToken();
 
       if (token !== null && token != undefined) {
-        console.log("Adding Auth in header !!!!!");
         return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) }) );
       } else {
-        console.log("Not adding Auth in header !!!!!");  
         return next.handle( req.clone() );
       } 
     }

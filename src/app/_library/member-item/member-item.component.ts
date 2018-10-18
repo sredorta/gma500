@@ -6,6 +6,7 @@ import {UserService} from '../../_services/user.service';
 import {User} from '../../_models/user';
 import { Location } from '@angular/common';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-member-item',
@@ -14,15 +15,16 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class MemberItemComponent implements OnInit {
   //Inputs
-  @Input() member : User;           //Member to display
+  @Input() member$ : Observable<User>;           //Member to display
   @Input() isPresident : boolean;
-  @Input() user: User;              //Current user
+  @Input() user: User;                          //Current user
   @Input() short: boolean = true;
-  @Input() activeRole: string;      //Active role to be displayed or all if not specified
+  @Input() activeRole: string;                  //Active role to be displayed
 
   memberIsPresident : boolean = false;
   memberPhone:String= "";
   memberEmail:String = "";
+  member : User = new User(null);
   isMobile = this.deviceService.isMobile();
 
   constructor(private location: Location, private userService:UserService, private deviceService: DeviceDetectorService,public dialog: MatDialog) {
@@ -30,17 +32,15 @@ export class MemberItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.memberEmail= 'mailto:' + this.member.email;
-    this.memberPhone= 'tel:' + this.member.mobile;
-
-    if(this.activeRole == null) {
-      this.activeRole = this.member.getFormattedRoles();
-    } else {
-      this.activeRole = this.member.getFormattedRole(this.activeRole);
-    }
-    if (this.member.isPresident()) {
-      this.memberIsPresident = true;
-    }
+    this.member$.subscribe(result => {
+      this.member = result;
+      this.memberEmail= 'mailto:' + this.member.email;
+      this.memberPhone= 'tel:' + this.member.mobile; 
+      if (this.activeRole == "board") {
+        this.activeRole = result.title;
+      } 
+    });
+  
   }
 
     //Terms and conditions dialog

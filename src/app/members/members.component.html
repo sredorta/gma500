@@ -3,31 +3,25 @@
   <mat-card stype="padding:0px;">
     <p class="header">Présidence</p>
     <mat-divider></mat-divider>
-    <ng-container *ngIf="boardsReady; else loading"> 
+    <ng-container *ngIf="boardsReady"> 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-          <div *ngFor="let member of boards" >
-              <app-member-item [user]="user" [member]="member" activeRole="board"></app-member-item>
-          </div>    
+        <app-member-item *ngFor="let member$ of boards$" [user]="user" [member$]="member$" activeRole="board"></app-member-item>
       </div>  
     </ng-container>
     <p class="header">Bureau</p>
     <mat-divider></mat-divider>
-    <ng-container *ngIf="bureauReady; else loading">   
+    <ng-container *ngIf="bureausReady">   
       <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-          <div *ngFor="let member of bureau">
-              <app-member-item [user]="user" [member]="member" activeRole="bureau"></app-member-item>
-          </div>
+        <app-member-item *ngFor="let member$ of bureaus$" [user]="user" [member$]="member$" activeRole="Bureau"></app-member-item>
       </div>
     </ng-container>
 
-    <ng-container *ngIf="user.isLoggedIn"> 
+    <ng-container *ngIf="isLogged"> 
         <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
         <mat-divider></mat-divider>
-        <ng-container *ngIf="membersReady; else loading"> 
-        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px" style="padding-top:5px">
-            <div *ngFor="let member of members">
-                <div style="margin-bottom:5px"><app-member-item [user]="user" [member]="member" activeRole="member"></app-member-item></div>
-            </div> 
+        <ng-container *ngIf="membersReady"> 
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas">
+            <app-member-item *ngFor="let member$ of members$" [user]="user" [member$]="member$" activeRole="Membre"></app-member-item>
         </div>
         </ng-container>
     </ng-container>
@@ -35,11 +29,5 @@
 </div>
 </div>
 
-<ng-template #loading >
-    <div style="height:242px;width:100%;" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <mat-spinner [diameter]="40"></mat-spinner><span class="primary-color">Chargement...</span>
-    </div>
-    </div>
-</ng-template>
+
 <app-footer></app-footer>
