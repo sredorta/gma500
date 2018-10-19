@@ -21,7 +21,6 @@ export interface UserInterface {
     updated_at?: string;  
 }
 
-
 export class User {
     id: number;
     email: string;

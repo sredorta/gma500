@@ -98,6 +98,7 @@ export class SignupComponent implements OnInit {
   //From submit
   onSubmit(value) {
 
+    console.log(this.avatar);
     //Handle invalid form
     if (this.myForm.invalid) {
       return;
@@ -111,8 +112,6 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    console.log("This is what we submit for avatar:");
-    console.log(this.avatar);
     //Valid form part
     this.httpMsgVisible = false;
     this.loading = true;

@@ -15,15 +15,14 @@
         <app-member-item *ngFor="let member$ of bureaus$" [user]="user" [member$]="member$" activeRole="Bureau"></app-member-item>
       </div>
     </ng-container>
-
-    <ng-container *ngIf="isLogged"> 
-        <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
-        <mat-divider></mat-divider>
-        <ng-container *ngIf="membersReady"> 
+    <ng-container *ngIf="isLogged">
+      <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="membersReady"> 
         <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas">
             <app-member-item *ngFor="let member$ of members$" [user]="user" [member$]="member$" activeRole="Membre"></app-member-item>
         </div>
-        </ng-container>
+      </ng-container>
     </ng-container>
   </mat-card>
 </div>

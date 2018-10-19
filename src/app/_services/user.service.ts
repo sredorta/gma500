@@ -96,15 +96,25 @@ export class UserService {
   }
 
   //Returns the list of users (only indexes) matching the type : member,bureau,board
-  public getUsersByType(type:string) : Observable<any[]> {  
+  public getUsersByType(type:'board'|'bureau'|'member'|'all') : Observable<number[]> {  
     //Type has to be one of: member, board, bureau 
-    return this.http.post<any[]>(environment.apiURL +'/users/indexes', {type});
+    return this.http.post<number[]>(environment.apiURL +'/users/indexes', {type});
   }
 
   //Returns the data of the user specified in the id
   public getUserById(id:number) : Observable<any> {  
-    return this.http.get<any>(environment.apiURL +'/users/'+ id);
+    return this.http.get<any>(environment.apiURL +'/users/'+ id).debounceTime(300);
   }
+
+  /*public getUserOneByOne(ids:number[]) :any {
+    this.http.get<any>(environment.apiURL +'/users/'+ ids[0]).subscribe(result => {
+
+    });
+
+}*/
+
+
+
 
 /*
   public getPresident() : Observable<User[]> {

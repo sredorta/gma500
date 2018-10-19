@@ -21,6 +21,7 @@ export class MemberItemComponent implements OnInit {
   @Input() short: boolean = true;
   @Input() activeRole: string;                  //Active role to be displayed
 
+  isLogged: boolean = false;
   memberIsPresident : boolean = false;
   memberPhone:String= "";
   memberEmail:String = "";
@@ -32,6 +33,7 @@ export class MemberItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.isLogged().subscribe(res=> this.isLogged = res);
     this.member$.subscribe(result => {
       this.member = result;
       this.memberEmail= 'mailto:' + this.member.email;

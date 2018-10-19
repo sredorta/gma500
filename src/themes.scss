@@ -88,15 +88,15 @@ body {
 @include angular-material-theme($main-app-theme);
 }
 
-.navbar-theme, .navbar-theme *{
+.navbar-theme {
     @include angular-material-theme($navbar-app-theme);
 }
 
-.footer-theme, .footer-theme *{
+.footer-theme {
     @include angular-material-theme($navbar-app-theme);
 }
 
-.main-theme, .main-theme * {
+.main-theme {
     @include angular-material-theme($main-app-theme);
 }
 

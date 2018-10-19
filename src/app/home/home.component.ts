@@ -8,11 +8,16 @@ import {User} from "../_models/user";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  avatar : string = './assets/img/user-default.jpg';
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     //this.userService.test();
   }
 
+
+  //Update photo if we change it
+  onImageChange(photo:string) {
+    this.avatar = photo;
+  }
 }
