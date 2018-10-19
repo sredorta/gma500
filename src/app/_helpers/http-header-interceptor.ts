@@ -3,6 +3,7 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpRequest,
+    HttpHeaders
   } from '@angular/common/http';
   import { Observable, of, throwError } from 'rxjs';
   import {User} from './../_models/user';
@@ -16,7 +17,7 @@ import {
       let token = User.getToken();
 
       if (token !== null && token != undefined) {
-        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) }) );
+        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
       } else {
         return next.handle( req.clone() );
       } 

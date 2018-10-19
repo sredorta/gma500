@@ -33,6 +33,7 @@ export class MembersComponent implements OnInit {
     this.userService.getUsersByType("board").subscribe((result) => {
         for(let id of result) {
           this.boards$.push(this.userService.getUserById(id));
+          this.userService.getUserById(id).subscribe(res => console.log(res));
         }
         Observable.concat(this.boards$); //Serialize http requests
         this.boardsReady = true;
@@ -49,7 +50,7 @@ export class MembersComponent implements OnInit {
         this.memberCount = result.length;
         var size = 10;
         result = result.slice(0, size);
-        for(let id of result) {
+        for (let id of result) {
           this.members$.push(this.userService.getUserById(id));
         }
         Observable.concat(this.members$); //Serialize http requests
