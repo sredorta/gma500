@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -44,9 +45,6 @@ export class UserService {
 
   //Sets current user
   setCurrent(user:User) {
-    console.log("Storing in setCurrent :");
-    console.log(user);
-    console.log(user.id);
     this._user.next(user);
     //Broadcast if we are now loggedIn or not
     if (user.id !== undefined && user.id>=0) {

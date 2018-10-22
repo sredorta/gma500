@@ -48,7 +48,7 @@ export class MembersComponent implements OnInit {
       });      
       this.userService.getUsersByType("member").subscribe((result) => {
         this.memberCount = result.length;
-        var size = 10;
+        var size = 5;
         result = result.slice(0, size);
         for (let id of result) {
           this.members$.push(this.userService.getUserById(id));

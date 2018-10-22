@@ -140,7 +140,7 @@ rotateImage() {
       ctx.drawImage(myImageData, 0, 0);     
       result.src = canvas.toDataURL();
       ctx.restore();
-      emitter.emit("url("+result.src+")");  //Emit the new image
+      emitter.emit(result.src);  //Emit the new image
 
       // clear the temporary image
       myImageData = null;       

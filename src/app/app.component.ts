@@ -59,5 +59,7 @@ export class AppComponent {
       this.router.navigate([""]); //Go back home
     });
   }
-
+  ngOnDestroy() {
+    console.log("DESTROYING !!!!");
+  }
 }

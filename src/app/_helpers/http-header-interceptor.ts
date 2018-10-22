@@ -15,7 +15,10 @@ import {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // Clone the request to add the new header
       let token = User.getToken();
-
+      /*->header('Access-Control-Allow-Origin', '*')
+      ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+      ->header('Access-Control-Allow-Headers','Origin, Content-Type, Accept, Authorization, X-Request-With')
+      ->header('Access-Control-Allow-Credentials','true');*/
       if (token !== null && token != undefined) {
         return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
       } else {

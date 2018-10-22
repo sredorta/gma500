@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Subscription } from 'rxjs';
 
 //Import all shared logic required for forms handling
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -31,8 +32,9 @@ export class SignupComponent implements OnInit {
   httpMsgText='';         //http error if any
   avatar : string = './assets/img/user-default.jpg';
   terms : boolean = false; //Terms and conditions checkbox
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private userService: UserService, private router: Router,public dialog: MatDialog) { }
+  constructor(private userService: UserService, private location : Location, public dialog: MatDialog) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -83,6 +85,14 @@ export class SignupComponent implements OnInit {
       this.myForm.get("matching_passwords_group").get("confirm_password").reset();
     });
   }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
   parentErrorStateMatcher = new ParentErrorStateMatcher();
 
   //Update photo if we change it
@@ -115,33 +125,34 @@ export class SignupComponent implements OnInit {
     //Valid form part
     this.httpMsgVisible = false;
     this.loading = true;
-    this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
+    this._subscriptions.push(this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
         (result: any) => {
-              User.saveToken(result.token);   //Save Token to session storage
-              console.log("Recieved data:");
-              console.log(result);
-              //result.isLoggedIn = true; //Update user loggin status
-
-              //Redirect to home
-              //this.userService.setCurrent(user);
-              //this.router.navigate(['']);            
-            
+          User.saveToken(result.token);   //Save Token to session storage
+          console.log("Recieved data:");
+          console.log(result);
+          //We need to download here the profile of the user
+/*          this._subscriptions.push(this.userService.getAuthUser().subscribe(res=> {
+            console.log("Restored user :");
+            console.log(res);
+            this.userService.setCurrent(res as User); 
+            //this.location.back();
+          }));            */              
         },
         error => {
             this.httpMsgVisible = true;
             this.httpMsgType = "error";
             this.httpMsgText = error;
             this.loading = false;
-        });
-    }  
-
-    //Terms and conditions dialog
-    openTermsAndConditionsDialog(): void {
-      let dialogRef = this.dialog.open(TermsDialogComponent, {
-        panelClass: 'big-dialog',
-        width: '80%',
-        height: '80%',
-        data:  null 
-      });
-    }
+        })); 
+  }
+  
+  //Terms and conditions dialog  
+  openTermsAndConditionsDialog(): void {
+    let dialogRef = this.dialog.open(TermsDialogComponent, {
+      panelClass: 'big-dialog',
+      width: '80%',
+      height: '80%',
+      data:  null 
+    });
+  }
 }

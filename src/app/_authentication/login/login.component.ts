@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-
+import {Location} from '@angular/common';
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import {UserService } from '../../_services/user.service';
@@ -11,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 //User model
 import {User} from '../../_models/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +26,9 @@ export class LoginComponent implements OnInit {
   httpMsgVisible = false; //Tells html to show result message
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any  
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private userService: UserService,private router : Router,private _sanitizer: DomSanitizer) { }
+  constructor(private userService: UserService,private router : Router, private location : Location, private _sanitizer: DomSanitizer) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -49,8 +51,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.userService.getCurrent().subscribe(res=>{console.log("Current user is: ");console.log(res)});
   }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
 //From submit
 onSubmit(value) {
   if (this.myForm.invalid) {
@@ -58,27 +67,24 @@ onSubmit(value) {
   }
   this.httpMsgVisible = false;
   this.loading = true;
-  console.log("Form data is:");
-  console.log(value);
 
   //request http here !
-  this.userService.login(value.email,value.password,value.keepconnected).subscribe(
+  this._subscriptions.push(this.userService.login(value.email,value.password,value.keepconnected).subscribe(
       (result) => {
+        console.log(result);
           User.saveToken(result.token);   //Save Token to session storage
           //We need to download here the profile of the user
-          this.userService.getAuthUser().subscribe(res=> {
-            console.log("Result of getMyUser :");
-            console.log(res);
-            this.userService.setCurrent(res as User);
-            this.router.navigate(['']);  
-          });
+          this._subscriptions.push(this.userService.getAuthUser().subscribe(res=> {
+            this.userService.setCurrent(res as User); 
+            this.location.back();
+          }));
       },
       error => {
           this.httpMsgText = error;
           this.httpMsgType = "error";
           this.httpMsgVisible = true;
           this.loading = false;
-      });
+      }));
   }  
 
 }
