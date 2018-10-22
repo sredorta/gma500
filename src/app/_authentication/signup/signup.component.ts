@@ -3,6 +3,7 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 //Import all shared logic required for forms handling
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -34,7 +35,7 @@ export class SignupComponent implements OnInit {
   terms : boolean = false; //Terms and conditions checkbox
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private userService: UserService, private location : Location, public dialog: MatDialog) { }
+  constructor(private userService: UserService, private location : Location, private router : Router, public dialog: MatDialog) { }
   //Create the form
   createForm() {
     this.myForm =  new FormGroup({    
@@ -107,8 +108,6 @@ export class SignupComponent implements OnInit {
 
   //From submit
   onSubmit(value) {
-
-    console.log(this.avatar);
     //Handle invalid form
     if (this.myForm.invalid) {
       return;
@@ -127,16 +126,7 @@ export class SignupComponent implements OnInit {
     this.loading = true;
     this._subscriptions.push(this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
         (result: any) => {
-          User.saveToken(result.token);   //Save Token to session storage
-          console.log("Recieved data:");
-          console.log(result);
-          //We need to download here the profile of the user
-/*          this._subscriptions.push(this.userService.getAuthUser().subscribe(res=> {
-            console.log("Restored user :");
-            console.log(res);
-            this.userService.setCurrent(res as User); 
-            //this.location.back();
-          }));            */              
+          this.router.navigate([""]);                 
         },
         error => {
             this.httpMsgVisible = true;

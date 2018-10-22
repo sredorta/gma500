@@ -12,7 +12,10 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    //this.userService.test();
+/*    this.userService.test().subscribe(res=> {
+      console.log("Result from test :");
+      console.log(res);
+    });*/
   }
 
 

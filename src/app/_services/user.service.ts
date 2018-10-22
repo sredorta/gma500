@@ -65,6 +65,10 @@ export class UserService {
   }
 
 
+  public test() : Observable<any> {
+    return this.http.get<any>(environment.apiURL+'/test');
+  }
+
   //Gets the authenticated user (current user, or null if token is not valid or no token)
   public getAuthUser() : Observable<UserInterface> {
     return this.http.get<UserInterface>(environment.apiURL+'/auth/user').map(res => <UserInterface>res);

@@ -49,6 +49,8 @@ export class ConfigService {
         this.http.get<any[]>(environment.apiURL +'/config/product/types',{}),
       ).subscribe(data => {
         this.userService.setCurrent(new User(data[1]));
+        console.log("We have current user:");
+        console.log(this.userService.getCurrent());
         this._data.productCathegories = data[2];
         this._data.productTypes = data[3];
         console.log("Initial data:");

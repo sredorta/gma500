@@ -32,14 +32,15 @@ export class MembersComponent implements OnInit {
     //Load board
     this.userService.getUsersByType("board").subscribe((result) => {
         for(let id of result) {
+          console.log("Adding id: " + id);
           this.boards$.push(this.userService.getUserById(id));
-          this.userService.getUserById(id).subscribe(res => console.log(res));
+          this.userService.getUserById(id).subscribe(res => {console.log("Resulting user:"); console.log(res)});
         }
         Observable.concat(this.boards$); //Serialize http requests
         this.boardsReady = true;
     });
     //Load bureaus    
-      this.userService.getUsersByType("bureau").subscribe((result) => {
+ /*     this.userService.getUsersByType("bureau").subscribe((result) => {
         for(let id of result) {
           this.bureaus$.push(this.userService.getUserById(id));
         }
@@ -55,7 +56,7 @@ export class MembersComponent implements OnInit {
         }
         Observable.concat(this.members$); //Serialize http requests
         this.membersReady = true;        
-      });
+      });*/
 
   }
 
