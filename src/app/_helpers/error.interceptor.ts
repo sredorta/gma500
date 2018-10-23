@@ -36,6 +36,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case "failed_to_create_token": 
                     formattedMessage = "Impossible de creer un token"
                     break;
+                case "user_already_registered":
+                    formattedMessage = "Email ou mobile déjà enregistres";
+                    break;
+                case "Too many logins":
+                    formattedMessage = "Trop d'essais, vous devez attendre une minute"    
+                    break;
                 default:
                     formattedMessage = err.error.message; 
             }

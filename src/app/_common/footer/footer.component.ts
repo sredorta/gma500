@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
+  email : String = environment.EMAIL_CONTACT;
+  address1 : String = environment.ADDRESS1;
+  address2 : String = environment.ADDRESS2;
+  address3 : String = environment.ADDRESS3;
   constructor() { }
 
   ngOnInit() {

@@ -15,14 +15,28 @@ import {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // Clone the request to add the new header
       let token = User.getToken();
-      /*->header('Access-Control-Allow-Origin', '*')
-      ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-      ->header('Access-Control-Allow-Headers','Origin, Content-Type, Accept, Authorization, X-Request-With')
-      ->header('Access-Control-Allow-Credentials','true');*/
+/*
       if (token !== null && token != undefined) {
-        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
+        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)
+              .set('Access-Control-Allow-Origin', '*')
+              .set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+              .set('Access-Control-Allow-Headers','Origin, Content-Type, Accept, Authorization, X-Request-With')
+              .set('Access-Control-Allow-Credentials','true')
+            }) );
       } else {
-        return next.handle( req.clone() );
+        return next.handle( req.clone({headers: req.headers
+              .set('Access-Control-Allow-Origin', '*')
+              .set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+              .set('Access-Control-Allow-Headers','Origin, Content-Type, Accept, Authorization, X-Request-With')
+              .set('Access-Control-Allow-Credentials','true')         
+            }) );
       } 
+*/
+if (token !== null && token != undefined) {
+  return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
+} else {
+  return next.handle( req.clone() );
+}
+
     }
   }

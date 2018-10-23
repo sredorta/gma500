@@ -41,11 +41,11 @@ export class SignupComponent implements OnInit {
     this.myForm =  new FormGroup({    
       firstName: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(2)
       ])),
       lastName: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(2)
       ])),         
       mobile: new FormControl('', Validators.compose([
         Validators.required,
