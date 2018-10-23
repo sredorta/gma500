@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {Location} from '@angular/common';
+import { Subscription } from 'rxjs';
+
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import {UserService } from '../../_services/user.service';
@@ -11,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 //User model
 import {User} from '../../_models/user';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',

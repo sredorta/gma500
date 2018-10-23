@@ -65,9 +65,9 @@ export class UserService {
   }
 
 
-  public test() : Observable<any> {
+  /*public test() : Observable<any> {
     return this.http.get<any>(environment.apiURL+'/test');
-  }
+  }*/
 
   //Gets the authenticated user (current user, or null if token is not valid or no token)
   public getAuthUser() : Observable<UserInterface> {
@@ -92,9 +92,9 @@ export class UserService {
   }
 
 
-
+  //Resets password and send email to user
   public resetPassword(email:string) : Observable<any> {
-    return this.http.post<User>(environment.apiURL +'/users/resetpassword', {email});
+    return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email});
   }
 
   //Returns the list of users (only indexes) matching the type : member,bureau,board

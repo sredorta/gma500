@@ -40,7 +40,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                     formattedMessage = "Email ou mobile déjà enregistres";
                     break;
                 case "Too many logins":
-                    formattedMessage = "Trop d'essais, vous devez attendre une minute"    
+                    formattedMessage = "Trop d'essais, vous devez attendre une minute";   
+                    break;
+                case "email_not_found":
+                    formattedMessage = "Adresse email non enregistré";
                     break;
                 default:
                     formattedMessage = err.error.message; 

@@ -1,6 +1,8 @@
 import { Component, OnInit, createPlatformFactory } from '@angular/core';
 import { Location } from '@angular/common';
 import {  FormGroup,FormControl,Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import { UserService } from '../../_services/user.service';
@@ -18,6 +20,7 @@ export class ResetpasswordComponent implements OnInit {
   httpMsgVisible = false; //Tells html to show result message
   httpMsgType = "error";  //Error or success
   httpMsgText='';         //http error if any
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private _location: Location, private userService : UserService) { }
 
@@ -44,7 +47,7 @@ export class ResetpasswordComponent implements OnInit {
     this.httpMsgVisible = false;
     this.loading = true;
     //request http here !
-    this.userService.resetPassword(value.email).subscribe(
+    this._subscriptions.push(this.userService.resetPassword(value.email).subscribe(
         data => {
             console.log(data);
             console.log("End of http service success !!!");
@@ -59,14 +62,20 @@ export class ResetpasswordComponent implements OnInit {
             this.httpMsgType = "error";
             this.httpMsgText = error;
             this.loading = false;
-        });
-    }  
-
-
-
+        })
+    );
+  }
 
   //Go back if we cancel
   goBack() {
     this._location.back(); 
   }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
 }
