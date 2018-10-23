@@ -24,11 +24,7 @@
           <div fxFlex="1 1 auto" fxLayoutAlign="end center">
             <div *ngIf="(user$ | async) as user">
                <div *ngIf="isLoggedIn$ | async">
-                <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
-                <mat-menu #userMenu="matMenu">
-                    <button mat-menu-item routerLink='/profile'>Profile</button>
-                    <button mat-menu-item>Item 2</button>
-                </mat-menu>            
+                <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile'></button>           
               </div>
               <button *ngIf="!(isLoggedIn$ | async)"  mat-mini-fab color="warn" routerLink='/login'>
                  <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>

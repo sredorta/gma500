@@ -8,6 +8,7 @@ import {LoginComponent} from './_authentication/login/login.component';
 import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassword.component';
 import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
+import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
 import {MembersComponent} from './members/members.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 import { LoggedInGuard } from './_guards/logged-in.guard';
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [LoggedInGuard]
+  }, 
+  {
+    path: 'editprofile',
+    component: ProfileEditComponent,
     canActivate: [LoggedInGuard]
   }, 
   {

@@ -1,15 +1,51 @@
-<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding:20px" >
-  <div *ngIf="(user$ | async) as user" fxLayoutAlign="center center">
+<div style="padding:20px" >
+  <div *ngIf="(user$ | async) as user" fxLayoutAlign="center center" fxLayout.xs="column">
+
+    <div fxLayout="column" class="profile-wrapper">
+        <div fxLayoutAlign="end start" [style.backgroundImage]="'url(./assets/img/backgroundprofile.jpg)'" class="background-image"></div>
+        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%">
+          <div mat-card-avatar [style.backgroundImage]="user.avatar" class="avatar"></div>
+          <p class="name">{{user.firstName}} {{user.lastName}}</p>
+          <p class="title">{{title}}</p>
+          <div fxLayout="column" fxLayoutAlign="start start" style="width:100%;padding:30px;padding-top:10px">
+            <small class="detail">EMAIL:</small>
+            <p class="box">{{user.email}}</p>
+            <small class="detail">MOBILE:</small>
+            <p class="box">{{user.mobile}}</p>             
+          </div>
+        </div>  
+    </div>
+
+    <div style="margin:20px; width:250px;height:100%" fxLayout="column" fxLayoutAlign="start start">
+        <p class="header">Actions</p>
+        <button mat-stroked-button color="primary" style="width:100%;margin:5px" routerLink="/editprofile">MODIFIER MON PROFIL</button>
+        <button mat-stroked-button color="primary" style="width:100%;margin:5px">MES DOCUMENTS</button>
+        <button mat-stroked-button color="primary" style="width:100%;margin:5px">MES NOTIFICATIONS</button>
+        <button mat-stroked-button color="primary" style="width:100%;margin:5px">SUPRIMER LE COMPTE</button>        
+    </div>
+<!--
       <mat-card style="max-width:500px;min-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
+
+          <mat-card-header fxLayout="column">
+              <div [style.backgroundImage]="'url(./assets/img/backgroundprofile.jpg)'" style="background-size:cover;min-width:100%"></div>
+
+              <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;width:60px;height:60px;border-radius:50%;margin-bottom:16px"></div>
+              <div fxLayout="column" fxLayoutAlign="center start">
+                <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+                <mat-card-subtitle>Title:{{user.title}}</mat-card-subtitle>
+              </div>
+            </mat-card-header>
+
+
           <div fxLayout.xs="column" fxLayout="row" style="padding-bottom:20px">
             <button mat-button color="primary" fxFlex="1 1 auto" (click)="logout()">Me déconnecter</button>
             <button mat-button color="primary" fxFlex="1 1 auto">Modifier profil</button>
             <button mat-button color="primary" fxFlex="1 1 auto">Me desinscrire</button>      
           </div>                        
           <div fxLayoutAlign="center center" fxLayout="column">
-            <!--<app-member-item [user]="user" [member]="user" [short]="false"></app-member-item>  -->
+
           </div>
-      </mat-card> 
+      </mat-card> -->
   </div>
 
 </div>

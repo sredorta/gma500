@@ -9,10 +9,22 @@ import {User} from "../../_models/user";
 })
 export class ProfileComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
+  title : string = "";
   constructor(private userService:UserService, private router: Router) { }
 
   ngOnInit() {
-
+    this.userService.getCurrent().subscribe(res=> {
+      console.log(res);
+      if (res.isBoard) {
+        this.title = res.title;
+      } else if (res.isBureau) {
+        this.title = "Bureau";
+      } else if (res.isMember) {
+        this.title = "Membre";
+      } else {
+        this.title = "Non membre";
+      }
+    });
   }
 
 

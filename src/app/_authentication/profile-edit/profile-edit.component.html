@@ -1,0 +1,68 @@
+        <p class="header">MODIFIER MON PROFIL:</p>
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Prénom</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-form-field>
+                <input matInput placeholder="First name">
+              </mat-form-field>
+              <div fxLayoutAlign="end end" style="width:100%">
+              <button mat-raised-button color="primary">Appliquer</button>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Nom</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Email</mat-panel-title>
+                </mat-expansion-panel-header>
+            
+                <mat-form-field>
+                  <input matInput placeholder="First name">
+                </mat-form-field>
+            
+                <mat-form-field>
+                  <input matInput placeholder="Age">
+                </mat-form-field>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Mobile
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+              
+                  <mat-form-field>
+                    <input matInput placeholder="First name">
+                  </mat-form-field>
+              
+                  <mat-form-field>
+                    <input matInput placeholder="Age">
+                  </mat-form-field>
+                </mat-expansion-panel>              
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Mot de passe
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+                    <mat-form-field>
+                      <input matInput placeholder="First name">
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                      <input matInput placeholder="Age">
+                    </mat-form-field>
+                  </mat-expansion-panel>               
+
+          </mat-accordion>

@@ -45,6 +45,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case "email_not_found":
                     formattedMessage = "Adresse email non enregistré";
                     break;
+                case "email_not_validated":
+                    formattedMessage = "Vous devez valider votre compte email avant de pouvoir acceder";
+                    break;    
                 default:
                     formattedMessage = err.error.message; 
             }

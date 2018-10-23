@@ -1,3 +1,11 @@
+@import "../../../themes.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+
+
+
+$radius : 20px;
 
 h1,p,span {
     opacity:0.8;
@@ -6,4 +14,74 @@ h1 {
     margin-bottom:5px;
 }
 
+.profile-wrapper {
+    min-width: 250px;
+    max-width: 400px;
+    border-radius: $radius;
+    background-color:rgb(255, 255, 255);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);  
+}
 
+.background-image {
+    background-size:cover;
+    width:100%;
+    min-width:100%;
+    max-width:600px;
+    min-height:20vh;
+    height:100px;
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;  
+}
+
+
+.avatar {
+    margin-top:-40px;
+    background-size:cover;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    margin-bottom:16px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 3px rgb(255, 255, 255);   
+}
+
+.name {
+    margin-top:0px;
+    font-size:25px;
+    font-weight: 600;
+    margin-bottom:5px;
+}
+
+.title {
+    font-size:20px;
+    font-weight: 400; 
+    opacity: 0.8; 
+    margin-top:0px; 
+}
+
+.detail {
+    margin-bottom:2px;
+    margin-top:2px;
+    font-weight: 500;
+    //color: mat-color($primary);
+}
+.box {
+    margin-bottom:2px;
+    margin-top:2px;
+    width:100%;
+    border-top:1px solid black;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.header {
+    font-size:25px;
+    font-weight: 600; 
+    opacity: 0.8; 
+    margin-top:0px; 
+    margin:5px;
+    margin-bottom:20px;
+    width:100%;
+    border-bottom:1px solid black;
+
+}

@@ -73,6 +73,7 @@ import { ProductItemComponent } from './_library/product-item/product-item.compo
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductService } from './_services/product.service';
 import { ConfigService } from './_services/config.service';
+import { ProfileEditComponent } from './_authentication/profile-edit/profile-edit.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { ConfigService } from './_services/config.service';
     ProfileDialogComponent,
     ProductsComponent,
     ProductItemComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,
