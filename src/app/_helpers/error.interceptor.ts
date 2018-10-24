@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case "user_already_registered":
                     formattedMessage = "Email ou mobile déjà enregistres";
                     break;
-                case "Too many logins":
+                case "too_many_logins":
                     formattedMessage = "Trop d'essais, vous devez attendre une minute";   
                     break;
                 case "email_not_found":

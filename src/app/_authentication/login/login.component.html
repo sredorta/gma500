@@ -9,7 +9,7 @@
           <p>
                 <mat-form-field appearance="outline" style="width:100%">
                   <mat-label>email</mat-label>
-                  <input matInput formControlName="email" placeholder="email" required>
+                  <input matInput formControlName="email" placeholder="email" required (change)="emailChange($event)">
                   <mat-hint>Votre addresse email</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                       <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message}}</mat-error>
@@ -29,6 +29,11 @@
             <p>
                 <mat-checkbox formControlName="keepconnected">Gardez la connexión</mat-checkbox>
             </p>
+            <div *ngIf="accessAvailable.length > 0" class="multiple-accounts">
+                <p>Selectioner un compte</p>
+                <mat-radio-group #accessSelected fxLayout="column" fxLayoutGap="5px">
+                    <mat-radio-button *ngFor="let access of accessAvailable; let i = index" value="{{access}}" (change)="radioChange($event)" [checked]='i==0'>{{access}}</mat-radio-button></mat-radio-group>
+            </div>
         </mat-card-content>
         <app-message [visible]='httpMsgVisible' [message]="httpMsgText" [type]="httpMsgType"></app-message>
         <mat-card-actions>

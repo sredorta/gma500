@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { User, UserInterface,UserTokenInterface } from '../_models/user';
+import { User, UserInterface,UserTokenInterface,UserMultipleAccessInterface } from '../_models/user';
 import { Product } from '../_models/product';
 //import {FakeBackendInterceptor} from "../_helpers/fake-backend.interceptor";
 
@@ -82,8 +82,8 @@ export class UserService {
   }
 
   //Return token from credentials
-  public login(email:string, password:string, keepconnected:boolean) : Observable<UserTokenInterface> {   
-    return this.http.post<UserTokenInterface>(environment.apiURL +'/auth/login', {email, password, keepconnected}).map(res => <UserTokenInterface>res);
+  public login(email:string, password:string, keepconnected:boolean,access:string) : Observable<any> {   
+    return this.http.post<any>(environment.apiURL +'/auth/login', {email, password, keepconnected,access});
   }
 
   //Creates user and returns token

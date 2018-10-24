@@ -4,6 +4,11 @@ export interface UserTokenInterface {
     token:string;
 }
 
+export interface UserMultipleAccessInterface {
+    access:string;
+}
+
+
 export interface UserInterface {
     id?:number;
     email?:string;
