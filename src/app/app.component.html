@@ -23,12 +23,16 @@
           </div>
           <div fxFlex="1 1 auto" fxLayoutAlign="end center">
             <div *ngIf="(user$ | async) as user">
-               <div *ngIf="isLoggedIn$ | async">
-                <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile'></button>           
+              <div *ngIf="isLoggedIn$ | async" fxLayout="column" fxLayoutAlign="center center">
+                <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
+                <small style="font-size:10px;line-height:10px">{{user.access}}</small>
               </div>
-              <button *ngIf="!(isLoggedIn$ | async)"  mat-mini-fab color="warn" routerLink='/login'>
-                 <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
-             </button> 
+              <div *ngIf="!(isLoggedIn$ | async)" fxLayout="column" fxLayoutAlign="center center">
+                <button  mat-mini-fab color="warn" routerLink='/login' class="scaled">
+                  <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
+                </button> 
+                <small style="font-size:10px;line-height:10px">Deconnecte</small>
+              </div>
             </div>
           </div>
       </mat-toolbar>  
