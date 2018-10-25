@@ -63,7 +63,7 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {HttpHeaderInterceptor} from './_helpers/http-header-interceptor';
 import { MessageComponent } from './_library/message/message.component';
 import { InputImageComponent } from './_library/input-image/input-image.component';
-import { TermsDialogComponent } from './_dialogs/terms-dialog/terms-dialog.component';
+import { TermsDialogComponent } from './_authentication/terms-dialog/terms-dialog.component';
 import { ProfileComponent } from './_authentication/profile/profile.component';
 import { MembersComponent } from './members/members.component';
 import { MemberItemComponent } from './_library/member-item/member-item.component';
@@ -74,6 +74,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductService } from './_services/product.service';
 import { ConfigService } from './_services/config.service';
 import { ProfileEditComponent } from './_authentication/profile-edit/profile-edit.component';
+import { AccountRemoveDialogComponent } from './_authentication/account-remove-dialog/account-remove-dialog.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { ProfileEditComponent } from './_authentication/profile-edit/profile-edi
     ProductsComponent,
     ProductItemComponent,
     ProductDetailsComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    AccountRemoveDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +144,7 @@ import { ProfileEditComponent } from './_authentication/profile-edit/profile-edi
       MatTooltipModule,
       MatTreeModule],          
   ],
-  entryComponents: [TermsDialogComponent, ProfileDialogComponent],
+  entryComponents: [TermsDialogComponent, AccountRemoveDialogComponent, ProfileDialogComponent],
   providers: [
     HttpService, ConfigService, UserService, ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 

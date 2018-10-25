@@ -45,6 +45,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case "email_not_found":
                     formattedMessage = "Adresse email non enregistré";
                     break;
+                case "profile_not_found":
+                    formattedMessage = "Compte utilizateur non trouvé";
+                    break;
+                case "account_exists": 
+                    formattedMessage = "Un compte existe deja, la recuperation du compte est impossible";
+                    break;
                 case "email_not_validated":
                     formattedMessage = "Vous devez valider votre compte email avant de pouvoir acceder";
                     break;    

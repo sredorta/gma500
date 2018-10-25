@@ -99,9 +99,7 @@ export class LoginComponent implements OnInit {
             User.saveToken(result.token);   //Save Token to session storage
             //We need to download here the profile of the user
             this._subscriptions.push(this.userService.getAuthUser().subscribe(res=> {
-              console.log("After getAuthUser");
-              console.log(res);
-              this.userService.setCurrent(res as User); 
+              this.userService.setCurrent(new User(res)); 
               this.location.back();
             }));
           }

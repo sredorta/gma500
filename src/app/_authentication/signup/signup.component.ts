@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
 
 //Dialogs
-import {TermsDialogComponent} from '../../_dialogs/terms-dialog/terms-dialog.component'
+import {TermsDialogComponent} from '../terms-dialog/terms-dialog.component'
 //Directives
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import { UserService } from '../../_services/user.service';

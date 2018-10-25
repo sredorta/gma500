@@ -21,31 +21,8 @@
         <button mat-stroked-button color="primary" style="width:100%;margin:5px" routerLink="/editprofile">MODIFIER MON PROFIL</button>
         <button mat-stroked-button color="primary" style="width:100%;margin:5px">MES DOCUMENTS</button>
         <button mat-stroked-button color="primary" style="width:100%;margin:5px">MES NOTIFICATIONS</button>
-        <button mat-stroked-button color="primary" style="width:100%;margin:5px">SUPRIMER LE COMPTE</button>        
+        <button mat-stroked-button color="primary" style="width:100%;margin:5px" (click)="openAccountRemoveDialog()">SUPRIMER LE COMPTE</button>        
     </div>
-<!--
-      <mat-card style="max-width:500px;min-width:300px;margin:10px;margin-top:5vh;margin-bottom:5vh">
-
-          <mat-card-header fxLayout="column">
-              <div [style.backgroundImage]="'url(./assets/img/backgroundprofile.jpg)'" style="background-size:cover;min-width:100%"></div>
-
-              <div mat-card-avatar [style.backgroundImage]="user.avatar" style="background-size:cover;width:60px;height:60px;border-radius:50%;margin-bottom:16px"></div>
-              <div fxLayout="column" fxLayoutAlign="center start">
-                <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-                <mat-card-subtitle>Title:{{user.title}}</mat-card-subtitle>
-              </div>
-            </mat-card-header>
-
-
-          <div fxLayout.xs="column" fxLayout="row" style="padding-bottom:20px">
-            <button mat-button color="primary" fxFlex="1 1 auto" (click)="logout()">Me déconnecter</button>
-            <button mat-button color="primary" fxFlex="1 1 auto">Modifier profil</button>
-            <button mat-button color="primary" fxFlex="1 1 auto">Me desinscrire</button>      
-          </div>                        
-          <div fxLayoutAlign="center center" fxLayout="column">
-
-          </div>
-      </mat-card> -->
   </div>
 
 </div>

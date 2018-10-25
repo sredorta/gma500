@@ -1,4 +1,6 @@
 import { Timestamp } from "rxjs";
+import {Role} from '../_models/role';
+import { getMatScrollStrategyAlreadyAttachedError } from "@angular/cdk/overlay/typings/scroll/scroll-strategy";
 
 export interface UserTokenInterface {
     token:string;
@@ -34,23 +36,48 @@ export class User {
     firstName: string;
     lastName: string;
     avatar: string;
-    isMember: boolean;
-    isBoard: boolean;
-    isBureau: boolean;
-    title: string;
-    isEmailValidated:boolean;
-    emailValidationKey:boolean;
+    access: string;
+    roles: Role[] = new Array<Role>();
     created_at: string;
     updated_at: string;  
 
 
     groups : string[] = ["none"]
  
+
+    getFormattedRoles() {
+        let result = "";
+        for (let role of this.roles) {
+            if (result == "")
+                result = role.name;
+            else
+                result = result + " / " + role.name;
+        }
+        return result;
+    }
+
+    hasRole(role:string) : boolean {
+        return true;
+    }
     
     constructor(jsonObj: any) {
-        for (let prop in jsonObj) {
-            this[prop] = jsonObj[prop];
-        }
+        if (jsonObj!== null) {
+        this.id = jsonObj.id;
+        this.email = jsonObj.email;
+        this.mobile = jsonObj.mobile;
+        this.password = jsonObj.password;
+        this.firstName = jsonObj.firstName;
+        this.lastName = jsonObj.lastName;
+        this.avatar = jsonObj.avatar;
+        this.access = jsonObj.access;
+        this.roles = new Array<Role>();
+        if (jsonObj.roles != null)
+            for (let role of jsonObj.roles) {
+                this.roles.push(new Role(role));
+            }
+        this.created_at = jsonObj.created_at;
+        this.updated_at = jsonObj.updated_at;
+        }          
     }
 
 

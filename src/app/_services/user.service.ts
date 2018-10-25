@@ -45,6 +45,8 @@ export class UserService {
 
   //Sets current user
   setCurrent(user:User) {
+    console.log("setCurrent::");
+    console.log(user);
     this._user.next(user);
     //Broadcast if we are now loggedIn or not
     if (user.id !== undefined && user.id>=0) {
@@ -96,6 +98,16 @@ export class UserService {
   public resetPassword(email:string,access:string) : Observable<any> {
     return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
   }
+
+  //Removes current account
+  public removeAccount() : Observable<any> {
+    return this.http.get<any>(environment.apiURL +'/auth/removeaccount');
+  }  
+
+  //Restores an account when profile has no accounts
+  public restoreAccount(email:string,mobile:string) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/restoreaccount',{email,mobile});
+  }  
 
   //Returns the list of users (only indexes) matching the type : member,bureau,board
   public getUsersByType(type:'board'|'bureau'|'member'|'all') : Observable<number[]> {  
