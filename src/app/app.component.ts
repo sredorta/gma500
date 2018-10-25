@@ -40,16 +40,16 @@ export class AppComponent {
       console.log("Config Service completed:");
       console.log(res);
     });
-  }
-/*    
-    this.httpService.getUser().subscribe(
+    
+    this.userService.getCurrent().subscribe(
       (res:User)=> {
         console.log("USER has changed !");
         console.log(res);
+        console.log(res.getNotifsUnreadCount());
         //this.user = res;
       }
     );
-  }*/
+  }
 
   //We are now logging out
   logout() {

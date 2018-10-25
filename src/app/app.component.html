@@ -23,10 +23,23 @@
           </div>
           <div fxFlex="1 1 auto" fxLayoutAlign="end center">
             <div *ngIf="(user$ | async) as user">
-              <div *ngIf="isLoggedIn$ | async" fxLayout="column" fxLayoutAlign="center center">
-                <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
-                <small style="font-size:10px;line-height:10px">{{user.access}}</small>
-              </div>
+              <div *ngIf="isLoggedIn$ | async" fxLayout="row" fxLayoutGap="20px">
+                <button  mat-mini-fab color="warn" class="scaled">
+                  <div *ngIf="user.getNotifsUnreadCount()>0">
+                    <mat-icon [matBadge]="user.getNotifsUnreadCount()" matBadgeColor="accent" aria-label="Déconnecté" [matMenuTriggerFor]="notifsMenu">notifications</mat-icon>
+                  </div>
+                  <div *ngIf="user.getNotifsUnreadCount()==0">
+                      <mat-icon  aria-label="Déconnecté" [matMenuTriggerFor]="notifsMenu">notifications_none</mat-icon>
+                  </div>
+                </button>
+                <mat-menu #notifsMenu="matMenu" [overlapTrigger]="false">
+                    <div *ngFor="let notif of user.notifs"><p>{{notif.text}}</p></div>
+                </mat-menu>   
+                <div  fxLayout="column" fxLayoutAlign="center center">
+                  <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
+                  <small style="font-size:10px;line-height:10px">{{user.access}}</small>
+                </div>
+              </div>  
               <div *ngIf="!(isLoggedIn$ | async)" fxLayout="column" fxLayoutAlign="center center">
                 <button  mat-mini-fab color="warn" routerLink='/login' class="scaled">
                   <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
