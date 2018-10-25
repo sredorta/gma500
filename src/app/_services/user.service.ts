@@ -93,8 +93,8 @@ export class UserService {
 
 
   //Resets password and send email to user
-  public resetPassword(email:string) : Observable<any> {
-    return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email});
+  public resetPassword(email:string,access:string) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
   }
 
   //Returns the list of users (only indexes) matching the type : member,bureau,board

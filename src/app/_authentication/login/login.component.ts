@@ -81,7 +81,6 @@ export class LoginComponent implements OnInit {
 
   //From submit
   onSubmit(value) {
-    console.log("Access selected: " + this.accessSelected);
     if (this.myForm.invalid) {
       return;
     }
@@ -97,19 +96,16 @@ export class LoginComponent implements OnInit {
             this.accessAvailable = result.message;
             this.accessSelected = result.message[0];
           } else {
-            console.log("We are now logged in as : " + this.accessSelected);
-            console.log(result);
             User.saveToken(result.token);   //Save Token to session storage
             //We need to download here the profile of the user
             this._subscriptions.push(this.userService.getAuthUser().subscribe(res=> {
               console.log("After getAuthUser");
               console.log(res);
               this.userService.setCurrent(res as User); 
-              //this.location.back();
+              this.location.back();
             }));
           }
           this.loading=false;
-
         },
         error => {
             this.httpMsgText = error;

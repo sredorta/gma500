@@ -2,6 +2,7 @@ import { Component, OnInit, createPlatformFactory } from '@angular/core';
 import { Location } from '@angular/common';
 import {  FormGroup,FormControl,Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MatRadioChange } from '@angular/material';
 
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
@@ -14,6 +15,11 @@ import { UserService } from '../../_services/user.service';
 })
 export class ResetpasswordComponent implements OnInit {
   myForm: FormGroup;
+
+  //Access handling
+  accessAvailable = new Array<string>() 
+  accessSelected : string = null;
+
   //Get error messages
   validation_messages = CustomValidators.getMessages();
   loading = false;    //Tells html we are loading
@@ -36,9 +42,22 @@ export class ResetpasswordComponent implements OnInit {
       ]))
     });
   }
-  resetForm() {
-    //this.myForm.reset();
+
+  //Reset access box
+  resetAccess() {
+    this.accessAvailable = new Array<string>(); //Reset the access of the account
+    this.accessSelected = null;
   }
+  //Detect changes on multiple accounts radio button
+  radioChange(event: MatRadioChange) {
+    this.accessSelected = event.value;
+  }
+  //When email changes we reset the access to not be showing
+  emailChange(event) {
+    this.resetAccess();
+    this.httpMsgVisible = false;
+  }
+
   //From submit
   onSubmit(value) {
     if (this.myForm.invalid) {
@@ -47,15 +66,20 @@ export class ResetpasswordComponent implements OnInit {
     this.httpMsgVisible = false;
     this.loading = true;
     //request http here !
-    this._subscriptions.push(this.userService.resetPassword(value.email).subscribe(
-        data => {
-            console.log(data);
-            console.log("End of http service success !!!");
+    this._subscriptions.push(this.userService.resetPassword(value.email, this.accessSelected).subscribe(
+        result => {
+          //We check if we got multiple access
+          if (result.response === "multiple_access") {
+            //Update the html to show the available access
+            this.accessAvailable = result.message;
+            this.accessSelected = result.message[0];
+
+          } else {            
             this.httpMsgVisible = true;
             this.httpMsgType = "success";
             this.httpMsgText = "Nouveau mot de passe envoyé par email";
-            this.loading = false;
-            this.resetForm();
+          }
+          this.loading = false;
         },
         error => {
             this.httpMsgVisible = true;
