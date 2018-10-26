@@ -75,6 +75,7 @@ import { ProductService } from './_services/product.service';
 import { ConfigService } from './_services/config.service';
 import { ProfileEditComponent } from './_authentication/profile-edit/profile-edit.component';
 import { AccountRemoveDialogComponent } from './_authentication/account-remove-dialog/account-remove-dialog.component';
+import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { AccountRemoveDialogComponent } from './_authentication/account-remove-d
     ProductItemComponent,
     ProductDetailsComponent,
     ProfileEditComponent,
-    AccountRemoveDialogComponent
+    AccountRemoveDialogComponent,
+    NotifItemComponent
   ],
   imports: [
     BrowserModule,

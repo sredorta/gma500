@@ -1,0 +1,25 @@
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+
+.is-not-read {
+    small {
+        font-weight: bold;
+    }
+}
+.container {
+    padding:5px;
+    margin:2px;
+    opacity:0.8;
+    mat-icon {
+        transform:scale(0.8);
+    }
+}
+//For devices suporting hover
+@media (hover: hover) {
+    .container:hover {
+        background-color:mat-color($primary,50);
+        opacity: 1;
+    }
+}

@@ -33,7 +33,7 @@
                   </div>
                 </button>
                 <mat-menu #notifsMenu="matMenu" [overlapTrigger]="false">
-                    <div *ngFor="let notif of user.notifs"><p>{{notif.text}}</p></div>
+                    <app-notif-item *ngFor="let notif of user.notifs" [notif]="notif"></app-notif-item>
                 </mat-menu>   
                 <div  fxLayout="column" fxLayoutAlign="center center">
                   <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
