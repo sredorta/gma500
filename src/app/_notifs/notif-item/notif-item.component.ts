@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Notif} from '../../_models/notif';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-notif-item',
@@ -7,10 +6,23 @@ import {Notif} from '../../_models/notif';
   styleUrls: ['./notif-item.component.scss']
 })
 export class NotifItemComponent implements OnInit {
-  @Input() notif : Notif;
+  @Input() id : number;
+  @Input() text : string;
+  @Input() isRead : boolean;
+  @Output() markAsRead = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  private _markAsRead() {
+    this.markAsRead.emit(this.id);
+  }
+
+  private _delete() {
+    this.delete.emit(this.id);
+
+  }
 }

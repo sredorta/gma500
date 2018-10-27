@@ -109,6 +109,17 @@ export class UserService {
     return this.http.post<any>(environment.apiURL +'/auth/restoreaccount',{email,mobile});
   }  
 
+  //Mark a notification as read
+  public notificationMarkRead(id:number) :Observable<any> {
+    return this.http.get<any>(environment.apiURL +'/notifications/markread/' + id);
+  }
+
+  //Delete a notification
+  public notificationDelete(id:number) :Observable<any> {
+    return this.http.get<any>(environment.apiURL +'/notifications/delete/' + id);
+  }  
+
+
   //Returns the list of users (only indexes) matching the type : member,bureau,board
   public getUsersByType(type:'board'|'bureau'|'member'|'all') : Observable<number[]> {  
     //Type has to be one of: member, board, bureau 
@@ -119,6 +130,8 @@ export class UserService {
   public getUserById(id:number) : Observable<any> {  
     return this.http.get<any>(environment.apiURL +'/users/'+ id).debounceTime(300);
   }
+
+
 
   /*public getUserOneByOne(ids:number[]) :any {
     this.http.get<any>(environment.apiURL +'/users/'+ ids[0]).subscribe(result => {

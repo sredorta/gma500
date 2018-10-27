@@ -6,6 +6,11 @@ $accent: map-get($main-app-theme,accent);
 .is-not-read {
     small {
         font-weight: bold;
+        text-overflow:  ellipsis;
+        //-ms-text-overflow: ellipsis;
+        //-o-text-overflow: ellipsis;
+        //white-space: nowrap;
+        //overflow: hidden;        
     }
 }
 .container {
@@ -16,6 +21,10 @@ $accent: map-get($main-app-theme,accent);
         transform:scale(0.8);
     }
 }
+.container:hover {
+    cursor:pointer;
+}
+
 //For devices suporting hover
 @media (hover: hover) {
     .container:hover {

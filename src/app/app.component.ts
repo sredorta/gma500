@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Subscription } from 'rxjs';
 //Animations
 import {routerTransition} from "./_helpers/animations"
 
@@ -14,52 +15,78 @@ import { ConfigService } from './_services/config.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: [routerTransition]
 })
 export class AppComponent {
   title = 'gma500';
   selectedRoute : string;                           //We store the selected route in this variable
   user$  = this.userService.getCurrent();           //User data that is globally stored and sync
+  user : User = new User(null);
+
   isLoggedIn$ = this.userService.isLogged();
   isConfigDone$ = this.configService.isCompleted(); //Data download completion
   isMobile = true;//this.deviceService.isMobile();         //Detect if we are on a mobile device
-
+  private _subscriptions : Subscription[] = new Array<Subscription>();
   constructor(private router : Router, private userService:UserService, private configService: ConfigService, private deviceService: DeviceDetectorService) {
     this.configService.init();  //Download all initial data required, when finishes the isCompleted Observable becomes true
 
     //Detect router changes and then add class accordingly with selectedRoute property
-    router.events.subscribe( (event: Event) => {
+    this._subscriptions.push(router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
           this.selectedRoute = event.url;
       }
-    });
-    this.isLoggedIn$.subscribe(res=> {
+    }));
+    this._subscriptions.push(this.isLoggedIn$.subscribe(res=> {
       console.log("YOU ARE LOGGED IN ? : "+ res);
-    });
-    this.configService.isCompleted().subscribe(res=> {
+    }));
+    this._subscriptions.push(this.configService.isCompleted().subscribe(res=> {
       console.log("Config Service completed:");
       console.log(res);
-    });
+    }));
     
-    this.userService.getCurrent().subscribe(
+    this._subscriptions.push(this.userService.getCurrent().subscribe(
       (res:User)=> {
         console.log("USER has changed !");
         console.log(res);
+        this.user = res;
         console.log(res.getNotifsUnreadCount());
         //this.user = res;
       }
-    );
+    ));
   }
 
   //We are now logging out
   logout() {
-    this.userService.logout().subscribe(res=> {
+    this._subscriptions.push(this.userService.logout().subscribe(res=> {
       this.userService.setCurrent(new User(null));
       User.removeToken();
       this.router.navigate([""]); //Go back home
-    });
+    }));
   }
-  ngOnDestroy() {
-    console.log("DESTROYING !!!!");
+
+
+  //Notifications handling part
+  notifMarkAsRead(id) {
+    this._subscriptions.push(this.userService.notificationMarkRead(id).subscribe(res => {
+      this.user.notifs.find(obj => obj.id == id).isRead = true;
+    }));
+    //this.
   }
+
+  notifDelete(id) {
+    console.log("Deleting");
+    this._subscriptions.push(this.userService.notificationDelete(id).subscribe(res => {
+      this.user.notifs.splice(this.user.notifs.findIndex(obj => obj.id == id),1)
+    }));
+
+  }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
 }
