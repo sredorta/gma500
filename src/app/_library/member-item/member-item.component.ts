@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Inject } from '@angular/core';
+import { Component, OnInit,Input,Inject,SimpleChanges } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 //Dialogs
 import {ProfileDialogComponent} from '../../_dialogs/profile-dialog/profile-dialog.component';
@@ -15,25 +15,42 @@ import { Observable } from 'rxjs';
 })
 export class MemberItemComponent implements OnInit {
   //Inputs
-  @Input() member$ : Observable<User>;           //Member to display
-  @Input() isPresident : boolean;
-  @Input() user: User;                          //Current user
-  @Input() short: boolean = true;
-  @Input() activeRole: string;                  //Active role to be displayed
+  @Input() member: User;
+  @Input() activeRole : number;
 
-  isLogged: boolean = false;
-  memberIsPresident : boolean = false;
-  memberPhone:String= "";
-  memberEmail:String = "";
-  member : User = new User(null);
+ // memberEmail : string;
+ // memberPhone : string;
+
   isMobile = this.deviceService.isMobile();
 
-  constructor(private location: Location, private userService:UserService, private deviceService: DeviceDetectorService,public dialog: MatDialog) {
+  constructor(private location : Location,private deviceService: DeviceDetectorService,public dialog: MatDialog) {
 
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("On changes ");
+    console.log(changes.member.currentValue);
+    this.member = changes.member.currentValue;
+  }
+  redirectEmail() {
+    //this.location.go = 'mailto:' + this.member.email;
+  }
+
+  redirectPhone() {
+    //'tel:' + this.member.mobile; 
   }
 
   ngOnInit() {
-    this.userService.isLogged().subscribe(res=> this.isLogged = res);
+  //  this.memberEmail= 'mailto:' + this.member.email;
+  //  this.memberPhone= 'tel:' + this.member.mobile; 
+  if(this.activeRole!==null && this.activeRole !== undefined) {
+    if (this.activeRole<3)
+      this.member.roles = this.member.roles.filter(i => i.id === this.activeRole);
+    else 
+    this.member.roles = this.member.roles.filter(i => i.id >= this.activeRole);
+  }
+
+
+  /*  this.userService.isLogged().subscribe(res=> this.isLogged = res);
     this.member$.subscribe(result => {
       this.member = result;
       this.memberEmail= 'mailto:' + this.member.email;
@@ -42,16 +59,16 @@ export class MemberItemComponent implements OnInit {
         this.activeRole = result.title;
       } 
     });
-  
+  */
   }
 
     //Terms and conditions dialog
-    openProfileDialog(): void {
+ /*   openProfileDialog(): void {
       let dialogRef = this.dialog.open(ProfileDialogComponent, {
         panelClass: 'big-dialog',
         maxHeight:"90%",
         minWidth:"300px",
         data:  {user: this.user, member:this.member}
       });
-    }
+    }*/
 }

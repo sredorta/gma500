@@ -15,50 +15,89 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class MembersComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
   isLogged: boolean = false;
-  boards$ : Observable<User>[] = new Array;
-  boardsReady :boolean = false;
-  bureaus$ : Observable<User>[] = new Array;
-  bureausReady :boolean = false;
-  members$ : Observable<User>[] = new Array;
-  membersReady :boolean = false;
+  boards : User[] = new Array<User>();
+  bureaus : User[] = new Array<User>();
+  members : User[] = new Array<User>();
 
   memberCount :number;
-
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private userService:UserService) {}
 
   ngOnInit() {
     this.userService.isLogged().subscribe(res=> this.isLogged = res);
     //Load board
-    this.userService.getUsersByType("board").subscribe((result) => {
+    this._subscriptions.push(this.userService.getUsersByType("board").subscribe((result) => {
+        for (let i of result) {
+          this.boards.push(new User(null));
+        }
+        let i = 0;
         for(let id of result) {
           console.log("Adding id: " + id);
-          this.boards$.push(this.userService.getUserById(id));
-          this.userService.getUserById(id).subscribe(res => {console.log("Resulting user:"); console.log(res)});
+          this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
+            console.log("Resulting user:"); console.log(res)
+            this.boards[i] = new User(res);
+            i++;
+          }));
         }
-        Observable.concat(this.boards$); //Serialize http requests
-        this.boardsReady = true;
-    });
-    //Load bureaus    
- /*     this.userService.getUsersByType("bureau").subscribe((result) => {
-        for(let id of result) {
-          this.bureaus$.push(this.userService.getUserById(id));
-        }
-        Observable.concat(this.bureaus$); //Serialize http requests
-        this.bureausReady = true;
-      });      
-      this.userService.getUsersByType("member").subscribe((result) => {
-        this.memberCount = result.length;
-        var size = 5;
-        result = result.slice(0, size);
-        for (let id of result) {
-          this.members$.push(this.userService.getUserById(id));
-        }
-        Observable.concat(this.members$); //Serialize http requests
-        this.membersReady = true;        
-      });*/
+    }));
+    //Load Bureau
+    this._subscriptions.push(this.userService.getUsersByType("bureau").subscribe((result) => {
+      for (let i of result) {
+        this.bureaus.push(new User(null));
+      }
+      //console.log(result);
+      let j = 0;
+      for(let id of result) {
+        //console.log("Adding id: " + id);
+        this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
+          //console.log("Resulting user:"); console.log(res)
+          this.bureaus[j] = new User(res);
+          j++;
+        }));
+      }
+    }));
+
+    //Load Members
+/*    this._subscriptions.push(this.userService.getUsersByType("member").subscribe((result) => {
+      this.memberCount = result.length;
+      for (let i of result) {
+        this.members.push(new User(null));
+      }
+      //console.log(result);
+      let k = 0;
+      for(let id of result) {
+        //console.log("Adding id: " + id);
+        this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
+          //console.log("Resulting user:"); console.log(res)
+          this.members[k] = new User(res);
+          k++;
+        }));
+      }
+    }));*/
+
 
   }
 
+  onScroll($event) {
+/*    console.log("OnScroolll !");
+    console.log($event);
+    console.log("ScrollLeft: " + $event.target.scrollLeft);
+    console.log("OffsetLeft: " + $event.target.offsetLeft);
+    console.log("OffsetWidth: " + $event.target.offsetWidth);
+    console.log("clientWidth: " + $event.target.clientWidth );
+    //elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()
+    if($event.target.offsetWidth + $event.target.scrollLeft == $event.target.scrollLeft)
+    {
+        console.log("End");
+    }
+*/
+  }
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 
 }

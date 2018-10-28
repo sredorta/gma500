@@ -2,10 +2,24 @@
 
 $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
+
+
+.scaled {
+    transform:scale(0.8);
+}
+
+mat-icon {
+    opacity: 0.6;
+}
+
 .is-president {
     color: mat-color($accent);
     font-weight: bold;
 }
+
+
+
+
 
 
 .size-small {

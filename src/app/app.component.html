@@ -35,7 +35,7 @@
                 <mat-menu #notifsMenu="matMenu" [overlapTrigger]="false" class="menu-notifications">
                     <div class="notifications-wrapper">
                       <div *ngIf="user.notifs.length == 0" fxLayoutAlign="center center"><p>Vous n'avez pas des notifications</p></div>
-                      <app-notif-item *ngFor="let notif of user.notifs; let i=index" [id]="notif.id" [text]="notif.text" [isRead]="notif.isRead" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
+                      <app-notif-item *ngFor="let notif of user.notifs; let i=index" [notif]="notif" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
                     </div>
                 </mat-menu>   
                 <div  fxLayout="column" fxLayoutAlign="center center">

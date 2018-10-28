@@ -9,6 +9,7 @@ import {User} from "../_models/user";
 })
 export class HomeComponent implements OnInit {
   avatar : string = './assets/img/user-default.jpg';
+  user : User = new User(null);
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -16,6 +17,11 @@ export class HomeComponent implements OnInit {
       console.log("Result from test :");
       console.log(res);
     });*/
+    this.userService.getCurrent().subscribe(res=> {
+      this.user = res;
+      console.log("current user changed !")
+      console.log(this.user);
+    })
   }
 
 

@@ -47,8 +47,13 @@ export class User {
 
     groups : string[] = ["none"]
  
-
-
+    isAvailable() :boolean {
+        if ((this.id !== null) && (this.id !== undefined)) return true;
+        return false;
+    }
+    isPresident() {
+        return this.roles.filter(item => item.id === 3).length;
+    }
 /*
     hasRole(role:string) : boolean {
         return true;
@@ -118,7 +123,6 @@ export class User {
     /////////////////////////////////////////////////////////////////////////
     // Notifs related
     /////////////////////////////////////////////////////////////////////////
-
     getNotifsUnreadCount() : number {
         return this.notifs.filter(item => item.isRead == false).length;
     }
