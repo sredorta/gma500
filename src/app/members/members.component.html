@@ -8,13 +8,13 @@
       </div>  
     <p class="header">Bureau</p>
     <mat-divider></mat-divider> 
-      <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas" (scroll)="onScroll($event)">
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
         <app-member-item *ngFor="let member of bureaus" [member]="member" [activeRole]="2"></app-member-item>
       </div>
     <!--<ng-container *ngIf="isLogged">-->
       <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
       <mat-divider></mat-divider> 
-        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas">
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas" (scroll)="onScroll($event)">
             <app-member-item *ngFor="let member of members" [member]="member" [activeRole]="1"></app-member-item>
         </div>
     <!--</ng-container>-->

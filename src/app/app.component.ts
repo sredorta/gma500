@@ -28,6 +28,7 @@ export class AppComponent {
   isConfigDone$ = this.configService.isCompleted(); //Data download completion
   isMobile = true;//this.deviceService.isMobile();         //Detect if we are on a mobile device
   private _subscriptions : Subscription[] = new Array<Subscription>();
+
   constructor(private router : Router, private userService:UserService, private configService: ConfigService, private deviceService: DeviceDetectorService) {
     this.configService.init();  //Download all initial data required, when finishes the isCompleted Observable becomes true
 
@@ -50,7 +51,6 @@ export class AppComponent {
         console.log("USER has changed !");
         console.log(res);
         this.user = res;
-        console.log(res.getNotifsUnreadCount());
         //this.user = res;
       }
     ));
@@ -66,21 +66,7 @@ export class AppComponent {
   }
 
 
-  //Notifications handling part
-  notifMarkAsRead(id) {
-    this._subscriptions.push(this.userService.notificationMarkRead(id).subscribe(res => {
-      this.user.notifs.find(obj => obj.id == id).isRead = true;
-    }));
-    //this.
-  }
-
-  notifDelete(id) {
-    console.log("Deleting");
-    this._subscriptions.push(this.userService.notificationDelete(id).subscribe(res => {
-      this.user.notifs.splice(this.user.notifs.findIndex(obj => obj.id == id),1)
-    }));
-
-  }
+ 
 
   ngOnDestroy() {    
     //Unsubscribe to all

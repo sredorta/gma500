@@ -27,10 +27,9 @@ export class MemberItemComponent implements OnInit {
 
   }
   ngOnChanges(changes: SimpleChanges) {
-    console.log("On changes ");
-    console.log(changes.member.currentValue);
     this.member = changes.member.currentValue;
   }
+  
   redirectEmail() {
     //this.location.go = 'mailto:' + this.member.email;
   }

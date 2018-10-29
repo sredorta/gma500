@@ -1,0 +1,7 @@
+
+    <h1>Mes notifications</h1>
+    <div class="notifications-wrapper">
+      <div *ngIf="notifs.length == 0" fxLayoutAlign="center center"><p>Vous n'avez pas des notifications</p></div>
+      <app-notif-item *ngFor="let notif of notifs; let i=index" [notif]="notif" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
+    </div>
+    <app-footer></app-footer>

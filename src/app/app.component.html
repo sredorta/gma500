@@ -25,19 +25,13 @@
             <div *ngIf="(user$ | async) as user">
               <div *ngIf="isLoggedIn$ | async" fxLayout="row" fxLayoutGap="20px">
                 <button  mat-mini-fab color="warn" class="scaled">
-                  <div *ngIf="user.getNotifsUnreadCount()>0">
-                    <mat-icon [matBadge]="user.getNotifsUnreadCount()" matBadgeColor="accent" aria-label="Déconnecté" [matMenuTriggerFor]="notifsMenu">notifications</mat-icon>
+                  <div *ngIf="user.notifsUnreadCount>0">
+                    <mat-icon [matBadge]="user.notifsUnreadCount" matBadgeColor="accent" aria-label="Notifications" routerLink='/notifications' >notifications</mat-icon>
                   </div>
-                  <div *ngIf="user.getNotifsUnreadCount()==0">
-                      <mat-icon  aria-label="Déconnecté" [matMenuTriggerFor]="notifsMenu">notifications_none</mat-icon>
+                  <div *ngIf="user.notifsUnreadCount==0">
+                      <mat-icon  aria-label="Notifications"  routerLink='/notifications'>notifications_none</mat-icon>
                   </div>
-                </button>
-                <mat-menu #notifsMenu="matMenu" [overlapTrigger]="false" class="menu-notifications">
-                    <div class="notifications-wrapper">
-                      <div *ngIf="user.notifs.length == 0" fxLayoutAlign="center center"><p>Vous n'avez pas des notifications</p></div>
-                      <app-notif-item *ngFor="let notif of user.notifs; let i=index" [notif]="notif" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
-                    </div>
-                </mat-menu>   
+                </button>  
                 <div  fxLayout="column" fxLayoutAlign="center center">
                   <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
                   <small style="font-size:10px;line-height:10px">{{user.access}}</small>

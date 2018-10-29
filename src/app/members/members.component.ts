@@ -19,6 +19,7 @@ export class MembersComponent implements OnInit {
   bureaus : User[] = new Array<User>();
   members : User[] = new Array<User>();
 
+
   memberCount :number;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -57,42 +58,42 @@ export class MembersComponent implements OnInit {
         }));
       }
     }));
-
+/*
     //Load Members
-/*    this._subscriptions.push(this.userService.getUsersByType("member").subscribe((result) => {
+    //Limit the number of members download to 10    
+    this._subscriptions.push(this.userService.getUsersByType("member").subscribe((result) => {
       this.memberCount = result.length;
       for (let i of result) {
         this.members.push(new User(null));
       }
-      //console.log(result);
       let k = 0;
       for(let id of result) {
-        //console.log("Adding id: " + id);
         this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
-          //console.log("Resulting user:"); console.log(res)
           this.members[k] = new User(res);
           k++;
         }));
       }
-    }));*/
-
-
-  }
-
-  onScroll($event) {
-/*    console.log("OnScroolll !");
-    console.log($event);
-    console.log("ScrollLeft: " + $event.target.scrollLeft);
-    console.log("OffsetLeft: " + $event.target.offsetLeft);
-    console.log("OffsetWidth: " + $event.target.offsetWidth);
-    console.log("clientWidth: " + $event.target.clientWidth );
-    //elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()
-    if($event.target.offsetWidth + $event.target.scrollLeft == $event.target.scrollLeft)
-    {
-        console.log("End");
-    }
+    }));
 */
+
   }
+/*
+  onScroll($event) {
+    console.log($event.target.offsetWidth + $event.target.scrollLeft);
+    console.log($event.target.scrollWidth);
+    //Detect end of scroll
+    if($event.target.offsetWidth + $event.target.scrollLeft >= ($event.target.scrollWidth-1)) {
+        console.log("End");
+        console.log(this._nextMember);
+        console.log(this._members.length);
+        //this.members.push(new User(null));
+          this._subscriptions.push(this.userService.getUserById(this._members[this._nextMember]).subscribe(res => {
+            this.members.push(new User(res));
+          }));
+        this._nextMember++;
+    }
+  }
+*/
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {

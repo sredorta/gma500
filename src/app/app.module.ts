@@ -76,6 +76,8 @@ import { ConfigService } from './_services/config.service';
 import { ProfileEditComponent } from './_authentication/profile-edit/profile-edit.component';
 import { AccountRemoveDialogComponent } from './_authentication/account-remove-dialog/account-remove-dialog.component';
 import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
+import { NotifsComponent } from './_notifs/notifs/notifs.component';
+import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
 
 
 @NgModule({
@@ -100,7 +102,9 @@ import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
     ProductDetailsComponent,
     ProfileEditComponent,
     AccountRemoveDialogComponent,
-    NotifItemComponent
+    NotifItemComponent,
+    NotifsComponent,
+    NiceDateFormatPipe
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,9 @@ import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
 import {MembersComponent} from './members/members.component';
+import {NotifsComponent} from './_notifs/notifs/notifs.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
+
 import { LoggedInGuard } from './_guards/logged-in.guard';
 import { LoggedOutGuard } from './_guards/logged-out.guard';
 
@@ -48,6 +50,11 @@ const routes: Routes = [
     component: ProfileEditComponent,
     canActivate: [LoggedInGuard]
   }, 
+  {
+    path: 'notifications',
+    component: NotifsComponent,
+    canActivate: [LoggedInGuard]
+  },   
   {
     path: 'members',
     component: MembersComponent

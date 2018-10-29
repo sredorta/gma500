@@ -40,7 +40,7 @@ export class User {
     avatar: string;
     access: string;
     roles: Role[] = new Array<Role>();
-    notifs: Notif[] = new Array<Notif>();
+    notifsUnreadCount: number = 0; 
     created_at: string;
     updated_at: string;  
 
@@ -74,10 +74,11 @@ export class User {
             for (let role of jsonObj.roles) {
                 this.roles.push(new Role(role));
             }
-        if (jsonObj.notifications != null)
+        this.notifsUnreadCount = jsonObj.notifsUnreadCount;
+        /*if (jsonObj.notifications != null)
             for (let notif of jsonObj.notifications) {
                 this.notifs.push(new Notif(notif));
-            }    
+            }    */
         this.created_at = jsonObj.created_at;
         this.updated_at = jsonObj.updated_at;
         }          
@@ -123,9 +124,9 @@ export class User {
     /////////////////////////////////////////////////////////////////////////
     // Notifs related
     /////////////////////////////////////////////////////////////////////////
-    getNotifsUnreadCount() : number {
+/*    getNotifsUnreadCount() : number {
         return this.notifs.filter(item => item.isRead == false).length;
-    }
+    }*/
 
 
 }

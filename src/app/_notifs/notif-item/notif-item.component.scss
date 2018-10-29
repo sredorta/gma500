@@ -3,6 +3,14 @@
 $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
 
+small {
+    padding-right:10px;
+    padding-left:10px;
+}
+.date {
+    min-width: 100px;
+    max-width:150px;
+}
 .is-not-read {
     small {
         font-weight: bold;
