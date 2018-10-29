@@ -1,7 +1,19 @@
 
+<div style="padding:20px;width:100%" fxLayoutAlign="center center" fxLayout="column">
     <h1>Mes notifications</h1>
     <div class="notifications-wrapper">
-      <div *ngIf="notifs.length == 0" fxLayoutAlign="center center"><p>Vous n'avez pas des notifications</p></div>
-      <app-notif-item *ngFor="let notif of notifs; let i=index" [notif]="notif" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
+      <div *ngIf="isAvailable; else loading">  
+        <mat-divider></mat-divider>
+        <div *ngIf="notifs.length == 0" fxLayoutAlign="center center"><p>Vous n'avez pas des notifications</p></div>
+        <app-notif-item *ngFor="let notif of notifs; let i=index" [notif]="notif" (markAsRead)="notifMarkAsRead($event)" (delete)="notifDelete($event)"></app-notif-item>
+        <mat-divider></mat-divider>
+      </div>
+
     </div>
-    <app-footer></app-footer>
+    <ng-template #loading>
+        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;height:100%;">
+            <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+  </ng-template>   
+</div>
+<app-footer></app-footer>

@@ -4,17 +4,17 @@ $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
 
 small {
-    padding-right:10px;
-    padding-left:10px;
+    padding-right:5px;
+    padding-left:5px;
 }
 .date {
-    min-width: 100px;
+    min-width: 80px;
     max-width:150px;
 }
 .is-not-read {
     small {
         font-weight: bold;
-        text-overflow:  ellipsis;
+        //text-overflow:  ellipsis;
         //-ms-text-overflow: ellipsis;
         //-o-text-overflow: ellipsis;
         //white-space: nowrap;
@@ -22,7 +22,9 @@ small {
     }
 }
 .container {
-    padding:5px;
+    min-height: 40px;
+    padding-top:5px;
+    padding-bottom:5px;
     margin:2px;
     opacity:0.8;
     mat-icon {

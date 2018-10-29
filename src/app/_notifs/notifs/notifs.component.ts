@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../_services/user.service';
 import {Notif} from '../../_models/notif';
@@ -13,6 +13,7 @@ export class NotifsComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
   notifs : Notif[] = new Array<Notif>();
+  isAvailable : boolean = false;
   private _user : User = new User(null);
 
   constructor(private userService:UserService) { }
@@ -24,9 +25,12 @@ export class NotifsComponent implements OnInit {
       console.log("Notifications !!!!!!!!!!!");
       console.log(res);
       this.notifs = res;
+      this.isAvailable = true;
     }));    
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    this.notifs = changes.notifs.currentValue;
+  }
 
  //Notifications handling part
  notifMarkAsRead(id) {

@@ -22,6 +22,7 @@ function convertToNiceDate(time: string) {
   var date = new Date(time),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       daydiff = Math.floor(diff / 86400);
+      console.log(diff);
   //console.log("diff is :" + diff);
   if (isNaN(daydiff) || daydiff < 0 || daydiff >= 31)
       return '';
