@@ -9,7 +9,7 @@ import {ResetpasswordComponent} from './_authentication/resetpassword/resetpassw
 import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
-import {MembersComponent} from './members/members.component';
+import {MembersComponent} from './_members/members/members.component';
 import {NotifsComponent} from './_notifs/notifs/notifs.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 

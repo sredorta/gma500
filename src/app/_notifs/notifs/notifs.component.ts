@@ -41,11 +41,9 @@ export class NotifsComponent implements OnInit {
     this._user.notifsUnreadCount = this._user.notifsUnreadCount - 1;
     this.userService.setCurrent(this._user);
   }));
-  //this.
 }
 
 notifDelete(id) {
-  console.log("Deleting");
   this._subscriptions.push(this.userService.notificationDelete(id).subscribe(res => {
     if (!this.notifs[this.notifs.findIndex(obj => obj.id == id)].isRead) {
       this._user.notifsUnreadCount = this._user.notifsUnreadCount - 1;

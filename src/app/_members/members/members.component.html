@@ -11,13 +11,19 @@
       <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
         <app-member-item *ngFor="let member of bureaus" [member]="member" [activeRole]="2"></app-member-item>
       </div>
-    <!--<ng-container *ngIf="isLogged">-->
+    <ng-container *ngIf="(user.access == 'Membre') || (user.access == 'Admin')">
       <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
       <mat-divider></mat-divider> 
-        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas" (scroll)="onScroll($event)">
+        <button mat-stroked-button color="primary" (click)="loadAllMembers()" style="margin:10px;">Voir tous</button>
+        <div *ngIf="!membersRequested; else loading" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas">
             <app-member-item *ngFor="let member of members" [member]="member" [activeRole]="1"></app-member-item>
         </div>
-    <!--</ng-container>-->
+        <ng-template #loading>
+            <div fxLayout="column" fxLayoutAlign="center center" style="padding:5px;padding-top:20px;width:100%;height:232px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
+                <mat-spinner [diameter]="40"></mat-spinner>
+            </div>
+        </ng-template>
+    </ng-container>
   </mat-card>
 </div>
 </div>

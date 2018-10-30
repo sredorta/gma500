@@ -116,12 +116,12 @@ export class UserService {
 
   //Mark a notification as read
   public notificationMarkRead(id:number) :Observable<any> {
-    return this.http.get<any>(environment.apiURL +'/notifications/markread/' + id);
+    return this.http.post<any>(environment.apiURL +'/notifications/markread', {'id': id});
   }
 
   //Delete a notification
   public notificationDelete(id:number) :Observable<any> {
-    return this.http.get<any>(environment.apiURL +'/notifications/delete/' + id);
+    return this.http.post<any>(environment.apiURL +'/notifications/delete', {'id': id});
   } 
 
 
@@ -134,40 +134,15 @@ export class UserService {
 
   //Returns the data of the user specified in the id
   public getUserById(id:number) : Observable<any> {  
-    return this.http.get<any>(environment.apiURL +'/users/'+ id).debounceTime(300);
+    return this.http.post<any>(environment.apiURL +'/users/data', {'id':id}).debounceTime(300);
   }
 
-
-
-  /*public getUserOneByOne(ids:number[]) :any {
-    this.http.get<any>(environment.apiURL +'/users/'+ ids[0]).subscribe(result => {
-
-    });
-
-}*/
+  //Returns all members
+  public getMembers() : Observable<any[]> {  
+    return this.http.get<any[]>(environment.apiURL +'/users/getmembers');
+  }  
 
 
 
-
-/*
-  public getPresident() : Observable<User[]> {
-     let role : string = "president";
-     return this.http.post<User[]>(environment.apiURL +'/users/list',{role});
-  }
-
-  public getMembers() : Observable<User[]> {
-    let role : string = "member";
-    return this.http.post<User[]>(environment.apiURL +'/users/list',{role});
-  }
-  public getBureau() : Observable<User[]> {
-    let role : string = "bureau";
-    return this.http.post<User[]>(environment.apiURL +'/users/list', {role});
-  }
-
-  public getBoard() : Observable<User[]> {
-    let role : string = "board";
-    return this.http.post<User[]>(environment.apiURL +'/users/list', {role});
-  }
-  */
 
 }
