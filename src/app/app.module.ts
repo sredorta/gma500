@@ -78,6 +78,7 @@ import { AccountRemoveDialogComponent } from './_authentication/account-remove-d
 import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
 import { NotifsComponent } from './_notifs/notifs/notifs.component';
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
+import { AdminMembersComponent } from './_members/admin-members/admin-members.component';
 
 
 @NgModule({
@@ -104,7 +105,8 @@ import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
     AccountRemoveDialogComponent,
     NotifItemComponent,
     NotifsComponent,
-    NiceDateFormatPipe
+    NiceDateFormatPipe,
+    AdminMembersComponent
   ],
   imports: [
     BrowserModule,

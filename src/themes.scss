@@ -27,10 +27,10 @@ $footer-warn: mat-palette($mat-red);
 
 
 
-
-//$footer-app-theme:  mat-dark-theme($footer-app-primary, $footer-app-accent, $footer-app-warn);
-// custom background and foreground palettes
-$footer-theme-background: (
+///////////////////////////////////////////////////////////////////////////////////////
+// Admin theme
+///////////////////////////////////////////////////////////////////////////////////////
+$admin-theme-background: (
   status-bar: green,
   app-bar:    map_get($mat-blue, 900),
   background: orange,
@@ -47,10 +47,10 @@ $footer-theme-background: (
   disabled-list-option: black,
 );
 
-$footer-theme-foreground: (
+$admin-theme-foreground: (
   base:              yellow,
-  divider:           $white-12-opacity,
-  dividers:          $white-12-opacity,
+  divider:           rgba(155,255,255,0.95), //$white-12-opacity,
+  dividers:          rgba(155,255,255,0.95),// $white-12-opacity,
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
   disabled-text:     rgba(white, 0.3),
@@ -65,27 +65,31 @@ $footer-theme-foreground: (
 );
 
 // instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
-@function create-footer-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+@function create-admin-theme($primary, $accent, $warn: mat-palette($mat-red)) {
   @return (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-    is-dark: true,
-    foreground: $footer-theme-foreground,
-    background: $footer-theme-background
+    'primary': $primary,
+    'accent': $accent,
+    'warn': $warn,
+    'is-dark': true,
+    'foreground': $admin-theme-foreground,
+    'background': $admin-theme-background
   );
 }
 
-$footer-app-theme : create-footer-theme($navbar-app-primary, $navbar-app-accent, $navbar-app-warn);
+//admin-theme: create-admin-theme($admin-theme-primary, $admin-theme-accent, $admin-theme-warn);
+//$admin-theme: mat-dark-theme($admin-theme-primary, $admin-theme-accent, $admin-theme-warn);
+//Navbar theme
+$admin-primary: mat-palette($mat-amber,300);
+$admin-accent : mat-palette($mat-deep-orange);
+$admin-warn: mat-palette($mat-red);
+$admin-theme: mat-dark-theme($admin-primary, $admin-accent, $admin-warn);
+//$admin-theme: create-admin-theme($admin-primary, $admin-accent, $admin-warn);
 
-// The rest of this is like a normal theme.scss file. The only difference being that we use create-wonky-theme instead of mat-light-theme
-$footer-theme-primary: mat-palette($mat-green);
-$footer-theme-accent: mat-palette($mat-blue);
-$footer-theme-warn: mat-palette($mat-red);
 
-$footer-theme: create-footer-theme($footer-theme-primary, $footer-theme-accent, $footer-theme-warn);
+
+
 body {
-@include angular-material-theme($main-app-theme);
+  @include angular-material-theme($main-app-theme);
 }
 
 .navbar-theme {
@@ -100,3 +104,7 @@ body {
     @include angular-material-theme($main-app-theme);
 }
 
+
+.admin-theme {
+  @include angular-material-theme($admin-theme);
+}

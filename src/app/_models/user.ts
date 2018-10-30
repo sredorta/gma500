@@ -47,12 +47,17 @@ export class User {
 
     groups : string[] = ["none"]
  
+    //Returns if we have an user (i.e. we are logged in for current user!)
     isAvailable() :boolean {
         if ((this.id !== null) && (this.id !== undefined)) return true;
         return false;
     }
     isPresident() {
         return this.roles.filter(item => item.id === 3).length;
+    }
+    //Need to add here hasAccess
+    hasAccess(access:string) {
+        return this.access === access;
     }
 /*
     hasRole(role:string) : boolean {
@@ -100,7 +105,6 @@ export class User {
     }
 
     static hasValidToken() : boolean {
-        console.log("Token value is: " + localStorage.getItem('jwt-token'));
         //Here we need to validate the token
         if (localStorage.getItem('jwt-token')== null) 
            return false;

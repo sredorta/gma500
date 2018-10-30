@@ -22,21 +22,8 @@ export class UserService {
 
   //public isLoggedIn : boolean = false; //This is used for Guards
   private _user = new BehaviorSubject<User>(new User(null)); //Stores the current user
-  private _isLoggedIn = new BehaviorSubject<boolean>(false);
 
-
-
-  constructor(private http: HttpClient) { 
-    
-    //Needed for guards
- /*   this._isLoggedIn.subscribe(result => {
-      console.log("Setting guard to : isLoggedIn : " + result)
-      this.isLoggedIn = result;
-    });*/
-  }
-
-
-
+  constructor(private http: HttpClient) { }
 
   //Returns current user
   getCurrent() : Observable<User> {
@@ -48,24 +35,7 @@ export class UserService {
     console.log("setCurrent::");
     console.log(user);
     this._user.next(user);
-    //Broadcast if we are now loggedIn or not
-    if (user.id !== undefined && user.id>=0) {
-      this.setLogged(true);
-    } else {
-      this.setLogged(false);
-    }
   }
-
-  //Returns observable with user if loggedIn or not
-  public isLogged() : Observable<boolean> {
-    return this._isLoggedIn;
-  }
-
-  //Sets value that tracks if user is loggedIn or not
-  public setLogged(value:boolean) {
-    this._isLoggedIn.next(value);
-  }
-
 
   /*public test() : Observable<any> {
     return this.http.get<any>(environment.apiURL+'/test');
@@ -124,8 +94,6 @@ export class UserService {
     return this.http.post<any>(environment.apiURL +'/notifications/delete', {'id': id});
   } 
 
-
-
   //Returns the list of users (only indexes) matching the type : member,bureau,board
   public getUsersByType(type:'board'|'bureau'|'member'|'all') : Observable<number[]> {  
     //Type has to be one of: member, board, bureau 
@@ -141,8 +109,5 @@ export class UserService {
   public getMembers() : Observable<any[]> {  
     return this.http.get<any[]>(environment.apiURL +'/users/getmembers');
   }  
-
-
-
 
 }

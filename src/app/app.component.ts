@@ -24,7 +24,7 @@ export class AppComponent {
   user$  = this.userService.getCurrent();           //User data that is globally stored and sync
   user : User = new User(null);
 
-  isLoggedIn$ = this.userService.isLogged();
+  //isLoggedIn$ = this.userService.isLogged();
   isConfigDone$ = this.configService.isCompleted(); //Data download completion
   isMobile = true;//this.deviceService.isMobile();         //Detect if we are on a mobile device
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -38,22 +38,11 @@ export class AppComponent {
           this.selectedRoute = event.url;
       }
     }));
-    this._subscriptions.push(this.isLoggedIn$.subscribe(res=> {
-      console.log("YOU ARE LOGGED IN ? : "+ res);
-    }));
+
     this._subscriptions.push(this.configService.isCompleted().subscribe(res=> {
       console.log("Config Service completed:");
-      console.log(res);
+      //console.log(res);
     }));
-    
-    this._subscriptions.push(this.userService.getCurrent().subscribe(
-      (res:User)=> {
-        console.log("USER has changed !");
-        console.log(res);
-        this.user = res;
-        //this.user = res;
-      }
-    ));
   }
 
   //We are now logging out

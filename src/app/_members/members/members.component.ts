@@ -14,7 +14,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class MembersComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
-  isLogged: boolean = false;
   boards : User[] = new Array<User>();
   bureaus : User[] = new Array<User>();
   members : User[] = new Array<User>();
@@ -26,7 +25,6 @@ export class MembersComponent implements OnInit {
   constructor(private userService:UserService) {}
 
   ngOnInit() {
-    this.userService.isLogged().subscribe(res=> this.isLogged = res);
     //Load board
     this._subscriptions.push(this.userService.getUsersByType("board").subscribe((result) => {
         for (let i of result) {

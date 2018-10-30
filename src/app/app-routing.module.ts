@@ -10,16 +10,21 @@ import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
 import {MembersComponent} from './_members/members/members.component';
+import {AdminMembersComponent} from './_members/admin-members/admin-members.component';
 import {NotifsComponent} from './_notifs/notifs/notifs.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 
+//Guards
 import { LoggedInGuard } from './_guards/logged-in.guard';
 import { LoggedOutGuard } from './_guards/logged-out.guard';
+import { AlwaysAuthGuard} from './_guards/always-auth.guard';
+import { AdminGuard} from './_guards/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AlwaysAuthGuard]
   },
   {
     path: 'signup',
@@ -38,7 +43,8 @@ const routes: Routes = [
   }, 
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    canActivate: [AlwaysAuthGuard]
   },
   {
     path: 'profile',
@@ -57,8 +63,14 @@ const routes: Routes = [
   },   
   {
     path: 'members',
-    component: MembersComponent
-  },     
+    component: MembersComponent,
+    canActivate: [AlwaysAuthGuard]
+  },
+  {
+    path: 'admin-members',
+    component: AdminMembersComponent,
+    canActivate: [AdminGuard]
+  },  
   {
     path: 'materiel',
     component: ProductsComponent

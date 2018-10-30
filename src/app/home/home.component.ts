@@ -13,10 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-/*    this.userService.restoreAccount("sergi.redorta@hotmail.com","0623133212").subscribe(res=> {
-      console.log("Result from test :");
-      console.log(res);
-    });*/
+
     this.userService.getCurrent().subscribe(res=> {
       this.user = res;
       console.log("current user changed !")
@@ -24,11 +21,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-
-  //Update photo if we change it
- /* onImageChange(photo:string) {
-    this.avatar = photo;
-  }*/
 
   loginTest() {
     this.userService.login('sergi.redorta12@kubiiks.com','Member0',false,'Membre').subscribe(res=> {
