@@ -10,7 +10,7 @@ export class NiceDateFormatPipe implements PipeTransform {
     var dif = Math.floor( ( (Date.now() - _value) / 1000 ) / 86400 );
     if ( dif < 30 ){
          return convertToNiceDate(value);
-    }else{
+    } else{
         var datePipe = new DatePipe("en-US");
         value = datePipe.transform(value, 'dd-MMM-yyyy');
         return value;
@@ -22,8 +22,6 @@ function convertToNiceDate(time: string) {
   var date = new Date(time),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       daydiff = Math.floor(diff / 86400);
-      console.log(diff);
-  //console.log("diff is :" + diff);
   if (isNaN(daydiff) || daydiff < 0 || daydiff >= 31)
       return '';
 

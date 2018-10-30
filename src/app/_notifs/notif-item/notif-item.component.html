@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center" [ngClass]="{'is-not-read' : notif.isRead === 0}" class="container" (click)="$event.stopPropagation();">
+<div fxLayout="row" fxLayoutAlign="center center" [ngClass]="{'is-not-read' : notif.isRead === false}" class="container" (click)="$event.stopPropagation();">
   <small fxFlex="1 1 auto" (click)="_markAsRead()">{{notif.text}}</small>
   <small class="date">{{notif.created_at | niceDateFormat}}</small>
   <mat-icon matTooltip="Effaçer la notification" (click)="_delete()">delete</mat-icon>

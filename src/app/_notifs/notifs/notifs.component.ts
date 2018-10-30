@@ -1,5 +1,6 @@
 import { Component, OnInit,SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import {Location} from '@angular/common';
 import { UserService } from '../../_services/user.service';
 import {Notif} from '../../_models/notif';
 import { User } from '../../_models/user';
@@ -16,15 +17,15 @@ export class NotifsComponent implements OnInit {
   isAvailable : boolean = false;
   private _user : User = new User(null);
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService,private location : Location) { }
 
   ngOnInit() {
     this._subscriptions.push(this.userService.getCurrent().subscribe(res=>this._user = res));
     //Download user Notifs
     this._subscriptions.push(this.userService.notifications().subscribe(res => {
-      console.log("Notifications !!!!!!!!!!!");
-      console.log(res);
-      this.notifs = res;
+      for (let notif of res) {
+        this.notifs.push(new Notif(notif))
+      }
       this.isAvailable = true;
     }));    
   }
@@ -54,7 +55,9 @@ notifDelete(id) {
   }));
 
 }
-
+goBack() {
+  this.location.back();
+}
 ngOnDestroy() {    
   //Unsubscribe to all
   for (let subscription of this._subscriptions) {
