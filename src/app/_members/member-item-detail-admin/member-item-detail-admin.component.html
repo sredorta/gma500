@@ -1,0 +1,39 @@
+
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <mat-card>
+    <div  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="margin-left:10px">
+        <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:40px;height:40px;border-radius:50%"></div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center" style="font-weight:bold;font-size:18px">
+            <div style="margin-right:5px">{{member.lastName}}</div> 
+            <div>{{member.firstName}}</div>
+        </div>
+    </div>
+    <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Roles</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <div  fxLayout="row wrap">
+        <mat-chip-list [selectable]="false" style="padding:10px">
+            <div  *ngFor="let role of roles" [ngClass]="{'member-has-role' : hasRole(role.id)}">{{role.name}}</div>
+        </mat-chip-list>  
+    </div>
+    <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Comptes</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <div  fxLayout="row wrap">
+        <mat-chip-list [selectable]="false" style="padding:10px">
+            <mat-chip  *ngFor="let account of member.accounts">{{account.access}}</mat-chip>
+        </mat-chip-list>  
+    </div>
+    <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Groups</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <div  fxLayout="row wrap">
+        <mat-chip-list [selectable]="true" style="padding:10px">
+            <mat-chip  *ngFor="let group of member.groups">{{group}}</mat-chip>
+        </mat-chip-list>  
+    </div>    
+  </mat-card>
+    <!--<div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
+          <small *ngFor="let role of member.roles" [ngClass]="{'is-important' : role.id>1}">{{role.name}}</small>
+    </div>
+    <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
+            <small *ngFor="let account of member.accounts" [ngClass]="{'is-important' : account.access=='Admin'}">{{account.access}}</small>
+    </div>   -->         
+</div>  

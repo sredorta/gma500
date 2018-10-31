@@ -1,6 +1,7 @@
 import { Timestamp } from "rxjs";
 import {Role} from '../_models/role';
 import {Notif} from '../_models/notif';
+import {Account} from '../_models/account';
 
 import { getMatScrollStrategyAlreadyAttachedError } from "@angular/cdk/overlay/typings/scroll/scroll-strategy";
 
@@ -40,6 +41,7 @@ export class User {
     avatar: string;
     access: string;
     roles: Role[] = new Array<Role>();
+    accounts: Account[] = new Array<Account>();
     notifsUnreadCount: number = 0; 
     created_at: string;
     updated_at: string;  
@@ -79,6 +81,10 @@ export class User {
             for (let role of jsonObj.roles) {
                 this.roles.push(new Role(role));
             }
+        if (jsonObj.accounts != null)
+            for (let account of jsonObj.accounts) {
+                this.accounts.push(new Account(account));
+            }    
         this.notifsUnreadCount = jsonObj.notifsUnreadCount;
         /*if (jsonObj.notifications != null)
             for (let notif of jsonObj.notifications) {

@@ -79,6 +79,8 @@ import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
 import { NotifsComponent } from './_notifs/notifs/notifs.component';
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
 import { AdminMembersComponent } from './_members/admin-members/admin-members.component';
+import { MemberItemAdminComponent } from './_members/member-item-admin/member-item-admin.component';
+import { MemberItemDetailAdminComponent } from './_members/member-item-detail-admin/member-item-detail-admin.component';
 
 
 @NgModule({
@@ -106,7 +108,9 @@ import { AdminMembersComponent } from './_members/admin-members/admin-members.co
     NotifItemComponent,
     NotifsComponent,
     NiceDateFormatPipe,
-    AdminMembersComponent
+    AdminMembersComponent,
+    MemberItemAdminComponent,
+    MemberItemDetailAdminComponent
   ],
   imports: [
     BrowserModule,

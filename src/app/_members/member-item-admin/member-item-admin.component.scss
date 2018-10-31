@@ -1,0 +1,30 @@
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($admin-theme,primary);
+$accent: map-get($admin-theme,accent);
+
+
+.is-important {
+    color: mat-color($accent);
+    font-weight: bold;
+}
+
+.container {
+    background-color: white;
+    margin-top:2px;
+    padding:5px;
+    width:100%;
+    min-height:40px;
+    border-radius:5px;
+    border:1px solid rgba(0, 0, 0, 0.3);
+    color:rgba(0, 0, 0, 0.6)
+}
+
+//For devices suporting hover
+@media (hover: hover) {
+    .container:hover {
+        background-color:mat-color($primary,50);
+        cursor:pointer;
+        opacity: 1;
+    }
+}

@@ -1,4 +1,22 @@
-<div class="admin-theme">
+<div style="padding:20px" class="admin-theme">
+  <h1>Gestion d'utilizateurs</h1>
+  <mat-divider></mat-divider>
+  <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start start">
+    <div fxFlex="1 1 auto">
+      <div fxLayout="row" fxLayoutAlign="center center" class="title">
+          <div fxFlex="33%" fxLayoutAlign="center center"><small>NOM</small></div>
+          <div fxFlex="33%" fxLayoutAlign="center center"><small>ROLES</small></div>
+          <div fxFlex="33%" fxLayoutAlign="center center"><small>COMPTES</small></div>
+      </div>
+      <div class="users-list">
+        <app-member-item-admin *ngFor="let user of users" [member]="user" (selected)="updateSelected($event)"></app-member-item-admin>
+      </div>
+      <small>Total d'utilizateurs <span style="font-weight:bold">({{users.length}})</span></small>
+    </div>
+    <div style="min-width:250px;max-width:300px;border:1px solid red">
+        <app-member-item-detail-admin *ngIf="userSelected.id>0" [member]="userSelected" [roles]="roles"></app-member-item-detail-admin>
+    </div>
+  </div>
     <p>
         admin-members works!
     </p>

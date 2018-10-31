@@ -1,0 +1,30 @@
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px"class="container" (click)="_select()">
+        <div fxFlex="33%"  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" style="margin-left:10px">
+            <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:30px;height:30px;border-radius:50%"></div>
+            <div style="font-weight:bold;font-size:14px">
+              <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <div style="margin-right:5px">{{member.lastName}}</div> 
+                <div>{{member.firstName}}</div>
+              </div>
+            </div>
+        </div>
+        <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
+              <small *ngFor="let role of member.roles" [ngClass]="{'is-important' : role.id>1}">{{role.name}}</small>
+        </div>
+        <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
+                <small *ngFor="let account of member.accounts" [ngClass]="{'is-important' : account.access=='Admin'}">{{account.access}}</small>
+        </div>            
+    </div>  
+<!--        <div fxFlex="1 1 auto" style="height:60px">
+            <div *ngIf="!isMobile" fxLayoutAlign="space-around center">
+                    <button  mat-mini-fab color="white" class="scaled"><mat-icon aria-label="Message" (click)="redirectEmail()">email</mat-icon></button>   
+                    <button  mat-mini-fab color="white" class="scaled"><mat-icon aria-label="Call" (click)="redirectPhone()">phone</mat-icon></button>             
+                <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberEmail"><mat-icon>email</mat-icon></a>
+                <a class="button-special size-small" fxLayoutAlign="center center" [href]="memberPhone"><mat-icon>phone</mat-icon></a>
+                <div class="button-special size-small" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
+            </div>
+            <div *ngIf="isMobile" fxLayoutAlign="space-around center" fxLayout="column">
+                <div class="button-special size-medium" fxlayout="column" fxLayoutAlign="center center" (click)="openProfileDialog()"><mat-icon>more_horiz</mat-icon></div>
+            </div>     
+        </div>-->

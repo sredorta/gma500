@@ -20,6 +20,7 @@ export class AdminGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
+      return true; //////////TMP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       console.log("in AdminGuard !!!!!!!!!!!!!!!!!");
       if (this.isAdmin) return true;
       else {
