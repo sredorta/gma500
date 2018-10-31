@@ -11,15 +11,21 @@
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Roles</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div  fxLayout="row wrap">
-        <mat-chip-list [selectable]="false" style="padding:10px">
-            <div  *ngFor="let role of roles" [ngClass]="{'member-has-role' : hasRole(role.id)}">{{role.name}}</div>
+        <mat-chip-list style="padding:10px">
+          <ng-container *ngFor="let role of roles">
+            <mat-chip selected [color]="primary" *ngIf="hasRole(role.id)" (click)="_removeRole(role.id)">{{role.name}}<mat-icon>delete</mat-icon></mat-chip>
+            <mat-chip *ngIf="!hasRole(role.id)" (click)="_addRole(role.id)">{{role.name}}<mat-icon>library_add</mat-icon></mat-chip>
+          </ng-container>
         </mat-chip-list>  
     </div>
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Comptes</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div  fxLayout="row wrap">
-        <mat-chip-list [selectable]="false" style="padding:10px">
-            <mat-chip  *ngFor="let account of member.accounts">{{account.access}}</mat-chip>
+        <mat-chip-list style="padding:10px">
+            <ng-container *ngFor="let account of accounts">
+              <mat-chip selected [color]="primary" *ngIf="hasAccount(account)" (click)="_removeAccount(account)" >{{account}}<mat-icon>delete</mat-icon></mat-chip>
+              <mat-chip *ngIf="!hasAccount(account)" (click)="_addAccount(account)">{{account}}<mat-icon>library_add</mat-icon></mat-chip>
+            </ng-container>
         </mat-chip-list>  
     </div>
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Groups</mat-card-subtitle>
