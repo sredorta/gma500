@@ -10,7 +10,9 @@ import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './_authentication/profile/profile.component';
 import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
 import {MembersComponent} from './_members/members/members.component';
-import {AdminMembersComponent} from './_members/admin-members/admin-members.component';
+import {AdminMembersComponent} from './_admin/admin-members/admin-members.component';
+import {RolesAdminComponent} from './_admin/roles-admin/roles-admin.component';
+import {GroupsAdminComponent} from './_admin/groups-admin/groups-admin.component';
 import {NotifsComponent} from './_notifs/notifs/notifs.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 
@@ -71,6 +73,16 @@ const routes: Routes = [
     component: AdminMembersComponent,
     canActivate: [AdminGuard]
   },  
+  {
+    path: 'admin-roles',
+    component: RolesAdminComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'admin-groups',
+    component: GroupsAdminComponent,
+    canActivate: [AdminGuard]
+  },
   {
     path: 'materiel',
     component: ProductsComponent

@@ -78,9 +78,11 @@ import { AccountRemoveDialogComponent } from './_authentication/account-remove-d
 import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
 import { NotifsComponent } from './_notifs/notifs/notifs.component';
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
-import { AdminMembersComponent } from './_members/admin-members/admin-members.component';
-import { MemberItemAdminComponent } from './_members/member-item-admin/member-item-admin.component';
-import { MemberItemDetailAdminComponent } from './_members/member-item-detail-admin/member-item-detail-admin.component';
+import { AdminMembersComponent } from './_admin/admin-members/admin-members.component';
+import { MemberItemAdminComponent } from './_admin/member-item-admin/member-item-admin.component';
+import { MemberItemDetailAdminComponent } from './_admin/member-item-detail-admin/member-item-detail-admin.component';
+import { RolesAdminComponent } from './_admin/roles-admin/roles-admin.component';
+import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.component';
 
 
 @NgModule({
@@ -110,7 +112,9 @@ import { MemberItemDetailAdminComponent } from './_members/member-item-detail-ad
     NiceDateFormatPipe,
     AdminMembersComponent,
     MemberItemAdminComponent,
-    MemberItemDetailAdminComponent
+    MemberItemDetailAdminComponent,
+    RolesAdminComponent,
+    GroupsAdminComponent
   ],
   imports: [
     BrowserModule,

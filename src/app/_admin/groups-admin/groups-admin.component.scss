@@ -1,0 +1,4 @@
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($admin-theme,primary);
+$accent: map-get($admin-theme,accent);
