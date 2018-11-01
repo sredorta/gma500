@@ -3,6 +3,7 @@ import { AdminService } from '../../_services/admin.service';
 import { Router} from '@angular/router';
 import {User} from "../../_models/user";
 import {Role} from "../../_models/role";
+import {Group} from "../../_models/group";
 
 import { Subscription } from 'rxjs';
 import { Account } from '../../_models/account';
@@ -13,8 +14,9 @@ import { Account } from '../../_models/account';
   styleUrls: ['./admin-members.component.scss']
 })
 export class AdminMembersComponent implements OnInit {
-  users : User[] = new Array<User>();
-  roles : Role[] = new Array<Role>();
+  users : User[] = new Array<User>();     //All users with roles, groups...
+  roles : Role[] = new Array<Role>();     //Available roles
+  groups : Group[] = new Array<Group>();  //Available groups
   accounts : string[] = ["Pré-inscrit", "Membre", "Admin"];
   userSelected : User = new User(null);
   usersCount :number;
@@ -25,17 +27,27 @@ export class AdminMembersComponent implements OnInit {
   ngOnInit() {
     //Download all users with roles and accounts
     this._subscriptions.push(this.adminService.getUsers().subscribe((result) => {
+      console.log(result);
       for(let user of result) {
           this.users.push(new User(user));
       }
+      console.log(this.users);
     }));  
-    //Download all users with roles and accounts
+    //Download all available roles
     this._subscriptions.push(this.adminService.getRoles().subscribe((result) => {
       for(let role of result) {
           this.roles.push(new Role(role));
       }
       console.log(this.roles);
-    }));     
+    }));
+    //Download all available groups
+    this._subscriptions.push(this.adminService.getGroups().subscribe((result) => {
+      for(let group of result) {
+          this.groups.push(new Group(group));
+      }
+      console.log(this.groups);
+    }));    
+
   }
 
   updateSelected($event) {
@@ -44,38 +56,86 @@ export class AdminMembersComponent implements OnInit {
     console.log($event);
   }
 
-  //Handle Role actions
-  roleActionHandler(event) {
-    if (event.action == "add") {
-      //TODO:: Do the adminService first
-      let newRole = this.roles.find(i => i.id == event.role);
-      let user = this.users.find(i => i.id == event.id);
-      user.roles.push(newRole);
-    }
-    if (event.action == "remove") {
-      //TODO:: DO admin service
-      let newRole = this.roles.find(i => i.id == event.role);
-      let user = this.users.find(i => i.id == event.id);
-      let index = user.roles.indexOf(newRole);
-      user.roles.splice(index,1);
+  //Handle actions
+  actionHandler(event) {
+    switch(event.action) {
+      case "addRole":
+        this._addRole(event.id, event.role);
+        break;
+      case "removeRole":
+        this._removeRole(event.id, event.role);
+        break;
+      case "addAccount":
+        this._addAccount(event.id, event.account);
+        break;
+      case "removeAccount":
+        this._removeAccount(event.id, event.account);
+        break;
+      case "addGroup":
+        this._addGroup(event.id, event.group);
+        break;
+      case "removeGroup":
+        this._removeGroup(event.id, event.group);
+        break;
+      default:
+        console.log("undefined action !");  
     }
   }
 
-  //Handle Account actions
-  accountActionHandler(event) {
-    if (event.action == "add") {
-      //TODO:: Do the adminService first and get the new account data and push account
-      let myAccount = new Account({id:1000,profile_id:event.id,access:event.account})
+  //Adds a role to a user
+  private _addRole(user_id:number, role_id:number) {
+    this._subscriptions.push(this.adminService.addRoleToUser(user_id,role_id).subscribe());
+    let newRole = this.roles.find(i => i.id == role_id);
+    let user = this.users.find(i => i.id == user_id);
+    user.roles.push(newRole);
+  }
 
-      let user = this.users.find(i => i.id == event.id);
-      user.accounts.push(myAccount);    
-    }
-    if (event.action == "remove") {
-      let user = this.users.find(i => i.id == event.id);
-      let index = user.accounts.indexOf(user.accounts.find(i=> i.access == event.account));
-      user.accounts.splice(index,1);
-    }
-  } 
+  //Removes a role from a user
+  private _removeRole(user_id:number, role_id:number) {
+    this._subscriptions.push(this.adminService.removeRoleToUser(user_id,role_id).subscribe());
+    let newRole = this.roles.find(i => i.id == role_id);
+    let user = this.users.find(i => i.id == user_id);
+    let index = user.roles.indexOf(newRole);
+    user.roles.splice(index,1);
+  }
+
+  private _addAccount(user_id:number, access:string) {
+    this._subscriptions.push(this.adminService.addAccountToUser(user_id,access).subscribe((result:Account)=> {
+      console.log("Created account :");
+      console.log(result);
+      let account = new Account(result);
+      console.log(account);
+      //let myAccount = new Account({id:1000,profile_id:user_id,access:access})
+
+      let user = this.users.find(i => i.id == user_id);
+      user.accounts.push(account);    
+    }));
+
+
+  }
+  private _removeAccount(user_id:number, access:string) {
+    this._subscriptions.push(this.adminService.removeAccountToUser(user_id,access).subscribe());
+    let user = this.users.find(i => i.id == user_id);
+    let index = user.accounts.indexOf(user.accounts.find(i=> i.access == access));
+    user.accounts.splice(index,1);
+  }
+
+
+  private _addGroup(user_id:number, group_id:number) {
+    this._subscriptions.push(this.adminService.addGroupToUser(user_id,group_id).subscribe());
+    let newGroup = this.groups.find(i => i.id == group_id);
+    let user = this.users.find(i => i.id == user_id);
+    user.groups.push(newGroup);
+  }
+
+  private _removeGroup(user_id:number, group_id:number) {
+    this._subscriptions.push(this.adminService.removeGroupToUser(user_id,group_id).subscribe());
+    let newGroup = this.groups.find(i => i.id == group_id);
+    let user = this.users.find(i => i.id == user_id);
+    let index = user.groups.indexOf(newGroup);
+    user.groups.splice(index,1);
+  }
+
 
   ngOnDestroy() {    
     //Unsubscribe to all

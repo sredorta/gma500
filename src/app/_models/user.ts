@@ -1,5 +1,6 @@
 import { Timestamp } from "rxjs";
 import {Role} from '../_models/role';
+import {Group} from '../_models/group';
 import {Notif} from '../_models/notif';
 import {Account} from '../_models/account';
 
@@ -41,13 +42,12 @@ export class User {
     avatar: string;
     access: string;
     roles: Role[] = new Array<Role>();
+    groups: Group[] = new Array<Group>();
     accounts: Account[] = new Array<Account>();
+
     notifsUnreadCount: number = 0; 
     created_at: string;
     updated_at: string;  
-
-
-    groups : string[] = ["none"]
  
     //Returns if we have an user (i.e. we are logged in for current user!)
     isAvailable() :boolean {
@@ -85,11 +85,11 @@ export class User {
             for (let account of jsonObj.accounts) {
                 this.accounts.push(new Account(account));
             }    
+        if (jsonObj.groups != null)
+            for (let group of jsonObj.groups) {
+                this.groups.push(new Group(group));
+            }        
         this.notifsUnreadCount = jsonObj.notifsUnreadCount;
-        /*if (jsonObj.notifications != null)
-            for (let notif of jsonObj.notifications) {
-                this.notifs.push(new Notif(notif));
-            }    */
         this.created_at = jsonObj.created_at;
         this.updated_at = jsonObj.updated_at;
         }          

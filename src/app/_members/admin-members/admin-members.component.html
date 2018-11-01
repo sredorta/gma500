@@ -14,7 +14,7 @@
       <p>Total d'utilizateurs <span style="font-weight:bold">({{users.length}})</span></p>
     </div>
     <div style="min-width:250px;max-width:350px;border:1px solid red">
-        <app-member-item-detail-admin *ngIf="userSelected.id>0" [member]="userSelected" [roles]="roles" [accounts]="accounts" (actionRole)="roleActionHandler($event)" (actionAccount)="accountActionHandler($event)"></app-member-item-detail-admin>
+        <app-member-item-detail-admin *ngIf="userSelected.id>0" [member]="userSelected" [roles]="roles" [accounts]="accounts" [groups]="groups" (action)="actionHandler($event)"></app-member-item-detail-admin>
     </div>
   </div>
     <p>

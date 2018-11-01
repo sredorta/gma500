@@ -31,15 +31,12 @@
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Groups</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div  fxLayout="row wrap">
-        <mat-chip-list [selectable]="true" style="padding:10px">
-            <mat-chip  *ngFor="let group of member.groups">{{group}}</mat-chip>
+        <mat-chip-list style="padding:10px">
+          <ng-container *ngFor="let group of groups">
+            <mat-chip selected [color]="primary" *ngIf="hasGroup(group.id)" (click)="_removeGroup(group.id)">{{group.name}}<mat-icon>delete</mat-icon></mat-chip>
+            <mat-chip *ngIf="!hasGroup(group.id)" (click)="_addGroup(group.id)">{{group.name}}<mat-icon>library_add</mat-icon></mat-chip>
+          </ng-container>
         </mat-chip-list>  
-    </div>    
-  </mat-card>
-    <!--<div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
-          <small *ngFor="let role of member.roles" [ngClass]="{'is-important' : role.id>1}">{{role.name}}</small>
-    </div>
-    <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
-            <small *ngFor="let account of member.accounts" [ngClass]="{'is-important' : account.access=='Admin'}">{{account.access}}</small>
-    </div>   -->         
+    </div>  
+  </mat-card>        
 </div>  
