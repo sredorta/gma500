@@ -35,13 +35,24 @@ export class AdminService {
 
   //Adds a role to a profile
   public addRoleToUser(user_id:number, role_id:number) : Observable<any[]> {  
-    return this.http.post<any[]>(environment.apiURL +'/admin/roles/add',{profile_id:user_id,role_id:role_id});
+    return this.http.post<any[]>(environment.apiURL +'/admin/roles/attach',{profile_id:user_id,role_id:role_id});
   } 
 
   //Adds a role to a profile
   public removeRoleToUser(user_id:number, role_id:number) : Observable<any[]> {  
-    return this.http.post<any[]>(environment.apiURL +'/admin/roles/remove',{profile_id:user_id,role_id:role_id});
+    return this.http.post<any[]>(environment.apiURL +'/admin/roles/detach',{profile_id:user_id,role_id:role_id});
   }   
+
+  //Create a new role
+  public createRole(name:string, description:string) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/roles/create',{name:name, description:description});
+  } 
+  //Delete a role
+  public deleteRole(id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/roles/delete',{id:id});
+  }   
+
+
   //Adds a group to a profile
   public addGroupToUser(user_id:number, group_id:number) : Observable<any[]> {  
     return this.http.post<any[]>(environment.apiURL +'/admin/groups/add',{profile_id:user_id,group_id:group_id});
@@ -60,5 +71,7 @@ export class AdminService {
   public removeAccountToUser(user_id:number, access:string) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/accounts/remove',{profile_id:user_id,access:access});
   } 
+
+  
 
 }

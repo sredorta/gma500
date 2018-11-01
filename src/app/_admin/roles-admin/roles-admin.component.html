@@ -8,20 +8,44 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>Nouveau</mat-panel-title>
                   <mat-panel-description>Creer un role</mat-panel-description>
-                </mat-expansion-panel-header>        
-                <mat-form-field>
-                  <input matInput placeholder="First name">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput placeholder="Age">
-                </mat-form-field>
+                </mat-expansion-panel-header>   
+                <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+                    <mat-form-field appearance="outline" style="width:100%">
+                        <mat-label>Nom</mat-label>
+                        <input matInput formControlName="name" placeholder="Nom" required>
+                        <mat-hint>Nom du role</mat-hint>
+                        <mat-error *ngFor="let validation of validation_messages">
+                            <mat-error class="error-message" *ngIf="myForm.get('name').hasError(validation.type) && (myForm.get('name').dirty || myForm.get('name').touched)">{{validation.message}}</mat-error>
+                        </mat-error>                 
+                    </mat-form-field>  
+                    <mat-form-field appearance="outline" style="width:100%">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+                        <mat-hint>Description du role</mat-hint>
+                        <mat-error *ngFor="let validation of validation_messages">
+                            <mat-error class="error-message" *ngIf="myForm.get('description').hasError(validation.type) && (myForm.get('description').dirty || myForm.get('description').touched)">{{validation.message}}</mat-error>
+                        </mat-error>                 
+                    </mat-form-field>  
+                    <app-message [visible]='httpMsgVisible' [message]="httpMsgText" [type]="httpMsgType"></app-message>
+                    <div fxLayoutAlign="center center" fxLayoutGap="20px" style="padding:10px">
+                        <button mat-button type="reset" (click)="reset()" color="primary" [disabled]="loading">ANNULER</button>
+                        <button mat-raised-button type="submit" color="primary" [disabled]="loading" [disabled]="loading">OK</button>
+                    </div>
+                </form>                     
               </mat-expansion-panel>
         </mat-accordion>  
+        <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+        <div fxLayout="row" fxLayoutGap="5px" class="item-header">
+            <div fxLayoutAlign="center center" fxFlex="10%"><small>ID</small></div>
+            <div fxLayoutAlign="center center" fxFlex="30%"><small>NAME</small></div>
+            <div fxLayoutAlign="start center" fxFlex="60%"><small>DESCRIPTION</small></div>
+            <div fxLayoutAlign="start center" style="min-width:50px"><small>DELETE</small></div>
+        </div>        
         <div *ngFor="let role of roles" fxLayout="row" fxLayoutGap="5px" class="item-container">
           <div fxLayoutAlign="center center" fxFlex="10%"><small>{{role.id}}</small></div>
           <div fxLayoutAlign="center center" fxFlex="30%"><small>{{role.name}}</small></div>
           <div fxLayoutAlign="start center" fxFlex="60%"><small>{{role.description}}</small></div>
-          <div fxLayoutAlign="center center" style="width:30px" (click)="deleteRole(role.id)"><mat-icon>delete</mat-icon></div>
+          <button mat-mini-fab class="scaled" (click)="deleteRole(role.id)"><mat-icon>delete</mat-icon></button>
         </div>
       </div>    
     </div>
