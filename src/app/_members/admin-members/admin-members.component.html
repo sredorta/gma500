@@ -4,9 +4,10 @@
   <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start start">
     <div fxFlex="1 1 auto">
       <div fxLayout="row" fxLayoutAlign="center center" class="title">
-          <div fxFlex="33%" fxLayoutAlign="center center"><small>NOM</small></div>
-          <div fxFlex="33%" fxLayoutAlign="center center"><small>ROLES</small></div>
-          <div fxFlex="33%" fxLayoutAlign="center center"><small>COMPTES</small></div>
+          <div fxFlex="25%" fxLayoutAlign="center center"><small>NOM</small></div>
+          <div fxFlex="20%" fxLayoutAlign="center center"><small>ROLES</small></div>
+          <div fxFlex="20%" fxLayoutAlign="center center"><small>COMPTES</small></div>
+          <div fxFlex="35%" fxLayoutAlign="center center"><small>GROUPS</small></div>
       </div>
       <div class="users-list">
         <app-member-item-admin *ngFor="let user of users" [member]="user" (selected)="updateSelected($event)"></app-member-item-admin>

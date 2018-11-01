@@ -8,10 +8,11 @@ $accent: map-get($admin-theme,accent);
     padding-top:0px;
     overflow-y:auto;
     height: 300px;
-    min-width:280px;
+    width:600px;
 }
 
 .title {
+    width:600px;
     height:20px;
     background-color: mat-color($primary);
     font-weight: bold;
