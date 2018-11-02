@@ -1,7 +1,7 @@
 
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
-  <mat-card>
-    <div  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="margin-left:10px">
+  <div>
+    <div  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="margin-left:10px;margin-bottom:20px">
         <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:40px;height:40px;border-radius:50%"></div>
         <div fxLayout="row wrap" fxLayoutAlign="start center" style="font-weight:bold;font-size:18px">
             <div style="margin-right:5px">{{member.lastName}}</div> 
@@ -13,8 +13,8 @@
     <div  fxLayout="row wrap">
         <mat-chip-list style="padding:10px">
           <ng-container *ngFor="let role of roles">
-            <mat-chip selected [color]="primary" *ngIf="hasRole(role.id)" (click)="_removeRole(role.id)">{{role.name}}<mat-icon>delete</mat-icon></mat-chip>
-            <mat-chip *ngIf="!hasRole(role.id)" (click)="_addRole(role.id)">{{role.name}}<mat-icon>library_add</mat-icon></mat-chip>
+            <mat-chip [ngClass]="{'loading' : loading}" selected [color]="primary" *ngIf="hasRole(role.id)" (click)="_removeRole(role.id)">{{role.name}}<mat-icon>delete</mat-icon></mat-chip>
+            <mat-chip [ngClass]="{'loading' : loading}" *ngIf="!hasRole(role.id)" (click)="_addRole(role.id)">{{role.name}}<mat-icon>library_add</mat-icon></mat-chip>
           </ng-container>
         </mat-chip-list>  
     </div>
@@ -23,8 +23,8 @@
     <div  fxLayout="row wrap">
         <mat-chip-list style="padding:10px">
             <ng-container *ngFor="let account of accounts">
-              <mat-chip selected [color]="primary" *ngIf="hasAccount(account)" (click)="_removeAccount(account)" >{{account}}<mat-icon>delete</mat-icon></mat-chip>
-              <mat-chip *ngIf="!hasAccount(account)" (click)="_addAccount(account)">{{account}}<mat-icon>library_add</mat-icon></mat-chip>
+              <mat-chip [ngClass]="{'loading' : loading}" selected [color]="primary" *ngIf="hasAccount(account)" (click)="_removeAccount(account)" >{{account}}<mat-icon>delete</mat-icon></mat-chip>
+              <mat-chip [ngClass]="{'loading' : loading}" *ngIf="!hasAccount(account)" (click)="_addAccount(account)">{{account}}<mat-icon>library_add</mat-icon></mat-chip>
             </ng-container>
         </mat-chip-list>  
     </div>
@@ -33,10 +33,10 @@
     <div  fxLayout="row wrap">
         <mat-chip-list style="padding:10px">
           <ng-container *ngFor="let group of groups">
-            <mat-chip selected [color]="primary" *ngIf="hasGroup(group.id)" (click)="_removeGroup(group.id)">{{group.name}}<mat-icon>delete</mat-icon></mat-chip>
-            <mat-chip *ngIf="!hasGroup(group.id)" (click)="_addGroup(group.id)">{{group.name}}<mat-icon>library_add</mat-icon></mat-chip>
+            <mat-chip [ngClass]="{'loading' : loading}" selected [color]="primary" *ngIf="hasGroup(group.id)" (click)="_removeGroup(group.id)">{{group.name}}<mat-icon>delete</mat-icon></mat-chip>
+            <mat-chip [ngClass]="{'loading' : loading}" *ngIf="!hasGroup(group.id)" (click)="_addGroup(group.id)">{{group.name}}<mat-icon>library_add</mat-icon></mat-chip>
           </ng-container>
         </mat-chip-list>  
     </div>  
-  </mat-card>        
+  </div>     
 </div>  

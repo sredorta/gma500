@@ -1,8 +1,26 @@
 <div style="padding:20px" class="admin-theme">
   <h1>Gestion d'utilizateurs</h1>
   <mat-divider></mat-divider>
-  <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start start">
-    <div fxFlex="1 1 auto">
+  <div fxLayoutAlign="center center">
+    <div style="min-width:300px;max-width:600px">
+      <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title *ngIf="!userSelected.id>0">Selection</mat-panel-title>
+                <mat-panel-description *ngIf="!userSelected.id>0">Pas de selection</mat-panel-description>
+                <mat-panel-title *ngIf="userSelected.id>0">Selection</mat-panel-title>
+                <mat-panel-description *ngIf="userSelected.id>0">
+                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                        <div mat-card-avatar [style.backgroundImage]="userSelected.avatar" style="background-size:cover;width:20px;height:20px;border-radius:50%"></div>
+                        <div>{{userSelected.lastName}} {{userSelected.firstName}}</div> 
+                      </div>                  
+                </mat-panel-description>
+
+              </mat-expansion-panel-header>   
+              <app-member-item-detail-admin *ngIf="userSelected.id>0" [loading]="loading" [member]="userSelected" [roles]="roles" [accounts]="accounts" [groups]="groups" (action)="actionHandler($event)"></app-member-item-detail-admin>
+            </mat-expansion-panel>
+      </mat-accordion>  
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
       <div fxLayout="row" fxLayoutAlign="center center" class="title">
           <div fxFlex="25%" fxLayoutAlign="center center"><small>NOM</small></div>
           <div fxFlex="20%" fxLayoutAlign="center center"><small>ROLES</small></div>
@@ -14,18 +32,7 @@
       </div>
       <p>Total d'utilizateurs <span style="font-weight:bold">({{users.length}})</span></p>
     </div>
-    <div style="min-width:250px;max-width:350px;border:1px solid red">
-        <app-member-item-detail-admin *ngIf="userSelected.id>0" [member]="userSelected" [roles]="roles" [accounts]="accounts" [groups]="groups" (action)="actionHandler($event)"></app-member-item-detail-admin>
-    </div>
   </div>
-    <p>
-        admin-members works!
-    </p>
-    <mat-card style="width:200px"><small>This is a test of a card</small></mat-card>
-    <h1>Header</h1>
-    <button mat-raised-button color="primary">Primary</button>
-    <button mat-raised-button color="accent">Secondary</button>
-    <button mat-raised-button color="warn">Warn</button>
 </div>
 
 

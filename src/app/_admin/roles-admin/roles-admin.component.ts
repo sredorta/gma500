@@ -67,7 +67,8 @@ export class RolesAdminComponent implements OnInit {
       this.loading = false;
       this.roles.push(new Role(result));
     }, error => {
-        this.httpMsgText = "Le champ 'nom' ne peut pas avoir un duplique";
+      console.log(error);
+        this.httpMsgText = error;
         this.httpMsgType = "error";
         this.httpMsgVisible = true;
         this.loading = false;

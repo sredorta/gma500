@@ -18,6 +18,7 @@ export class AdminMembersComponent implements OnInit {
   roles : Role[] = new Array<Role>();     //Available roles
   groups : Group[] = new Array<Group>();  //Available groups
   accounts : string[] = ["Pré-inscrit", "Membre", "Admin"];
+  loading : boolean = false;
   userSelected : User = new User(null);
   usersCount :number;
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -26,26 +27,24 @@ export class AdminMembersComponent implements OnInit {
 
   ngOnInit() {
     //Download all users with roles and accounts
+    this.loading = true;
     this._subscriptions.push(this.adminService.getUsers().subscribe((result) => {
-      console.log(result);
       for(let user of result) {
           this.users.push(new User(user));
       }
-      console.log(this.users);
+      this.loading = false;
     }));  
     //Download all available roles
     this._subscriptions.push(this.adminService.getRoles().subscribe((result) => {
       for(let role of result) {
           this.roles.push(new Role(role));
       }
-      console.log(this.roles);
     }));
     //Download all available groups
     this._subscriptions.push(this.adminService.getGroups().subscribe((result) => {
       for(let group of result) {
           this.groups.push(new Group(group));
       }
-      console.log(this.groups);
     }));    
 
   }
@@ -84,7 +83,10 @@ export class AdminMembersComponent implements OnInit {
 
   //Adds a role to a user
   private _addRole(user_id:number, role_id:number) {
-    this._subscriptions.push(this.adminService.addRoleToUser(user_id,role_id).subscribe());
+    this.loading = true;
+    this._subscriptions.push(this.adminService.addRoleToUser(user_id,role_id).subscribe(() => {
+      this.loading = false;
+    }));
     let newRole = this.roles.find(i => i.id == role_id);
     let user = this.users.find(i => i.id == user_id);
     user.roles.push(newRole);
@@ -92,7 +94,10 @@ export class AdminMembersComponent implements OnInit {
 
   //Removes a role from a user
   private _removeRole(user_id:number, role_id:number) {
-    this._subscriptions.push(this.adminService.removeRoleToUser(user_id,role_id).subscribe());
+    this.loading = true;
+    this._subscriptions.push(this.adminService.removeRoleToUser(user_id,role_id).subscribe(() => {
+      this.loading = false;
+    }));
     let newRole = this.roles.find(i => i.id == role_id);
     let user = this.users.find(i => i.id == user_id);
     let index = user.roles.indexOf(newRole);
@@ -100,21 +105,24 @@ export class AdminMembersComponent implements OnInit {
   }
 
   private _addAccount(user_id:number, access:string) {
+    this.loading = true;
     this._subscriptions.push(this.adminService.addAccountToUser(user_id,access).subscribe((result:Account)=> {
-      console.log("Created account :");
-      console.log(result);
       let account = new Account(result);
-      console.log(account);
-      //let myAccount = new Account({id:1000,profile_id:user_id,access:access})
-
       let user = this.users.find(i => i.id == user_id);
       user.accounts.push(account);    
+      this.loading = false;
+    },
+    () => {
+      this.loading = false;
     }));
 
 
   }
   private _removeAccount(user_id:number, access:string) {
-    this._subscriptions.push(this.adminService.removeAccountToUser(user_id,access).subscribe());
+    this.loading = true;
+    this._subscriptions.push(this.adminService.removeAccountToUser(user_id,access).subscribe(() => {
+      this.loading = false;
+    }));
     let user = this.users.find(i => i.id == user_id);
     let index = user.accounts.indexOf(user.accounts.find(i=> i.access == access));
     user.accounts.splice(index,1);
@@ -122,14 +130,20 @@ export class AdminMembersComponent implements OnInit {
 
 
   private _addGroup(user_id:number, group_id:number) {
-    this._subscriptions.push(this.adminService.addGroupToUser(user_id,group_id).subscribe());
+    this.loading = true;
+    this._subscriptions.push(this.adminService.addGroupToUser(user_id,group_id).subscribe(() => {
+      this.loading = false;
+    }));
     let newGroup = this.groups.find(i => i.id == group_id);
     let user = this.users.find(i => i.id == user_id);
     user.groups.push(newGroup);
   }
 
   private _removeGroup(user_id:number, group_id:number) {
-    this._subscriptions.push(this.adminService.removeGroupToUser(user_id,group_id).subscribe());
+    this.loading = true;
+    this._subscriptions.push(this.adminService.removeGroupToUser(user_id,group_id).subscribe(() => {
+      this.loading = false;
+    }));
     let newGroup = this.groups.find(i => i.id == group_id);
     let user = this.users.find(i => i.id == user_id);
     let index = user.groups.indexOf(newGroup);

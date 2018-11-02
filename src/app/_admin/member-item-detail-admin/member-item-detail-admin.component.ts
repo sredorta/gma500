@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges,ElementRef, ViewChild, HostListener } from '@angular/core';
 import {User} from '../../_models/user';
 import {Role} from '../../_models/role';
 import {Group} from '../../_models/group';
@@ -15,10 +14,16 @@ export class MemberItemDetailAdminComponent implements OnInit {
   @Input() roles : Role[] = new Array<Role>();
   @Input() groups : Group[] = new Array<Group>();
   @Input() accounts: Array<string> = new Array<string>();
+  @Input() loading: boolean = false; 
   @Output() action = new EventEmitter<any>();
 
-  constructor() { 
 
+  constructor() { 
+  }
+
+  //Update html
+  ngOnChanges(changes: SimpleChanges) {
+    //this.loading = changes.loading.currentValue;
   }
 
   ngOnInit() {
@@ -45,25 +50,31 @@ export class MemberItemDetailAdminComponent implements OnInit {
 
   //Emit outputs
   private _removeRole(role:number) {
+    if (!this.loading)
     this.action.emit({action:"removeRole", role:role, id:this.member.id});
   }
 
   private _addRole(role:number) {
+    if (!this.loading)
     this.action.emit({action:"addRole", role:role, id:this.member.id});
   }
 
   private _removeAccount(account:string) {
+    if (!this.loading)
     this.action.emit({action:"removeAccount", account:account, id:this.member.id});
   }
 
   private _addAccount(account:string) {
+    if (!this.loading)
     this.action.emit({action:"addAccount", account:account, id:this.member.id});
   }
 
   private _removeGroup(group:number) {
+    if (!this.loading)
     this.action.emit({action:"removeGroup", group:group, id:this.member.id});
   }
   private _addGroup(group:number) {
+    if (!this.loading)
     this.action.emit({action:"addGroup", group:group, id:this.member.id});
   }  
 
