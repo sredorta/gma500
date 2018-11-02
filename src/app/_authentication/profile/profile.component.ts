@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrent().subscribe(res=> {
       console.log("In getCurrentUser of profile");
+      console.log(res);
       this.title = res.getFormattedRoles();
     });
   }

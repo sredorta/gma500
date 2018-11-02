@@ -6,16 +6,9 @@
       <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title *ngIf="!userSelected.id>0">Selection</mat-panel-title>
+                <mat-panel-title>Selection</mat-panel-title>
                 <mat-panel-description *ngIf="!userSelected.id>0">Pas de selection</mat-panel-description>
-                <mat-panel-title *ngIf="userSelected.id>0">Selection</mat-panel-title>
-                <mat-panel-description *ngIf="userSelected.id>0">
-                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-                        <div mat-card-avatar [style.backgroundImage]="userSelected.avatar" style="background-size:cover;width:20px;height:20px;border-radius:50%"></div>
-                        <div>{{userSelected.lastName}} {{userSelected.firstName}}</div> 
-                      </div>                  
-                </mat-panel-description>
-
+                <mat-panel-description *ngIf="userSelected.id>0">{{userSelected.lastName}} {{userSelected.firstName}}</mat-panel-description>
               </mat-expansion-panel-header>   
               <app-member-item-detail-admin *ngIf="userSelected.id>0" [loading]="loading" [member]="userSelected" [roles]="roles" [accounts]="accounts" [groups]="groups" (action)="actionHandler($event)"></app-member-item-detail-admin>
             </mat-expansion-panel>

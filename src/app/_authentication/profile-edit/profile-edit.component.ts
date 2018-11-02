@@ -22,8 +22,8 @@ import {User} from '../../_models/user';
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-  //@Input() user : User;
-  user: User = new User(null);
+  @Input() user : User;
+  //user: User = new User(null);
 
   loading = false;        //Tells html we are loading
   httpMsgVisible = false; //Tells html to show result message
@@ -47,8 +47,8 @@ export class ProfileEditComponent implements OnInit {
 
   constructor() {
     //This is temp to test
-    this.user.firstName = "Test";
-    this.user.lastName = "kiki";
+    //this.user.firstName = "Test";
+    //this.user.lastName = "kiki";
    }
   createForms() {
     this.firstFG =  new FormGroup({    
@@ -74,14 +74,12 @@ export class ProfileEditComponent implements OnInit {
   //Reset the form
   resetFormFirst() {
     this.firstExpansionPanel.close();
-    this.firstFG.get("firstName").setValue(this.user.firstName);
     this.httpMsgVisible = false;
   }
 
  //Reset the form
  resetFormLast() {
   this.lastExpansionPanel.close();
-  this.lastFG.get("lastName").setValue(this.user.lastName);
   this.httpMsgVisible = false;
 }  
 
