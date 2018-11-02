@@ -63,6 +63,22 @@ export class UserService {
     return this.http.post<UserTokenInterface>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar}).map(res => <UserTokenInterface>res);
   }
 
+  //Updates the logged in user profile
+  public update(user : User, password_old?:string) : Observable<any> {   
+    if (user.firstName != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {firstName:user.firstName});
+    if (user.lastName != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {lastName:user.lastName});
+    if (user.mobile != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {mobile:user.mobile});
+    if (user.avatar != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {avatar:user.avatar});
+    if (user.email != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {email:user.email});
+    if (user.password != null)
+      return this.http.post<any>(environment.apiURL +'/auth/update', {password_new:user.password,password_old:password_old});
+  }
+
 
   //Resets password and send email to user
   public resetPassword(email:string,access:string) : Observable<any> {

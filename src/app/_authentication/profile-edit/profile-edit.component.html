@@ -4,7 +4,7 @@
         <mat-panel-title>Prénom</mat-panel-title>
         <mat-panel-description>Modifier mon Prénom</mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="firstFG" (ngSubmit)="onSubmit(firstFG.value)" novalidate> 
+      <form [formGroup]="firstFG" (ngSubmit)="onSubmit(firstFG.value, firstFG)" novalidate> 
           <mat-form-field appearance="outline" style="width:100%">
               <mat-label>Prénom</mat-label>
               <input matInput formControlName="firstName" placeholder="Prénom" required>
@@ -15,7 +15,7 @@
           </mat-form-field>
         <div fxLayoutAlign="end end" style="width:100%">
             <div fxLayoutAlign="center center" fxLayoutGap="20px">
-                <button mat-button type="reset" (click)="resetFormFirst()" color="primary">ANNULER</button>
+                <button mat-button type="reset" (click)="resetForm(firstFG)" color="primary">ANNULER</button>
                 <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
             </div>          
         </div>
@@ -26,7 +26,7 @@
         <mat-panel-title>Nom</mat-panel-title>
         <mat-panel-description>Modifier mon Nom</mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="lastFG" (ngSubmit)="onSubmit(lastFG.value)" novalidate> 
+      <form [formGroup]="lastFG" (ngSubmit)="onSubmit(lastFG.value, lastFG)" novalidate> 
           <mat-form-field appearance="outline" style="width:100%">
               <mat-label>Nom</mat-label>
               <input matInput formControlName="lastName" placeholder="Nom" required>
@@ -37,14 +37,122 @@
           </mat-form-field>
         <div fxLayoutAlign="end end" style="width:100%">
             <div fxLayoutAlign="center center" fxLayoutGap="20px">
-                <button mat-button type="reset" (click)="resetFormLast()" color="primary" >ANNULER</button>
+                <button mat-button type="reset" (click)="resetForm(lastFG)" color="primary" >ANNULER</button>
                 <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
             </div>          
         </div>
       </form>
   </mat-expansion-panel>
 
+  <mat-expansion-panel #expandedPanel2>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Avatar</mat-panel-title>
+        <mat-panel-description>Modifier mon avatar</mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="avatarFG" (ngSubmit)="onSubmit({'avatar':avatar}, lastFG)" novalidate>
+        <app-input-image (onImageChange)="onImageChange($event)" [defaultImg]="avatar" style="margin:5px"></app-input-image>
 
+        <div fxLayoutAlign="end end" style="width:100%">
+            <div fxLayoutAlign="center center" fxLayoutGap="20px">
+                <button mat-button type="reset" color="primary" >ANNULER</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
+            </div>          
+        </div>
+      </form>
+  </mat-expansion-panel>  
+
+  <mat-expansion-panel #expandedPanel3>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Email</mat-panel-title>
+        <mat-panel-description>Modifier mon email</mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="emailFG" (ngSubmit)="onSubmit(emailFG.value, emailFG)" novalidate> 
+          <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="Email" required>
+              <mat-hint>Écrivez votre adresse email</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="emailFG.get('email').hasError(validation.type) && (emailFG.get('email').dirty || emailFG.get('email').touched)">{{validation.message}}</mat-error>
+              </mat-error>                 
+          </mat-form-field>
+        <div fxLayoutAlign="end end" style="width:100%">
+            <div fxLayoutAlign="center center" fxLayoutGap="20px">
+                <button mat-button type="reset" (click)="resetForm(emailFG)" color="primary" >ANNULER</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
+            </div>          
+        </div>
+      </form>
+  </mat-expansion-panel>  
+
+  <mat-expansion-panel #expandedPanel4>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Mobile</mat-panel-title>
+        <mat-panel-description>Modifier mon numero</mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="mobileFG" (ngSubmit)="onSubmit(mobileFG.value, emailFG)" novalidate> 
+          <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Mobile</mat-label>
+              <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber="true" required>
+              <mat-hint>Écrivez votre numero de portable</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="mobileFG.get('mobile').hasError(validation.type) && (mobileFG.get('mobile').dirty || mobileFG.get('mobile').touched)">{{validation.message}}</mat-error>
+              </mat-error>                 
+          </mat-form-field>
+        <div fxLayoutAlign="end end" style="width:100%">
+            <div fxLayoutAlign="center center" fxLayoutGap="20px">
+                <button mat-button type="reset" (click)="resetForm(mobileFG)" color="primary" >ANNULER</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
+            </div>          
+        </div>
+      </form>
+  </mat-expansion-panel>  
+
+  <mat-expansion-panel #expandedPanel5>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Password</mat-panel-title>
+        <mat-panel-description>Modifier mon mot de passe</mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="passFG" (ngSubmit)="onSubmit(passFG.value, passFG)" novalidate> 
+          <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Ancien mot de passe</mat-label>
+              <input matInput formControlName="password_old" placeholder="Ancien mot de passe" required type="password">
+              <mat-hint>Écrivez votre nom</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="passFG.get('password_old').hasError(validation.type) && (passFG.get('password_old').dirty || passFG.get('password_old').touched)">{{validation.message}}</mat-error>
+              </mat-error>                 
+          </mat-form-field>
+
+          <div formGroupName="matching_passwords_group">
+              <p>  
+                <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Mot de passe</mat-label>
+                  <input matInput formControlName="password" placeholder="Mot de passe" required type="password">
+                  <mat-hint>Écrivez votre mot de passe</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                      <mat-error class="error-message" *ngIf="passFG.get('matching_passwords_group').get('password').hasError(validation.type) && (passFG.get('matching_passwords_group').get('password').dirty || passFG.get('matching_passwords_group').get('password').touched)">{{validation.message}}</mat-error>
+                  </mat-error>                 
+                </mat-form-field>
+              </p>     
+              <p>  
+                  <mat-form-field appearance="outline" style="width:100%">
+                      <mat-label>Confirmation mot de passe</mat-label>
+                    <input matInput formControlName="confirm_password" placeholder="Confirmation mot de passe" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
+                    <mat-hint>Confirmez votre mot de passe</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="(passFG.get('matching_passwords_group').hasError(validation.type)||passFG.get('matching_passwords_group').get('confirm_password').hasError(validation.type)) && (passFG.get('matching_passwords_group').get('confirm_password').dirty || passFG.get('matching_passwords_group').get('confirm_password').touched)">{{validation.message}}</mat-error>
+                    </mat-error>                 
+                  </mat-form-field>
+                </p> 
+          </div>
+
+        <div fxLayoutAlign="end end" style="width:100%">
+            <div fxLayoutAlign="center center" fxLayoutGap="20px">
+                <button mat-button type="reset" (click)="resetForm(passFG)" color="primary" >ANNULER</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="loading">APPLIQUER</button>
+            </div>          
+        </div>
+      </form>
+  </mat-expansion-panel>
     <!--
             <mat-expansion-panel (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false">

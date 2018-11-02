@@ -17,13 +17,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             console.log("We are in interceptor");
             console.log(err);
             //Handle token expired
-            if (err.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException') {
+            if (err.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
+                err.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
                 console.log("TOKEN EXPIRED !!!!");
                 this.userService.logout();
                 User.removeToken();
                 this.userService.setCurrent(new User(null));
                 this.router.navigate(['/login']);
             } 
+
             //Here we transform all error messages to user readable messages
             let formattedMessage : string = ""
             switch (err.error.message) {
