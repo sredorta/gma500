@@ -8,6 +8,16 @@
             <div>{{member.firstName}}</div>
         </div>
     </div>
+
+      <div  fxLayout="column" fxLayoutAlign="center start" style="padding:10px">
+        <p class="detail">EMAIL:</p>
+        <p class="box">{{member.email}}</p>
+        <p class="detail">MOBILE:</p>
+        <p class="box">{{member.mobile}}</p>
+        <p class="detail">CRÉATION:</p>
+        <p class="box">{{member.created_at | niceDateFormat}}</p>
+      </div>
+
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Comptes</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div  fxLayout="column" fxLayoutGap="10px" style="padding:10px">

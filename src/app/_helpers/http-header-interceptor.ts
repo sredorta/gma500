@@ -32,11 +32,11 @@ import {
             }) );
       } 
 */
-if (token !== null && token != undefined) {
-  return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
-} else {
-  return next.handle( req.clone() );
-}
+      if (token !== null && token != undefined) {
+        return next.handle( req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token)}) );
+      } else {
+        return next.handle( req.clone() );
+      }
 
     }
   }

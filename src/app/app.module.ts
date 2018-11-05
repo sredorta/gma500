@@ -83,6 +83,7 @@ import { MemberItemAdminComponent } from './_admin/member-item-admin/member-item
 import { MemberItemDetailAdminComponent } from './_admin/member-item-detail-admin/member-item-detail-admin.component';
 import { RolesAdminComponent } from './_admin/roles-admin/roles-admin.component';
 import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.component';
+import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.component';
 
 
 @NgModule({
@@ -114,7 +115,8 @@ import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.compone
     MemberItemAdminComponent,
     MemberItemDetailAdminComponent,
     RolesAdminComponent,
-    GroupsAdminComponent
+    GroupsAdminComponent,
+    ErrorSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +162,7 @@ import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.compone
       MatTooltipModule,
       MatTreeModule],          
   ],
-  entryComponents: [TermsDialogComponent, AccountRemoveDialogComponent, ProfileDialogComponent],
+  entryComponents: [TermsDialogComponent, AccountRemoveDialogComponent, ProfileDialogComponent, ErrorSheetComponent],
   providers: [
     HttpService, ConfigService, UserService, ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 

@@ -1,0 +1,16 @@
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+$warn : map-get($main-app-theme,warn);
+
+mat-icon {
+    transform:scale(1.2);
+}
+.http-alert-message {
+    color:rgb(252, 74, 74);
+}
+
+.http-success-message {
+    color:rgb(29, 141, 76);
+}
