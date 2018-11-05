@@ -1,6 +1,9 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
+
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
 import {Group} from "../../_models/group";
@@ -21,7 +24,7 @@ export class GroupsAdminComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, public dialog: MatDialog) { }
 
   //Update html
   ngOnChanges(changes: SimpleChanges) {
@@ -70,14 +73,26 @@ export class GroupsAdminComponent implements OnInit {
 
   }
 
-  deleteGroup(id:number) {
+  deleteGroup(id:number) { 
     this.loading = true;
-    this._subscriptions.push(this.adminService.deleteGroup(id).subscribe(result=>{
-      this.loading = false;
-      let group = this.groups.find(i => i.id == id);
-      let index = this.groups.indexOf(group);
-      this.groups.splice(index,1);      
-    }));    
+    let dialogRef = this.dialog.open(MakeSureDialogComponent, {
+      disableClose :true,
+      data:  {title: "Suprimer un groupe",
+              text:"Attention quand vous suprimez un groupe tous les utilizateurs avec ce groupe n'auront plus le groupe supprimé"
+            } 
+    });
+    this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
+      if (result) {    
+        this._subscriptions.push(this.adminService.deleteGroup(id).subscribe(result=>{
+          this.loading = false;
+          let group = this.groups.find(i => i.id == id);
+          let index = this.groups.indexOf(group);
+          this.groups.splice(index,1);      
+        }));    
+      } else {
+        this.loading = false;
+      }
+    }));
   }
 
   ngOnDestroy() {    

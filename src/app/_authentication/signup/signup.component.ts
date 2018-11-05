@@ -22,10 +22,13 @@ import {User} from '../../_models/user';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
+
 export class SignupComponent implements OnInit {
   myForm: FormGroup; 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
+
+  highlight : boolean = false ; //Highlight terms and conditions
 
   loading = false;        //Tells html we are loading
   avatar : string = './assets/img/user-default.jpg';
@@ -73,6 +76,7 @@ export class SignupComponent implements OnInit {
   //Reset the form
   resetForm() {
     this.myForm.reset();
+    this.highlight = false;
   }
   
   ngOnInit() {
@@ -104,6 +108,7 @@ export class SignupComponent implements OnInit {
 
   //From submit
   onSubmit(value) {
+    this.highlight = false;
     //Handle invalid form
     if (this.myForm.invalid) {
       return;
@@ -112,6 +117,7 @@ export class SignupComponent implements OnInit {
     //Handle terms
     if (!this.terms) {
       //TODO add something on terms !!!! to hightlight !!!!
+      this.highlight = true;
       return;
     }
 
@@ -136,4 +142,6 @@ export class SignupComponent implements OnInit {
       data:  null 
     });
   }
+
+  
 }

@@ -69,7 +69,7 @@
             </p> 
             <app-input-image (onImageChange)="onImageChange($event)" [defaultImg]="avatar" style="margin:5px"></app-input-image>
         </div> 
-        <p>
+        <p [ngClass]="{'is-highlight' : highlight}">
             <mat-checkbox (change)="onTermsChange($event)"></mat-checkbox>
             <small> J'accepte les <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">conditions d'utilization des données</a></small>
         </p>   

@@ -27,37 +27,26 @@ export class ProfileComponent implements OnInit {
   openUserRemoveDialog() {
     let dialogRef = this.dialog.open(MakeSureDialogComponent, {
       disableClose :true,
-      data:  {title: "Effacer votre compte",
+      data:  {title: "Suprimer votre compte",
               text:"Attention cette operation est irreversible, vous allez effacer tous vos messages, vos documents..."
             } 
     });
     this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
       if (result) {
-        console.log("Result of dialog is : " + result);
         this._subscriptions.push(this.userService.delete().subscribe(result => {
           this.userService.setCurrent(new User(null));
           User.removeToken();
           this.router.navigate([""]); //Go back home
         }));
-        //remove the account and redirect to home
-        /*this.userService.removeAccount().subscribe(result => {
-          //Remove the invalid token from localStorage and navigate home
-          User.removeToken();
-          this.userService.setCurrent(new User(null));
-          this.router.navigate([""]); //Go back home
-        }, error => {
-          console.log("Error !!!!");
-        });*/
       }
-      console.log(result);
     }));
   }
-/*  //We are now logging out
-  logout() {
-    this.userService.logout().subscribe(res=> {
-      this.userService.setCurrent(new User(null));
-      User.removeToken();
-      this.router.navigate([""]); //Go back home
-    });
-  }*/
+  
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
 }

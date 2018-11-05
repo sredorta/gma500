@@ -162,6 +162,11 @@ export class ProfileEditComponent implements OnInit {
 
   }
 
-
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 
 }

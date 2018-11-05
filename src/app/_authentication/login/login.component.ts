@@ -59,12 +59,7 @@ export class LoginComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnDestroy() {    
-    //Unsubscribe to all
-    for (let subscription of this._subscriptions) {
-      subscription.unsubscribe();
-    }
-  }
+
   //Detect changes on multiple accounts radio button
   radioChange(event: MatRadioChange) {
     this.accessSelected = event.value;
@@ -102,6 +97,12 @@ export class LoginComponent implements OnInit {
         error => {
             this.loading = false;
         }));
-    }  
+  }  
 
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 }
