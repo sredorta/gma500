@@ -8,6 +8,12 @@
             <div>{{member.firstName}}</div>
         </div>
     </div>
+    <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Comptes</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <div  fxLayout="column" fxLayoutGap="10px" style="padding:10px">
+        <mat-slide-toggle color="primary" [checked]="hasAccount('Membre')" [disabled]="loading" (change)="_toggleMember($event)"><p>Compte membre</p></mat-slide-toggle>
+        <mat-slide-toggle color="primary" [checked]="hasAccount('Admin')" [disabled]="loading" (change)="_toggleAdmin($event)"><p>Compte admin</p></mat-slide-toggle>
+    </div>
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Roles</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div  fxLayout="row wrap">
@@ -16,16 +22,6 @@
             <mat-chip [ngClass]="{'loading' : loading}" selected [color]="primary" *ngIf="hasRole(role.id)" (click)="_removeRole(role.id)">{{role.name}}<mat-icon>delete</mat-icon></mat-chip>
             <mat-chip [ngClass]="{'loading' : loading}" *ngIf="!hasRole(role.id)" (click)="_addRole(role.id)">{{role.name}}<mat-icon>library_add</mat-icon></mat-chip>
           </ng-container>
-        </mat-chip-list>  
-    </div>
-    <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Comptes</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <div  fxLayout="row wrap">
-        <mat-chip-list style="padding:10px">
-            <ng-container *ngFor="let account of accounts">
-              <mat-chip [ngClass]="{'loading' : loading}" selected [color]="primary" *ngIf="hasAccount(account)" (click)="_removeAccount(account)" >{{account}}<mat-icon>delete</mat-icon></mat-chip>
-              <mat-chip [ngClass]="{'loading' : loading}" *ngIf="!hasAccount(account)" (click)="_addAccount(account)">{{account}}<mat-icon>library_add</mat-icon></mat-chip>
-            </ng-container>
         </mat-chip-list>  
     </div>
     <mat-card-subtitle style="margin-top:20px;margin-bottom:5px">Groups</mat-card-subtitle>

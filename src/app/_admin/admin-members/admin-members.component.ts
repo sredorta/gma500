@@ -70,6 +70,9 @@ export class AdminMembersComponent implements OnInit {
       case "removeAccount":
         this._removeAccount(event.id, event.account);
         break;
+      case "toggleAccount":
+        this._toggleAccount(event.id);
+        break;  
       case "addGroup":
         this._addGroup(event.id, event.group);
         break;
@@ -126,6 +129,21 @@ export class AdminMembersComponent implements OnInit {
     let user = this.users.find(i => i.id == user_id);
     let index = user.accounts.indexOf(user.accounts.find(i=> i.access == access));
     user.accounts.splice(index,1);
+  }
+
+  private _toggleAccount(user_id:number) {
+    this.loading = true;
+    this._subscriptions.push(this.adminService.toggleAccountMember(user_id).subscribe(() => {
+      this.loading = false;
+    }));
+    let user = this.users.find(i => i.id == user_id);
+    let index = user.accounts.indexOf(user.accounts.find(i=> i.access == "Membre"));
+    if (index>=0) {
+      user.accounts[index].access = 'Pré-inscrit';
+    } else {
+      let index = user.accounts.indexOf(user.accounts.find(i=> i.access == "Pré-inscrit"));
+      user.accounts[index].access = 'Membre';
+    } 
   }
 
 

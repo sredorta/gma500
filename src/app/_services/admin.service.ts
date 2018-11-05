@@ -73,15 +73,19 @@ export class AdminService {
     return this.http.post<any[]>(environment.apiURL +'/admin/groups/detach',{profile_id:user_id,group_id:group_id});
   }
 
-  //Adds a role to a profile
+  //Adds an account to a user
   public addAccountToUser(user_id:number, access:string) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/accounts/add',{profile_id:user_id,access:access});
   } 
-  //Adds a role to a profile
+  //Removes account to user
   public removeAccountToUser(user_id:number, access:string) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/accounts/remove',{profile_id:user_id,access:access});
   } 
 
+  //Toggle access from Pré-Inscrit to Membre
+  public toggleAccountMember(user_id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/accounts/toggle',{profile_id:user_id});
+  } 
   
 
 }

@@ -47,8 +47,23 @@ export class MemberItemDetailAdminComponent implements OnInit {
     if (result == undefined) return false;
     return true;
   }
+  
+
+
 
   //Emit outputs
+  private _toggleMember(event) {
+    if (!this.loading) {
+      this.action.emit({action:"toggleAccount", id:this.member.id});
+    }    
+  }
+
+  private _toggleAdmin(event) {
+    if (!this.loading) {
+      if (event.checked)  this.action.emit({action:"addAccount", account:'Admin', id:this.member.id});
+      else this.action.emit({action:"removeAccount", account:'Admin', id:this.member.id});
+    }
+  }  
   private _removeRole(role:number) {
     if (!this.loading)
     this.action.emit({action:"removeRole", role:role, id:this.member.id});
@@ -59,7 +74,7 @@ export class MemberItemDetailAdminComponent implements OnInit {
     this.action.emit({action:"addRole", role:role, id:this.member.id});
   }
 
-  private _removeAccount(account:string) {
+/*  private _removeAccount(account:string) {
     if (!this.loading)
     this.action.emit({action:"removeAccount", account:account, id:this.member.id});
   }
@@ -67,7 +82,7 @@ export class MemberItemDetailAdminComponent implements OnInit {
   private _addAccount(account:string) {
     if (!this.loading)
     this.action.emit({action:"addAccount", account:account, id:this.member.id});
-  }
+  }*/
 
   private _removeGroup(group:number) {
     if (!this.loading)
