@@ -28,9 +28,6 @@ export class SignupComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
 
   loading = false;        //Tells html we are loading
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any
   avatar : string = './assets/img/user-default.jpg';
   terms : boolean = false; //Terms and conditions checkbox
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -76,7 +73,6 @@ export class SignupComponent implements OnInit {
   //Reset the form
   resetForm() {
     this.myForm.reset();
-    this.httpMsgVisible = false;
   }
   
   ngOnInit() {
@@ -115,25 +111,18 @@ export class SignupComponent implements OnInit {
 
     //Handle terms
     if (!this.terms) {
-      this.httpMsgVisible = true;
-      this.httpMsgType = "error";
-      this.httpMsgText = "Vous dévez accepter les conditions d'utilization des données"
+      //TODO add something on terms !!!! to hightlight !!!!
       return;
     }
 
     //Valid form part
-    this.httpMsgVisible = false;
     this.loading = true;
     this._subscriptions.push(this.userService.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, this.avatar).subscribe(
         (result: any) => {
-          //console.log(result);
-          //this.loading = false;
+          this.loading = false;
           this.router.navigate([""]);                 
         },
         error => {
-            this.httpMsgVisible = true;
-            this.httpMsgType = "error";
-            this.httpMsgText = error;
             this.loading = false;
         })); 
   }

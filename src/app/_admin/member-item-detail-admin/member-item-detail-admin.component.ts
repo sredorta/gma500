@@ -52,6 +52,11 @@ export class MemberItemDetailAdminComponent implements OnInit {
 
 
   //Emit outputs
+  private _deleteUser(id) {
+    if (!this.loading) {
+      this.action.emit({action:"removeUser", id:this.member.id});
+    }       
+  }
   private _toggleMember(event) {
     if (!this.loading) {
       this.action.emit({action:"toggleAccount", id:this.member.id});
@@ -73,16 +78,6 @@ export class MemberItemDetailAdminComponent implements OnInit {
     if (!this.loading)
     this.action.emit({action:"addRole", role:role, id:this.member.id});
   }
-
-/*  private _removeAccount(account:string) {
-    if (!this.loading)
-    this.action.emit({action:"removeAccount", account:account, id:this.member.id});
-  }
-
-  private _addAccount(account:string) {
-    if (!this.loading)
-    this.action.emit({action:"addAccount", account:account, id:this.member.id});
-  }*/
 
   private _removeGroup(group:number) {
     if (!this.loading)

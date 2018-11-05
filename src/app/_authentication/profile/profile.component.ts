@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services/user.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Router} from '@angular/router';
-import {AccountRemoveDialogComponent} from '../account-remove-dialog/account-remove-dialog.component';
+import { Subscription } from 'rxjs';
+import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
 import {User} from "../../_models/user";
 @Component({
   selector: 'app-profile',
@@ -12,45 +13,51 @@ import {User} from "../../_models/user";
 export class ProfileComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
   title : string = "";
+  private _subscriptions : Subscription[] = new Array<Subscription>();
+
   constructor(private userService:UserService, private router: Router,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.userService.getCurrent().subscribe(res=> {
-      console.log("In getCurrentUser of profile");
-      console.log(res);
       this.title = res.getFormattedRoles();
     });
   }
 
 
-  openAccountRemoveDialog() {
-    let dialogRef = this.dialog.open(AccountRemoveDialogComponent, {
+  openUserRemoveDialog() {
+    let dialogRef = this.dialog.open(MakeSureDialogComponent, {
       disableClose :true,
-      //panelClass: 'big-dialog',
-      //width: '80%',
-      //height: '80%',
-      data:  null 
+      data:  {title: "Effacer votre compte",
+              text:"Attention cette operation est irreversible, vous allez effacer tous vos messages, vos documents..."
+            } 
     });
-    dialogRef.afterClosed().subscribe((result : boolean) => {
+    this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
       if (result) {
+        console.log("Result of dialog is : " + result);
+        this._subscriptions.push(this.userService.delete().subscribe(result => {
+          this.userService.setCurrent(new User(null));
+          User.removeToken();
+          this.router.navigate([""]); //Go back home
+        }));
         //remove the account and redirect to home
-        this.userService.removeAccount().subscribe(result => {
+        /*this.userService.removeAccount().subscribe(result => {
           //Remove the invalid token from localStorage and navigate home
           User.removeToken();
           this.userService.setCurrent(new User(null));
           this.router.navigate([""]); //Go back home
         }, error => {
           console.log("Error !!!!");
-        });
+        });*/
       }
       console.log(result);
-    });
+    }));
   }
-  //We are now logging out
+/*  //We are now logging out
   logout() {
     this.userService.logout().subscribe(res=> {
       this.userService.setCurrent(new User(null));
+      User.removeToken();
       this.router.navigate([""]); //Go back home
     });
-  }
+  }*/
 }

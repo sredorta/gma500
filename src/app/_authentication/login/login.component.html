@@ -35,7 +35,6 @@
                     <mat-radio-button *ngFor="let access of accessAvailable; let i = index" value="{{access}}" (change)="radioChange($event)" [checked]='i==0'>{{access}}</mat-radio-button></mat-radio-group>
             </div>
         </mat-card-content>
-        <app-message [visible]='httpMsgVisible' [message]="httpMsgText" [type]="httpMsgType"></app-message>
         <mat-card-actions>
           <div fxLayoutAlign="center center" fxLayoutGap="20px">
             <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>

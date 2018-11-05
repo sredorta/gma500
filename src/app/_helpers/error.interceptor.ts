@@ -31,6 +31,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             //Intercept correct response and we check that we have 'success' in the response 
             //  if this is the case then we show the bottomsheet
             if (event instanceof HttpResponse) {
+              if(event.body != null && event.body != undefined)
                 if (event.body.response == 'success') {
                     //Format message
                     let msg = "";
@@ -93,12 +94,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                             break;     
                         case "email_not_validated":
                             formattedMessage = "Vous devez valider votre compte email avant de pouvoir acceder";
-                            break;    
+                            break;  
+                        case "update_params_error":
+                            formattedMessage = "L'email ou le numero de mobile est peut-etre déjà enregistré dans la base de donnees"; 
+                            break;      
                         default:
                             formattedMessage = error.error.message; 
                     }
-                    console.log("HEREEEEEEE !!!!");
-                    console.log(error.status);
                     this.openBottomSheet(error.error.response, error.status, formattedMessage || error.statusText);
                 }
             }

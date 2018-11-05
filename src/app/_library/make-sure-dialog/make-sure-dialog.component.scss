@@ -1,0 +1,13 @@
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+$warn : map-get($main-app-theme,warn);
+
+h2 {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+p,span {
+    color: mat-color($warn);
+}

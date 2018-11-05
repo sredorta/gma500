@@ -1,6 +1,7 @@
 <div [ngClass]="setClasses()">
 <div fxLayout="row" style="width:100%" fxLayoutAlign="center center" fxLayoutGap="10px" style="padding:20px">
     <div style="min-width:40px;max-width:40px" fxLayoutAlign="center center">
+      <mat-icon *ngIf='data.code==500'>warning</mat-icon>
       <mat-icon *ngIf='data.code==400'>warning</mat-icon>
       <mat-icon *ngIf='data.code==401'>vpn_key</mat-icon>
       <mat-icon *ngIf='data.code==403'>pan-tool</mat-icon>

@@ -79,6 +79,10 @@ export class UserService {
       return this.http.post<any>(environment.apiURL +'/auth/update', {password_new:user.password,password_old:password_old});
   }
 
+  //Deletes the profile and all associated data !
+  public delete() : Observable<any> {
+    return this.http.delete<any>(environment.apiURL +'/auth/delete');
+  }
 
   //Resets password and send email to user
   public resetPassword(email:string,access:string) : Observable<any> {

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageComponent } from './message.component';
+import { MakeSureDialogComponent } from './make-sure-dialog.component';
 
-describe('MessageComponent', () => {
-  let component: MessageComponent;
-  let fixture: ComponentFixture<MessageComponent>;
+describe('MakeSureDialogComponent', () => {
+  let component: MakeSureDialogComponent;
+  let fixture: ComponentFixture<MakeSureDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageComponent ]
+      declarations: [ MakeSureDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageComponent);
+    fixture = TestBed.createComponent(MakeSureDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

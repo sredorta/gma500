@@ -74,7 +74,6 @@
             <small> J'accepte les <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">conditions d'utilization des données</a></small>
         </p>   
       </mat-card-content>
-      <app-message [visible]='httpMsgVisible' [message]="httpMsgText" [type]="httpMsgType"></app-message>      
       <mat-card-actions>
         <div fxLayoutAlign="center center" fxLayoutGap="20px">
           <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>

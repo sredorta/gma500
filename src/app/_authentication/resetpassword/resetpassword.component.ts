@@ -23,9 +23,6 @@ export class ResetpasswordComponent implements OnInit {
   //Get error messages
   validation_messages = CustomValidators.getMessages();
   loading = false;    //Tells html we are loading
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private _location: Location, private userService : UserService) { }
@@ -55,7 +52,6 @@ export class ResetpasswordComponent implements OnInit {
   //When email changes we reset the access to not be showing
   emailChange(event) {
     this.resetAccess();
-    this.httpMsgVisible = false;
   }
 
   //From submit
@@ -63,7 +59,6 @@ export class ResetpasswordComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this.httpMsgVisible = false;
     this.loading = true;
     //request http here !
     this._subscriptions.push(this.userService.resetPassword(value.email, this.accessSelected).subscribe(
@@ -73,18 +68,10 @@ export class ResetpasswordComponent implements OnInit {
             //Update the html to show the available access
             this.accessAvailable = result.message;
             this.accessSelected = result.message[0];
-
-          } else {            
-            this.httpMsgVisible = true;
-            this.httpMsgType = "success";
-            this.httpMsgText = "Nouveau mot de passe envoyé par email";
-          }
+          } 
           this.loading = false;
         },
         error => {
-            this.httpMsgVisible = true;
-            this.httpMsgType = "error";
-            this.httpMsgText = error;
             this.loading = false;
         })
     );

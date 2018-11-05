@@ -51,8 +51,6 @@ export class AdminMembersComponent implements OnInit {
 
   updateSelected($event) {
     this.userSelected = $event;
-    console.log("Update selected");
-    console.log($event);
   }
 
   //Handle actions
@@ -79,9 +77,25 @@ export class AdminMembersComponent implements OnInit {
       case "removeGroup":
         this._removeGroup(event.id, event.group);
         break;
+      case "removeUser":
+        this._removeUser(event.id);  
+        break;
       default:
         console.log("undefined action !");  
     }
+  }
+
+  private _removeUser(id:number) {
+    console.log("Removing profile : " + id);
+    this.loading = true;
+    this._subscriptions.push(this.adminService.deleteUser(id).subscribe(res => {
+      console.log(res);
+    }));
+    let user = this.users.find(i => i.id == id);
+    let index = this.users.indexOf(user);
+    this.users.splice(index,1);
+    this.updateSelected(new User(null));
+
   }
 
   //Adds a role to a user

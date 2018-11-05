@@ -86,6 +86,10 @@ export class AdminService {
   public toggleAccountMember(user_id:number) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/accounts/toggle',{profile_id:user_id});
   } 
-  
+
+  //Delete a profile and all associated data
+  public deleteUser(user_id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/users/delete',{profile_id:user_id});
+  }   
 
 }

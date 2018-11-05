@@ -8,7 +8,7 @@
             <div>{{member.firstName}}</div>
         </div>
     </div>
-
+    <button mat-stroked-button color="warn" (click)="_deleteUser(member.id)">Suprimer</button>
       <div  fxLayout="column" fxLayoutAlign="center start" style="padding:10px">
         <p class="detail">EMAIL:</p>
         <p class="box">{{member.email}}</p>

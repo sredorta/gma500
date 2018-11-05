@@ -16,9 +16,6 @@ export class GroupsAdminComponent implements OnInit {
   groups : Group[] = new Array<Group>();     //Available roles
   myForm: FormGroup; 
   loading = false;
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any 
 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
@@ -38,7 +35,6 @@ export class GroupsAdminComponent implements OnInit {
       for(let group of result) {
           this.groups.push(new Group(group));
       }
-      console.log(this.groups);
     }));    
   }
 
@@ -67,16 +63,11 @@ export class GroupsAdminComponent implements OnInit {
       this.loading = false;
       this.groups.push(new Group(result));
     }, error => {
-      console.log(error);
-        this.httpMsgText = error;
-        this.httpMsgType = "error";
-        this.httpMsgVisible = true;
         this.loading = false;
     }));
-    console.log(value);
   }
   reset() {
-    this.httpMsgVisible = false;
+
   }
 
   deleteGroup(id:number) {
@@ -87,7 +78,6 @@ export class GroupsAdminComponent implements OnInit {
       let index = this.groups.indexOf(group);
       this.groups.splice(index,1);      
     }));    
-    console.log("Delete role : " + id);
   }
 
   ngOnDestroy() {    

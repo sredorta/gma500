@@ -26,9 +26,6 @@ export class ProfileEditComponent implements OnInit {
   //user: User = new User(null);
   avatar : string = './assets/img/user-default.jpg';
   loading = false;        //Tells html we are loading
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any
   
   panels : MatExpansionPanel[] = new Array<MatExpansionPanel>();
 
@@ -117,7 +114,6 @@ export class ProfileEditComponent implements OnInit {
   resetForm() {
     //this.updateAccordeon.displayMode().closeAll();
     //this.firstExpansionPanel.close();
-    this.httpMsgVisible = false;
   }
  
   //Update photo if we change it
@@ -136,7 +132,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
   //Valid form part
-  this.httpMsgVisible = false;
   this.loading = true;
   let myUpdateUser = new User(null);
   if (value.firstName != null) myUpdateUser.firstName = value.firstName;
@@ -162,9 +157,6 @@ export class ProfileEditComponent implements OnInit {
       },
       error => {
          console.log(error);
-          this.httpMsgVisible = true;
-          this.httpMsgType = "error";
-          this.httpMsgText = error;
           this.loading = false;
       })); 
 

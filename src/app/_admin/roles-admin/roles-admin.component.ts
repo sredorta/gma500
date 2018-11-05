@@ -16,9 +16,6 @@ export class RolesAdminComponent implements OnInit {
   roles : Role[] = new Array<Role>();     //Available roles
   myForm: FormGroup; 
   loading = false;
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any 
 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
@@ -67,16 +64,11 @@ export class RolesAdminComponent implements OnInit {
       this.loading = false;
       this.roles.push(new Role(result));
     }, error => {
-      console.log(error);
-        this.httpMsgText = error;
-        this.httpMsgType = "error";
-        this.httpMsgVisible = true;
         this.loading = false;
     }));
     console.log(value);
   }
   reset() {
-    this.httpMsgVisible = false;
   }
 
   deleteRole(id:number) {

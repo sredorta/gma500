@@ -26,12 +26,8 @@ export class LoginComponent implements OnInit {
   accessAvailable = new Array<string>() 
   accessSelected : string = null;
   myForm: FormGroup; 
-  //Get error messages
-  validation_messages = CustomValidators.getMessages();
+
   loading = false;
-  httpMsgVisible = false; //Tells html to show result message
-  httpMsgType = "error";  //Error or success
-  httpMsgText='';         //http error if any  
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private userService: UserService,private router : Router, private location : Location, private _sanitizer: DomSanitizer) { }
@@ -57,7 +53,6 @@ export class LoginComponent implements OnInit {
   resetForm() {
     this.myForm.reset();
     this.resetAccess();
-    this.httpMsgVisible = false;
   }
 
   ngOnInit() {
@@ -84,7 +79,6 @@ export class LoginComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this.httpMsgVisible = false;
     this.loading = true;
 
     //request http here !
@@ -106,9 +100,6 @@ export class LoginComponent implements OnInit {
           this.loading=false;
         },
         error => {
-            this.httpMsgText = error;
-            this.httpMsgType = "error";
-            this.httpMsgVisible = true;
             this.loading = false;
         }));
     }  

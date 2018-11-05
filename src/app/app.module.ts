@@ -61,7 +61,6 @@ import { UserService } from './_services/user.service';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 //import {FakeBackendInterceptor} from './_helpers/fake-backend.interceptor';
 import {HttpHeaderInterceptor} from './_helpers/http-header-interceptor';
-import { MessageComponent } from './_library/message/message.component';
 import { InputImageComponent } from './_library/input-image/input-image.component';
 import { TermsDialogComponent } from './_authentication/terms-dialog/terms-dialog.component';
 import { ProfileComponent } from './_authentication/profile/profile.component';
@@ -74,7 +73,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductService } from './_services/product.service';
 import { ConfigService } from './_services/config.service';
 import { ProfileEditComponent } from './_authentication/profile-edit/profile-edit.component';
-import { AccountRemoveDialogComponent } from './_authentication/account-remove-dialog/account-remove-dialog.component';
 import { NotifItemComponent } from './_notifs/notif-item/notif-item.component';
 import { NotifsComponent } from './_notifs/notifs/notifs.component';
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
@@ -84,6 +82,7 @@ import { MemberItemDetailAdminComponent } from './_admin/member-item-detail-admi
 import { RolesAdminComponent } from './_admin/roles-admin/roles-admin.component';
 import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.component';
 import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.component';
+import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
 
 
 @NgModule({
@@ -96,7 +95,6 @@ import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.componen
     SignupComponent,
     AboutComponent,
     FooterComponent,
-    MessageComponent,
     InputImageComponent,
     TermsDialogComponent,
     ProfileComponent,
@@ -107,7 +105,6 @@ import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.componen
     ProductItemComponent,
     ProductDetailsComponent,
     ProfileEditComponent,
-    AccountRemoveDialogComponent,
     NotifItemComponent,
     NotifsComponent,
     NiceDateFormatPipe,
@@ -116,7 +113,8 @@ import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.componen
     MemberItemDetailAdminComponent,
     RolesAdminComponent,
     GroupsAdminComponent,
-    ErrorSheetComponent
+    ErrorSheetComponent,
+    MakeSureDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -162,7 +160,7 @@ import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.componen
       MatTooltipModule,
       MatTreeModule],          
   ],
-  entryComponents: [TermsDialogComponent, AccountRemoveDialogComponent, ProfileDialogComponent, ErrorSheetComponent],
+  entryComponents: [TermsDialogComponent, ProfileDialogComponent, ErrorSheetComponent, MakeSureDialogComponent],
   providers: [
     HttpService, ConfigService, UserService, ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
