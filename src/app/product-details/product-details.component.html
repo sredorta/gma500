@@ -1,17 +1,60 @@
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" class="background-image" fxLayoutAlign="center center">
+  <h1>Détails du materiel</h1>
+</div>  
+<div *ngIf="!loading; else loadingTemplate" style="width:100%;padding:10px" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center" style="padding:10px;min-width:250px;max-width:500px">
+      <div fxFlex="1 1 auto">
+        <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="product.image" style="background-size:cover;width:70px;height:70px;border-radius:3px" class="image">
+            <div class="available" [ngClass]="{'not-available' : !product.isAvailable()}"></div>
+        </div>
+      </div>
+      <div fxFlex="1 1 auto" fxLayout="column">
+        <div>{{product.type}}</div>        
+        <div>{{product.cathegory}}</div>
+      </div>
+    </div>
+    <div *ngIf="!product.isAvailable()">
+      <div>Assigned to: </div>
+      <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="product.assignedTo.avatar" style="background-size:cover;width:30px;height:30px;border-radius:50%" class="image"></div>
+      <div>{{product.assignedTo.firstName}} {{product.assignedTo.lastName}}</div>
+    </div>
+    <div fxLayout="column" style="min-width:250px;max-width:500px">
+      <small class="detail-title">Identifiant GMA:</small>
+      <small class="detail-value">{{product.idGMA}}</small>                    
+      <small class="detail-title">Numero serie:</small>
+      <small class="detail-value">{{product.serialNumber}}</small>
+      <small class="detail-title">Marque:</small>
+      <small class="detail-value">{{product.brand}}</small>      
+      <small class="detail-title">Fabriqué :</small>
+      <small class="detail-value">{{product.fabricatedOn | niceDateFormat}}</small>
+      <small class="detail-title">Date d'achat :</small>
+      <small class="detail-value">{{product.boughtOn | niceDateFormat}}</small>
+      <small class="detail-title">Date de rebut :</small>
+      <small class="detail-value">{{product.expiresOn | niceDateFormat}}</small>
+      <p class="detail-title" style="width:100%">CONTROLS</p>
+      <p class="detail-title">COMMENTAIRES</p>
+    </div>
 
-<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" style="background-size:cover;padding-top:20px;padding-bottom:20px" fxLayoutAlign="center center" fxLayout="column">
-  <div *ngIf="(user$ | async) as user" fxLayout="column" style="width:90%;max-width:820px;min-width:250px;">
-  <mat-card stype="padding:0px;">
-      <p class="header">Détails</p>
-      <mat-divider></mat-divider>
-      <div fxLayoutAlign="center center" fxLayout="row wrap" class="canvas">
-                <app-product-item [user]="user" [product$]="product$" [short]="false"></app-product-item>
-      </div>  
-  </mat-card>
-  </div>
 </div>
-
-
+<ng-template #loadingTemplate>
+    <div fxLayout="column" fxLayoutAlign="center center" class="container">
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+</ng-template>   
+<app-footer></app-footer>
+                  <!--<p style="font-weight:bold">DÉTAILS</p>
+                  <div fxLayout="column" style="min-width:200px;max-width:350px">
+                    <small class="detail-title">Identifiant GMA:</small>
+                    <small class="detail-value">{{element.idGMA}}</small>                    
+                    <small class="detail-title">Numero serie:</small>
+                    <small class="detail-value">{{element.serialNumber}}</small>
+                    <small class="detail-title">Fabriqué :</small>
+                    <small class="detail-value">{{element.fabricatedOn | niceDateFormat}}</small>
+                    <small class="detail-title">Date d'achat :</small>
+                    <small class="detail-value">{{element.boughtOn | niceDateFormat}}</small>
+                    <small class="detail-title">Date de rebut :</small>
+                    <small class="detail-value">{{element.expiresOn | niceDateFormat}}</small>
+                  </div>-->
 
 <!--
 id: number;

@@ -22,8 +22,12 @@ function convertToNiceDate(time: string) {
   var date = new Date(time),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       daydiff = Math.floor(diff / 86400);
-  if (isNaN(daydiff) || daydiff < 0 || daydiff >= 31)
-      return '';
+  if (isNaN(daydiff) || daydiff < 0 || daydiff >= 31) {
+    var datePipe = new DatePipe("en-US");
+    let value = datePipe.transform(time, 'dd-MMM-yyyy');
+    return value;  
+  }
+   //   return '';
 
   return daydiff == 0 && (
       diff < 60 && "Maintenant" ||

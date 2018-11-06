@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import {MatTableDataSource} from '@angular/material';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import { UserService } from '../_services/user.service';
 import { ProductService } from '../_services/product.service';
 import { ConfigService } from '../_services/config.service';
@@ -6,57 +9,65 @@ import { Router} from '@angular/router';
 import {Product} from "../_models/product";
 import {Config} from "../_models/config";
 import {User} from "../_models/user";
-import { Observable } from 'rxjs';
+
+
 
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],  
 })
 export class ProductsComponent implements OnInit {
-  user$  = this.userService.getCurrent();  
-  products$ : Observable<Product>[] = new Array<Observable<Product>>();
-  productsCount : number = -1;
-
+  user : User = new User(null);
+  loading  : boolean = true;
+  dataSource = null;          //Store products array in table format
+  expandedElement: Product;   //Expanded panel for description
+  productsCount : number = 0;
+  displayedColumns: string[] = ['image','cathegory','type','usage','brand'];
   config : Config = this.configService.get();
-  private _request  = null;
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private userService:UserService, private productService:ProductService,private configService:ConfigService) { }
 
   ngOnInit() {
+    this._subscriptions.push(this.userService.getCurrent().subscribe(res => {
+      this.user = res;
+      console.log(this.user);
+    }));
 
-    //Load all products
-    this.loadProducts();
+    this._subscriptions.push(this.productService.getProducts().subscribe(res => {
+      let products : Product[] =  new Array<Product>();
+      console.log(res);
+      for (let product of res) {
+        product = new Product(product);
+        products.push(product);
+      }
+      this.dataSource = new MatTableDataSource(products);
+      this.productsCount = products.length;
+      this.loading = false;
+    }));
 
   }
-
-  //Load all products in function of cathegory or type
-  //When inputs not defined, then we use 'all'
-  loadProducts(cathegory?:string,type?:string) {
-    this.products$ = new Array<Observable<Product>>();
-    if (cathegory === undefined) cathegory = 'all';
-    if (type === undefined) type = 'all';
-   //We first get the indexes and then upload element one by one
-   this.cancelRequests()
-    this._request = this.productService.indexes(cathegory,type).subscribe((result:number[]) => {
-      this.productsCount = result.length;
-      result.forEach(id => {
-        this.products$.push(this.productService.getProduct(id));
-      });
-    });    
+  //Filter
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.productsCount = this.dataSource.filteredData.length;
   }
 
-  //Cancel the http request
-  cancelRequests() {
-    if (this._request !== null) {
-      this._request.unsubscribe();
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
     }
   }
 
-  //Handle filter of Cathegories
-  onCathegoriesChange(event:any) {
-    this.loadProducts(event.value);
-  }
 
 }

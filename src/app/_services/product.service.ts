@@ -22,15 +22,15 @@ export class ProductService {
   constructor(private http: HttpClient) { 
   }
 
-  public indexes(cathegory:string,type:string) : Observable<number[]> {
+  /*public indexes(cathegory:string,type:string) : Observable<number[]> {
     return this.http.post<number[]>(environment.apiURL +'/products/indexes',{cathegory,type});
-  }
+  }*/
 
   public getProducts() : Observable<Product[]> {
-    return this.http.post<Product[]>(environment.apiURL +'/products/list',{});
+    return this.http.get<Product[]>(environment.apiURL +'/products/get');
   }  
   public getProduct(id:number) : Observable<Product> {
-    return this.http.post<Product>(environment.apiURL +'/products/list',{id});
+    return this.http.post<Product>(environment.apiURL +'/products/find',{id:id});
   }      
 
 }

@@ -55,7 +55,7 @@ export class User {
         return false;
     }
     isPresident() {
-        return this.roles.filter(item => item.id === 3).length;
+        return this.roles.filter(item => item.name === "Président").length;
     }
     //Need to add here hasAccess
     hasAccess(access:string) {

@@ -1,0 +1,31 @@
+
+.container {
+    min-height:60vh;
+}
+
+.detail-title {
+    font-size: 13px;
+    opacity: 0.6;
+    border-bottom: 1px solid;
+    margin-bottom:3px;
+    font-weight: bold;
+  }
+  .detail-value {
+    margin-bottom:5px;
+  }
+
+  small {
+    font-size:12px;
+  }
+
+  .available {
+    width:10px;
+    height:10px;
+    margin:5px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px black;
+    background-color: greenyellow;
+ }
+ .not-available {
+   background-color: red;
+ }
