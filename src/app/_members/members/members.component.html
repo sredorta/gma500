@@ -4,19 +4,22 @@
     <p class="header">Présidence</p>
     <mat-divider></mat-divider> 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-        <app-member-item *ngFor="let member of boards" [member]="member" [activeRole]="3"></app-member-item>
+        <app-member-item *ngFor="let member of boards" [member]="member"></app-member-item>
       </div>  
     <p class="header">Bureau</p>
     <mat-divider></mat-divider> 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row" fxLayoutGap="5px" class="canvas">
-        <app-member-item *ngFor="let member of bureaus" [member]="member" [activeRole]="2"></app-member-item>
+        <app-member-item *ngFor="let member of bureaus" [member]="member"></app-member-item>
       </div>
     <ng-container *ngIf="(user.access == 'Membre') || (user.access == 'Admin')">
-      <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
-      <mat-divider></mat-divider> 
+        <p  class="header" style="margin-top:40px">Membres <span style="font-weight:bold">({{memberCount}})</span></p>
+        <mat-divider></mat-divider> 
         <button mat-stroked-button color="primary" (click)="loadAllMembers()" style="margin:10px;">Voir tous</button>
+        <mat-form-field *ngIf="members.length>0" style="padding:5px">
+            <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Chercher">
+        </mat-form-field>
         <div *ngIf="!membersRequested; else loading" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px" class="canvas">
-            <app-member-item *ngFor="let member of members" [member]="member" [activeRole]="1"></app-member-item>
+            <app-member-item *ngFor="let member of members" [member]="member"></app-member-item>
         </div>
         <ng-template #loading>
             <div fxLayout="column" fxLayoutAlign="center center" style="padding:5px;padding-top:20px;width:100%;height:232px;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.3);color:rgba(0, 0, 0, 0.6)">
@@ -27,6 +30,4 @@
   </mat-card>
 </div>
 </div>
-
-
 <app-footer></app-footer>

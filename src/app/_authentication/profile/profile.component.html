@@ -1,10 +1,14 @@
-<div fxLayoutAlign="end start" [style.backgroundImage]="'url(./assets/img/backgroundprofile.jpg)'" class="background-image"></div>
+<div fxLayout="column" fxLayoutAlign="end end" [style.backgroundImage]="'url(./assets/img/backgroundprofile.jpg)'" class="background-image">
+  <div fxLayout="column" style="min-width:130px;max-width:130px;padding:10px" fxLayoutGap="5px">
+    <button mat-raised-button color="primary" (click)="logout()">Déconnexion</button>
+    <button mat-raised-button  (click)="openUserRemoveDialog()">Supprimer</button>
+  </div>
+</div>
 <div *ngIf="(user$ | async) as user" fxLayoutAlign="center center" fxLayout="column">
     <div mat-card-avatar [style.backgroundImage]="user.avatar" class="avatar"></div>
     <p class="name">{{user.firstName}} {{user.lastName}}</p>
     <p class="title">{{title}}</p>
     <div fxLayout="column" fxLayoutAlign="start start" fxFlex="1 1 auto" style="max-width:500px;padding:10px">
-      <div style="width:100%" fxLayoutAlign="end end"><button mat-stroked-button color="warn" (click)="openUserRemoveDialog()">Supprimer</button></div>
       <small class="detail">EMAIL:</small>
       <p class="box">{{user.email}}</p>
       <small class="detail">MOBILE:</small>

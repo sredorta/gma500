@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Role } from '../../_models/role';
 
 @Component({
   selector: 'app-members',
@@ -16,7 +17,8 @@ export class MembersComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
   boards : User[] = new Array<User>();
   bureaus : User[] = new Array<User>();
-  members : User[] = new Array<User>();
+  membersAll : User[] = new Array<User>(); //Contains all members without filtering
+  members : User[] = new Array<User>();    //Contains members with filtering
   membersRequested : boolean = false;
 
   memberCount :number;
@@ -33,7 +35,9 @@ export class MembersComponent implements OnInit {
         let i = 0;
         for(let id of result) {
           this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
-            this.boards[i] = new User(res);
+            let user = new User(res);
+            user.roles = user.roles.filter(i => i.name != "Bureau");
+            this.boards[i] = user;
             i++;
           }));
         }
@@ -46,7 +50,9 @@ export class MembersComponent implements OnInit {
       let j = 0;
       for(let id of result) {
         this._subscriptions.push(this.userService.getUserById(id).subscribe(res => {
-          this.bureaus[j] = new User(res);
+          let user = new User(res);
+          user.roles = user.roles.filter(i => i.name == "Bureau");
+          this.bureaus[j] = user;
           j++;
         }));
       }
@@ -63,12 +69,22 @@ export class MembersComponent implements OnInit {
       this._subscriptions.push(this.userService.getMembers().subscribe(res => {
         console.log(res);
         for (let member of res) {
-          this.members.push(new User(member));
+          let user = new User(member);
+          user.roles.push(new Role({name:"Membre"}));
+          this.members.push(user);
+          this.membersAll.push(user);
         }
         this.membersRequested = false;
       })); 
   }
-
+  applyFilter(filterValue: string) {
+    this.members = this.membersAll.filter(i => {
+      let name = i.firstName + ' ' + i.lastName;
+      if (name.toLowerCase().search(filterValue.trim().toLowerCase())>=0) {
+        return true;
+      } 
+    });
+  }
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {

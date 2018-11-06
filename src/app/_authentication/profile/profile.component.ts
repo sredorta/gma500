@@ -41,6 +41,15 @@ export class ProfileComponent implements OnInit {
       }
     }));
   }
+
+  //Logout user
+  logout() {
+    this._subscriptions.push(this.userService.logout().subscribe(res=> {
+      this.userService.setCurrent(new User(null));
+      User.removeToken();
+      this.router.navigate([""]); //Go back home
+    }));
+  }
   
   ngOnDestroy() {    
     //Unsubscribe to all

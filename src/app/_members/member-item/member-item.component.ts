@@ -16,7 +16,6 @@ import { Observable } from 'rxjs';
 export class MemberItemComponent implements OnInit {
   //Inputs
   @Input() member: User;
-  @Input() activeRole : number;
 
  // memberEmail : string;
  // memberPhone : string;
@@ -41,12 +40,6 @@ export class MemberItemComponent implements OnInit {
   ngOnInit() {
   //  this.memberEmail= 'mailto:' + this.member.email;
   //  this.memberPhone= 'tel:' + this.member.mobile; 
-  if(this.activeRole!==null && this.activeRole !== undefined) {
-    if (this.activeRole<3)
-      this.member.roles = this.member.roles.filter(i => i.id === this.activeRole);
-    else 
-    this.member.roles = this.member.roles.filter(i => i.id >= this.activeRole);
-  }
 
 
   /*  this.userService.isLogged().subscribe(res=> this.isLogged = res);

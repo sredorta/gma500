@@ -4,9 +4,22 @@ $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
 
 
-.scaled {
-    transform:scale(0.8);
+.container {
+    padding:5px;
+    padding-top:20px;
+    width:150px;
+    height:200px;
+    border-radius:5px;
+    border:1px solid rgba(0, 0, 0, 0.3);
+    color:rgba(0, 0, 0, 0.6) 
 }
+
+.icon {
+    padding:5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+}
+
 
 mat-icon {
     opacity: 0.6;
@@ -20,7 +33,7 @@ mat-icon {
 
 
 
-
+/*
 
 .size-small {
     width:30px;
@@ -39,19 +52,4 @@ mat-icon {
     min-height:40px;
     max-height:40px;    
 }
-
-.button-special {
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.4);
-
-    border:1px solid;
-    border-radius:50%;
-    padding:0px;
-    width:30px !important;
-}
-.button-special:hover {
-    cursor:pointer;
-    border:1px solid mat-color($primary);
-    color: mat-color($primary);    
-    box-shadow: 2px 2px 5px mat-color($primary);
-}
+*/
