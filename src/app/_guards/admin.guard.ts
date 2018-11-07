@@ -12,7 +12,6 @@ export class AdminGuard implements CanActivate {
   isAdmin : boolean = false;
   constructor(private userService : UserService, private router : Router) {
     this.userService.getCurrent().subscribe(res => {
-      console.log("Has ADMIN ::: " + res.hasAccess('Admin'));
       this.isAdmin = res.hasAccess('Admin');
     })
   }  

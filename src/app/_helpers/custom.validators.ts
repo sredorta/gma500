@@ -41,7 +41,6 @@ export class CustomValidators {
 
   //Validate that a checkbox is checked (usefull for terms and conditions for example)
   static isChecked(fc: FormControl) {
-      console.log(fc.value);
       if (fc.value == true) {
           return null;
       }

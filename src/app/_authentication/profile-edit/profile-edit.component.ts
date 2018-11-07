@@ -123,11 +123,8 @@ export class ProfileEditComponent implements OnInit {
 
  //From submit
  onSubmit(value, form : FormGroup) {
-  console.log("onSubmit");
-  console.log(value); 
    //Handle invalid form
    if (form.invalid) {
-    console.log("invalid");
     return;
   }
 
@@ -145,7 +142,6 @@ export class ProfileEditComponent implements OnInit {
   //if (value.avatar != null) myUpdateUser.password = value.password;
   this._subscriptions.push(this.userService.update(myUpdateUser, value.password_old).subscribe(
       (result: any) => {
-        console.log(result);
         if (value.firstName != null) this.myCurrentUser.firstName = value.firstName;
         if (value.lastName != null) this.myCurrentUser.lastName = value.lastName;
         if (value.email != null) this.myCurrentUser.email = value.email;
@@ -156,7 +152,6 @@ export class ProfileEditComponent implements OnInit {
         //this.router.navigate([""]);                 
       },
       error => {
-         console.log(error);
           this.loading = false;
       })); 
 

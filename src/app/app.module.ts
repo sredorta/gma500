@@ -83,6 +83,7 @@ import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.compone
 import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.component';
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
 import { AdminProductsComponent } from './_admin/admin-products/admin-products.component';
+import { AdminProductCreateComponent } from './_admin/admin-product-create/admin-product-create.component';
 
 
 @NgModule({
@@ -114,7 +115,8 @@ import { AdminProductsComponent } from './_admin/admin-products/admin-products.c
     GroupsAdminComponent,
     ErrorSheetComponent,
     MakeSureDialogComponent,
-    AdminProductsComponent
+    AdminProductsComponent,
+    AdminProductCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -39,20 +39,23 @@ export class AdminProductsComponent implements OnInit {
   displayedColumns: string[] = ['id','image','cathegory','type','usage','brand'];
 
   members : User[] = new Array<User>();
-
   config : Config = this.configService.get();
+
+  productTypes = this.configService.get().productTypes;
+  productCathegories = this.configService.get().productCathegories;
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
 
   constructor(private userService:UserService, private productService:ProductService,private adminService:AdminService,private configService:ConfigService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log("here");
     this.loading = true;
+    
+    
 
     this._subscriptions.push(this.userService.getCurrent().subscribe(res => {
       this.user = res;
-      console.log(this.user);
     }));
 
     this._subscriptions.push(this.userService.getMembers().subscribe(res => {
@@ -66,7 +69,6 @@ export class AdminProductsComponent implements OnInit {
       };
       this._subscriptions.push(this.productService.getProducts().subscribe(res => {
         let products : Product[] =  new Array<Product>();
-        console.log(res);
         for (let product of res) {
           product = new Product(product);
           products.push(product);
@@ -100,18 +102,14 @@ export class AdminProductsComponent implements OnInit {
 
   //Assign product
   assignProduct(product_id:number, member_id:number) {
-    console.log("assign product " + product_id + " to member "+ member_id);
     this._subscriptions.push(this.adminService.attachUserToProduct(product_id,member_id).subscribe(result=>{
       const itemIndex = this.dataSource.data.findIndex(obj => obj.id === product_id);
-      console.log("Index of product is: " + itemIndex);
-      console.log("member_id is : " + member_id);
       this.dataSource.data[itemIndex].profile_id = member_id;
       this.dataSource.data[itemIndex].profile = this.dataSourceMember.data.find(i => i.id === member_id); 
     })); 
   }
   //Unasign product
   unassignProduct(product_id:number) {
-    console.log("unassign product " + product_id);
     this._subscriptions.push(this.adminService.detachUserFromProduct(product_id).subscribe(result=>{
       const itemIndex = this.dataSource.data.findIndex(obj => obj.id === product_id);
       this.dataSource.data[itemIndex].profile_id = null;
@@ -120,7 +118,6 @@ export class AdminProductsComponent implements OnInit {
   }
 
   removeProduct(product_id: number) {
-    console.log("remove product " + product_id);
     let dialogRef = this.dialog.open(MakeSureDialogComponent, {
       disableClose :true,
       panelClass : "admin-theme",

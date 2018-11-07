@@ -98,12 +98,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // any way to alter response that gets sent to the request subscriber?
             }
         }, (error: any) => {    
-            console.log("Interceptor Error !!!!!");
-            console.log(error);
             if (error instanceof HttpErrorResponse) {
                 if (error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
                    error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
-                    console.log("TOKEN EXPIRED !!!!");
                     this.userService.logout();
                     User.removeToken();
                     this.userService.setCurrent(new User(null));  
@@ -114,7 +111,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.router.navigate(['/login']);  
                 }
                 if (error.status === 401 || error.status === 403) {
-                    console.log("TOKEN EXPIRED !!!!");
                     this.userService.logout();
                     User.removeToken();
                     this.userService.setCurrent(new User(null));  
@@ -128,62 +124,5 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }
             }
         });
-
-
-/*
-
-        return next.handle(request).pipe(catchError(err => {
-            console.log("We are in interceptor");
-            console.log(err);
-            //Handle token expired
-            if (err.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
-                err.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
-                console.log("TOKEN EXPIRED !!!!");
-                this.userService.logout();
-                User.removeToken();
-                this.userService.setCurrent(new User(null));
-                this.router.navigate(['/login']);
-            } 
-
-            //Here we transform all error messages to user readable messages
-            let formattedMessage : string = ""
-            switch (err.error.message) {
-                case "validation_failed":
-                    formattedMessage = "Parametres du formulaire incorrectes"
-                    break;
-                case "invalid_email_or_password":
-                    formattedMessage = "Mot de passe ou email incorrect";
-                    break;
-                case "failed_to_create_token": 
-                    formattedMessage = "Impossible de creer un token"
-                    break;
-                case "user_already_registered":
-                    formattedMessage = "Email ou mobile déjà enregistres";
-                    break;
-                case "too_many_logins":
-                    formattedMessage = "Trop d'essais, vous devez attendre une minute";   
-                    break;
-                case "email_not_found":
-                    formattedMessage = "Adresse email non enregistré";
-                    break;
-                case "profile_not_found":
-                    formattedMessage = "Compte utilizateur non trouvé";
-                    break;
-                case "account_exists": 
-                    formattedMessage = "Un compte existe deja, la recuperation du compte est impossible";
-                    break;
-                case "email_not_validated":
-                    formattedMessage = "Vous devez valider votre compte email avant de pouvoir acceder";
-                    break;    
-                default:
-                    formattedMessage = err.error.message; 
-            }
-            //this.openSnackBar(formattedMessage || err.statusText,'OK');
-            this.openBottomSheet(err.error.response,formattedMessage || err.statusText);
-            console.log("Formatted Message : " + formattedMessage );
-            const error = formattedMessage || err.statusText;
-            return throwError(error);
-            
-        }))*/
     }
 }

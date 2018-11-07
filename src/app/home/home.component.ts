@@ -16,16 +16,12 @@ export class HomeComponent implements OnInit {
 
     this.userService.getCurrent().subscribe(res=> {
       this.user = res;
-      console.log("current user changed !")
-      console.log(this.user);
     })
   }
 
 
   loginTest() {
     this.userService.login('sergi.redorta12@kubiiks.com','Member0',false,'Membre').subscribe(res=> {
-      console.log("result from login :");
-      console.log(res);
       User.saveToken(res.token);   //Save Token to session storage
       //We need to download here the profile of the user
       this.userService.getAuthUser().subscribe(res=> {
@@ -36,14 +32,8 @@ export class HomeComponent implements OnInit {
 
 
   logoutTest() {
-    /*this.userService.logout().subscribe(res=> {
-      console.log("result from logout :");
-      console.log(res);
-      this.userService.setCurrent(new User(null));
-      User.removeToken();
-    });*/
+
     this.userService.getMembers().subscribe(res => {
-      console.log("Resulting members:"); console.log(res)
     });
 
   }

@@ -109,10 +109,8 @@ export class MembersComponent implements OnInit {
 
   //Filter
   applyFilter(filterValue: string) {
-    console.log("on filter : " + filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.membersDisplayed = this.dataSource.filteredData.length;
-    console.log("members filter : " + this.membersDisplayed);
   }
 
   ngOnDestroy() {    

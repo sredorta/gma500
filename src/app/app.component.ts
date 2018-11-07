@@ -41,7 +41,6 @@ export class AppComponent {
 
     this._subscriptions.push(this.configService.isCompleted().subscribe(res=> {
       console.log("Config Service completed:");
-      //console.log(res);
     }));
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
+import {AdminProductCreateComponent} from '../admin-product-create/admin-product-create.component';
 import { Router} from '@angular/router';
 import {User} from "../../_models/user";
 import {Role} from "../../_models/role";
@@ -86,10 +87,9 @@ export class AdminMembersComponent implements OnInit {
   }
 
   private _removeUser(id:number) {
-    console.log("Removing profile : " + id);
     this.loading = true;
     this._subscriptions.push(this.adminService.deleteUser(id).subscribe(res => {
-      console.log(res);
+      
     }));
     let user = this.users.find(i => i.id == id);
     let index = this.users.indexOf(user);

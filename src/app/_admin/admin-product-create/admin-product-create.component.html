@@ -1,0 +1,123 @@
+<div class="admin-theme">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title fxLayoutAlign="center center"><mat-icon style="margin-right:10px">add_box</mat-icon>Creer</mat-panel-title>
+            <mat-panel-description>Ajouter du materiel</mat-panel-description>
+          </mat-expansion-panel-header>
+          <!--image: string;
+          fabricatedOn : string;
+          boughtOn:   string;
+          expiresOn:  string;;-->
+
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+            <div fxLayout="row wrap" fxLayoutGap="20px">
+              <div>
+                    <mat-form-field appearance="outline" style="width:100%">
+                      <mat-label>ID GMA</mat-label>
+                      <input matInput formControlName="idGMA" placeholder="idGMA" required autocomplete="off">
+                      <mat-hint>Code identifiaciton GMA</mat-hint>
+                      <mat-error *ngFor="let validation of validation_messages">
+                          <mat-error class="error-message" *ngIf="myForm.get('idGMA').hasError(validation.type) && (myForm.get('idGMA').dirty || myForm.get('idGMA').touched)">{{validation.message}}</mat-error>
+                      </mat-error>                 
+                    </mat-form-field>
+              </div>            
+              <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Número série</mat-label>
+                    <input matInput formControlName="serialNumber" placeholder="Número série" required autocomplete="off">
+                    <mat-hint>Numéro de série du matériel</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('serialNumber').hasError(validation.type) && (myForm.get('serialNumber').dirty || myForm.get('serialNumber').touched)">{{validation.message}}</mat-error>
+                    </mat-error>                 
+                  </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Marque</mat-label>
+                    <input matInput formControlName="brand" placeholder="Marque" required autocomplete="off">
+                    <mat-hint>Marque du matériel</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('brand').hasError(validation.type) && (myForm.get('brand').dirty || myForm.get('brand').touched)">{{validation.message}}</mat-error>
+                    </mat-error>                 
+                  </mat-form-field>
+              </div>  
+              <div>
+                  <mat-form-field>
+                      <mat-select placeholder="Type de matériel">
+                        <mat-option *ngFor="let productType of productTypes" [value]="productType.name">{{productType.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div>  
+              <div>
+                  <mat-form-field>
+                      <mat-select placeholder="Cathégorie">
+                        <mat-option *ngFor="let cathegory of productCathegories" [value]="cathegory.name">{{cathegory.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div> 
+              <div>
+                  <mat-form-field>
+                      <mat-select placeholder="Usage">
+                          <mat-option *ngFor="let usage of productUsages" [value]="usage.name">{{usage.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Lien</mat-label>
+                    <input matInput formControlName="docLink" placeholder="Lien" required autocomplete="off">
+                    <mat-hint>Lien a la documentation</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('docLink').hasError(validation.type) && (myForm.get('docLink').dirty || myForm.get('docLink').touched)">{{validation.message}}</mat-error>
+                    </mat-error>                 
+                  </mat-form-field>
+              </div>               
+              <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Déscription</mat-label>
+                    <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+                    <mat-hint>Déscription du matériel</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('description').hasError(validation.type) && (myForm.get('description').dirty || myForm.get('description').touched)">{{validation.message}}</mat-error>
+                    </mat-error>                 
+                  </mat-form-field>
+              </div> 
+              <div>
+                <mat-form-field>
+                  <input matInput formControlName="fabricatedOn" [matDatepicker]="picker1" placeholder="Date de fabrication">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput formControlName="boughtOn" [matDatepicker]="picker2" placeholder="Date d'achat">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div> 
+              <div>
+                  <mat-form-field>
+                    <input matInput formControlName="expiresOn" [matDatepicker]="picker3" placeholder="Date de rebut">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div> 
+              <app-input-image (onImageChange)="onImageChange($event)" [defaultImg]="photo" style="margin:5px"></app-input-image>
+              
+              </div>
+              <div fxLayoutAlign="center center" fxLayoutGap="20px">
+                <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="loading">OK</button>
+              </div>
+            </form>      
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+
+
+
+</div>

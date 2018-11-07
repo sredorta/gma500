@@ -38,7 +38,6 @@ export class RolesAdminComponent implements OnInit {
       for(let role of result) {
           this.roles.push(new Role(role));
       }
-      console.log(this.roles);
     }));    
   }
 
@@ -69,7 +68,6 @@ export class RolesAdminComponent implements OnInit {
     }, error => {
         this.loading = false;
     }));
-    console.log(value);
   }
   reset() {
   }
@@ -90,7 +88,6 @@ export class RolesAdminComponent implements OnInit {
           let index = this.roles.indexOf(role);
           this.roles.splice(index,1);      
         }));    
-        console.log("Delete role : " + id);
       } else {
         this.loading = false;
       }

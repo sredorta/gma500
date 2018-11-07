@@ -40,12 +40,10 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this._subscriptions.push(this.userService.getCurrent().subscribe(res => {
       this.user = res;
-      console.log(this.user);
     }));
 
     this._subscriptions.push(this.productService.getProducts().subscribe(res => {
       let products : Product[] =  new Array<Product>();
-      console.log(res);
       for (let product of res) {
         product = new Product(product);
         products.push(product);

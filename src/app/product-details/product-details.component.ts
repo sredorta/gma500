@@ -24,12 +24,9 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this._subscriptions.push(this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
-      console.log("id : " + this.id);
       this._subscriptions.push(this.productService.getProduct(this.id).subscribe(res => {
-        console.log(res);
         this.product = new Product(res);
         this.loading = false;
-        console.log(this.product);
       }));
    }));   
   }
