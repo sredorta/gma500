@@ -14,7 +14,7 @@
       <div style="width:100%" fxLayoutAlign="end end" style="padding-right:20px">
         <p style="margin-top:5px;margin-bottom:5px">TOTAL : {{productsCount}} / <span style="font-weight:bold">{{productsTotal}}</span></p> 
       </div>   
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+      <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
         <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>#</th>
               <td mat-cell *matCellDef="let row">{{row.idGMA}}</td>
@@ -66,10 +66,12 @@
                     <div fxLayout="column" style="min-width:120px;max-width:300px">
                       <p style="margin-bottom:5px">Assigner ce materiel: </p>
                       <small>Chercher un membre pour pouvoir l'assigner</small>
-                      <mat-form-field style="padding-top:10px">
-                          <input matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Chercher" autocomplete="off">
-                          <mat-hint>Membres trouvés : {{membersCount}}</mat-hint>
-                      </mat-form-field>  
+                      <form [formGroup]="myForm" novalidate>
+                        <mat-form-field style="padding-top:10px">
+                            <input formControlName="search" matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Chercher" autocomplete="off">
+                            <mat-hint>Membres trouvés : {{membersCount}}</mat-hint>
+                        </mat-form-field> 
+                      </form>
                       <app-member-item *ngIf="membersCount==1"  [member]="dataSourceMember.filteredData[0]" [style]="'small'"></app-member-item>
                       <button *ngIf="membersCount == 1" mat-stroked-button color="primary" (click)="assignProduct(element.id, dataSourceMember.filteredData[0].id)">Assign</button>
                     </div>
@@ -89,7 +91,7 @@
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"
           class="element-row"
           [class.expanded-row]="expandedElement === element"
-          (click)="expandedElement = element">        
+          (click)="expandedElement = element;rowClick();">        
         </tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>

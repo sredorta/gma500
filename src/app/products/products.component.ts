@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import {MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -49,6 +49,13 @@ export class ProductsComponent implements OnInit {
         products.push(product);
       }
       this.dataSource = new MatTableDataSource(products);
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.idGMA.toLowerCase().includes(filter) || 
+        data.cathegory.toLowerCase().includes(filter) ||
+        data.type.toLowerCase().includes(filter) ||
+        data.description.toLowerCase().includes(filter) ||
+        data.brand.toLowerCase().includes(filter);
+      };
       this.productsCount = products.length;
       this.loading = false;
     }));

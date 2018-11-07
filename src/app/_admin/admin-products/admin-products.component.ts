@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
-import {MatTableDataSource} from '@angular/material';
+import {MatTable, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { UserService } from '../../_services/user.service';
 import { ProductService } from '../../_services/product.service';
@@ -35,7 +36,7 @@ export class AdminProductsComponent implements OnInit {
   productsCount : number = 0;
   productsTotal : number = 0;
   membersCount : number = 0;  //Count of member match
-
+  
   displayedColumns: string[] = ['id','image','cathegory','type','usage','brand'];
 
   members : User[] = new Array<User>();
@@ -43,17 +44,16 @@ export class AdminProductsComponent implements OnInit {
 
   productTypes = this.configService.get().productTypes;
   productCathegories = this.configService.get().productCathegories;
-
+  @ViewChild('myTable') table : MatTable<any>;           //MatTable for rendering 
+  myForm: FormGroup; 
   private _subscriptions : Subscription[] = new Array<Subscription>();
-
 
   constructor(private userService:UserService, private productService:ProductService,private adminService:AdminService,private configService:ConfigService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loading = true;
+    this.myForm =  new FormGroup({ search: new FormControl('',null)});
     
-    
-
     this._subscriptions.push(this.userService.getCurrent().subscribe(res => {
       this.user = res;
     }));
@@ -79,7 +79,8 @@ export class AdminProductsComponent implements OnInit {
           return data.idGMA.toLowerCase().includes(filter) || 
           data.cathegory.toLowerCase().includes(filter) ||
           data.type.toLowerCase().includes(filter) ||
-          data.description.toLowerCase().includes(filter);
+          data.description.toLowerCase().includes(filter) ||
+          data.brand.toLowerCase().includes(filter);
       };
         this.productsCount = products.length;
         this.productsTotal = products.length;
@@ -87,6 +88,12 @@ export class AdminProductsComponent implements OnInit {
       }));
     }));
   }
+
+  //Update html
+  ngOnChanges(changes: SimpleChanges) {
+    this.dataSource = changes.dataSource.currentValue;
+  }
+
   //Filter on Products
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -130,11 +137,23 @@ export class AdminProductsComponent implements OnInit {
         this._subscriptions.push(this.adminService.deleteProduct(product_id).subscribe(result=>{
           const itemIndex = this.dataSource.data.findIndex(obj => obj.id === product_id);
           this.dataSource.data.splice(itemIndex, 1); 
+          const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === product_id);
+          if (itemIndexFilter>=0) {
+            this.dataSource.filteredData.splice(itemIndexFilter, 1); 
+          }
+          this.table.renderRows();
+          this.productsTotal = this.dataSource.data.length;
+          this.productsCount = this.dataSource.filteredData.length;
         }));   
       } 
     }));    
   }
-
+  //Reset memberSearch input
+  rowClick() {
+    this.myForm.reset();
+    this.membersCount = this.dataSourceMember.data.length;
+  }
+  
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {
