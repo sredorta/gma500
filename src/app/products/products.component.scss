@@ -14,9 +14,7 @@ $accent: map-get($main-app-theme,accent);
     }
 
   }
-th,td {
-  min-width:60px;
-}
+
   .background-image {
       background-size:cover;
       width:100%;
@@ -28,6 +26,10 @@ th,td {
   
   .table-container {
     min-height:300px;
+  }
+
+  th,td {
+    min-width:60px;
   }
   
   table {

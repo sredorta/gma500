@@ -66,7 +66,6 @@ import { TermsDialogComponent } from './_authentication/terms-dialog/terms-dialo
 import { ProfileComponent } from './_authentication/profile/profile.component';
 import { MembersComponent } from './_members/members/members.component';
 import { MemberItemComponent } from './_members/member-item/member-item.component';
-import { ProfileDialogComponent } from './_dialogs/profile-dialog/profile-dialog.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductItemComponent } from './_library/product-item/product-item.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
@@ -100,7 +99,6 @@ import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-d
     ProfileComponent,
     MembersComponent,
     MemberItemComponent,
-    ProfileDialogComponent,
     ProductsComponent,
     ProductItemComponent,
     ProductDetailsComponent,
@@ -160,7 +158,7 @@ import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-d
       MatTooltipModule,
       MatTreeModule],          
   ],
-  entryComponents: [TermsDialogComponent, ProfileDialogComponent, ErrorSheetComponent, MakeSureDialogComponent],
+  entryComponents: [TermsDialogComponent, ErrorSheetComponent, MakeSureDialogComponent],
   providers: [
     HttpService, ConfigService, UserService, ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 

@@ -18,3 +18,57 @@ $accent: map-get($main-app-theme,accent);
 .header {
     margin-bottom:5px;
 }
+//Table formatting
+.table-container {
+    min-height:300px;
+  }
+
+  th,td {
+    min-width:60px;
+  }
+  
+  table {
+    width: 100%;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    background: mat-color($primary,50);
+    cursor:pointer;
+  }
+  tr.element-row:not(.expanded-row):active {
+    background: mat-color($primary,100);;
+  }
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  .total {
+    font-size: 13px;
+    opacity:0.6;
+    margin-top:2px;
+    margin-bottom:2px;
+    span {
+        font-weight: bold;
+    }
+  }
+  .detail-title {
+    width:100%;
+    //font-size: 12px;
+    opacity: 0.8;
+    border-bottom: 1px solid;
+    margin-bottom:3px;
+    font-weight: bold;
+  }
+  .detail-value {
+    width:100%;
+    margin-bottom:5px;
+  }

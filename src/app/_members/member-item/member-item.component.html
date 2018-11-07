@@ -2,20 +2,22 @@
   <div *ngIf="member.isAvailable(); else loading">  
     <div fxLayout="column" class="container">
         <div fxFlex="2 2 auto" fxLayoutAlign="center center" fxLayout="column">
-            <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:50px;height:50px;border-radius:50%"></div>
+            <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:60px;height:60px;border-radius:50%"></div>
             <div fxLayout="column" fxLayoutAlign="center center" style="height:90px;">
-            <div style="margin-bottom:5px;font-weight:bold;font-size:13px"><div fxLayout="row wrap" fxLayoutAlign="center center"><div style="margin-right:5px">{{member.firstName}}</div> <div>{{member.lastName}}</div></div></div>
+            <div style="margin-bottom:5px;font-weight:bold;font-size:14px"><div fxLayout="row wrap" fxLayoutAlign="center center"><div style="margin-right:5px">{{member.firstName}}</div> <div>{{member.lastName}}</div></div></div>
             <small [ngClass]="{'is-president' : member.isPresident()}">{{member.getFormattedRoles()}}</small>
             </div>
         </div>  
-        <div *ngIf="member.email != undefined" fxFlex="1 1 auto" style="height:60px">
+        <div *ngIf="member.email != undefined" fxFlex="1 1 auto" style="height:70px">
             <div *ngIf="isMobile" fxLayoutAlign="center center" fxLayoutGap="20px">
-                    <button  mat-mini-fab color="white"><mat-icon aria-label="Message" (click)="redirectEmail()">email</mat-icon></button>   
-                    <button  mat-mini-fab color="white"><mat-icon aria-label="Call" (click)="redirectPhone()">phone</mat-icon></button>             
+                    <a href="mailto:{{member.email}}" mat-mini-fab color="white"><mat-icon aria-label="Message">email</mat-icon></a>   
+                    <a href="tel:{{member.mobile}}" mat-mini-fab color="white"><mat-icon aria-label="Call">phone</mat-icon></a>                     
             </div>
-            <div *ngIf="!isMobile" fxLayoutAlign="center center" fxLayoutGap="20px">
-                    <mat-icon matTooltip="{{member.email}}" class="icon">email</mat-icon>
-                    <mat-icon matTooltip="{{member.mobile}}" class="icon">phone</mat-icon>
+            <div *ngIf="!isMobile" fxLayout="column" fxLayoutAlign="start center">
+                    <small class="detail-title">EMAIL:</small>
+                    <small class="detail-value">{{member.email}}</small>                    
+                    <small class="detail-title">MOBILE:</small>
+                    <small class="detail-value">{{member.mobile}}</small>                
             </div>     
         </div>
     </div>

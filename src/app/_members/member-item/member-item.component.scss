@@ -7,13 +7,31 @@ $accent: map-get($main-app-theme,accent);
 .container {
     padding:5px;
     padding-top:20px;
-    width:150px;
-    height:200px;
+    width:180px;
+    height:220px;
     border-radius:5px;
     border:1px solid rgba(0, 0, 0, 0.3);
     color:rgba(0, 0, 0, 0.6) 
 }
 
+
+.detail-title {
+    width:100%;
+    //font-size: 12px;
+    opacity: 0.8;
+    border-bottom: 1px solid;
+    margin-bottom:3px;
+    font-weight: bold;
+  }
+  .detail-value {
+    width:100%;
+    margin-bottom:5px;
+  }
+
+  small {
+    font-size:11px;
+  }
+/*
 .icon {
     padding:5px;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -24,6 +42,7 @@ $accent: map-get($main-app-theme,accent);
 mat-icon {
     opacity: 0.6;
 }
+*/
 
 .is-president {
     color: mat-color($accent);

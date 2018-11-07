@@ -13,15 +13,16 @@ export class Product {
     fabricatedOn : string;
     boughtOn:   string;
     expiresOn:  string;
-    assignedTo : User = new User(null);
-    controls : string[] = null;
     docLink: string = null;
+    profile_id: number;                 //If Product is assigned to somebody
+    assignedTo : User = new User(null); //To whom is assigned
+    controls : string[] = null;
     comments: string[] = null;
 
 
     //Returns if product is already assigned to someone
     isAvailable() {
-        if (this.assignedTo.id == null || this.assignedTo.id == undefined) return true;
+        if (this.profile_id == null || this.profile_id == undefined) return true;
         return false;
     }
     
