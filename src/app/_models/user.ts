@@ -3,6 +3,7 @@ import {Role} from '../_models/role';
 import {Group} from '../_models/group';
 import {Notif} from '../_models/notif';
 import {Account} from '../_models/account';
+import {Product} from '../_models/product';
 
 import { getMatScrollStrategyAlreadyAttachedError } from "@angular/cdk/overlay/typings/scroll/scroll-strategy";
 
@@ -43,6 +44,7 @@ export class User {
     access: string;
     roles: Role[] = new Array<Role>();
     groups: Group[] = new Array<Group>();
+    products: Product[] = new Array<Product>();
     accounts: Account[] = new Array<Account>();
 
     notifsUnreadCount: number = 0; 
@@ -88,7 +90,11 @@ export class User {
         if (jsonObj.groups != null)
             for (let group of jsonObj.groups) {
                 this.groups.push(new Group(group));
-            }        
+            }     
+        if (jsonObj.products != null)
+            for (let product of jsonObj.products) {
+                this.products.push(new Product(product));
+            }             
         this.notifsUnreadCount = jsonObj.notifsUnreadCount;
         this.created_at = jsonObj.created_at;
         this.updated_at = jsonObj.updated_at;

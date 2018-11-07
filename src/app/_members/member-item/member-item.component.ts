@@ -13,9 +13,11 @@ import { Observable } from 'rxjs';
 export class MemberItemComponent implements OnInit {
   //Inputs
   @Input() member: User;
+  @Input() style : string = "normal";
 
- // memberEmail : string;
- // memberPhone : string;
+  isNormal : boolean;
+  isSmall :boolean;
+  showExpansion : boolean = false;  //Expansion on small format
 
   isMobile = this.deviceService.isMobile();
 
@@ -28,7 +30,11 @@ export class MemberItemComponent implements OnInit {
   
 
   ngOnInit() {
-
+    this.isNormal = this.style == "normal"?true:false;
+    this.isSmall = this.style == "small"?true:false;
   }
 
+  toggleExpansion() {
+    this.showExpansion = !this.showExpansion;
+  }
 }

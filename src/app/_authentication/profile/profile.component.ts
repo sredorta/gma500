@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services/user.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatTableDataSource} from '@angular/material';
 import { Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
 import {User} from "../../_models/user";
+import {Product} from "../../_models/product";
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,6 +16,8 @@ import {User} from "../../_models/user";
 export class ProfileComponent implements OnInit {
   user$  = this.userService.getCurrent();   //User data that is globally stored and sync
   title : string = "";
+  displayedColumns: string[] = ['id','image','cathegory','type','brand'];
+  dataSource = null;          //Store products array in table format
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private userService:UserService, private router: Router,public dialog: MatDialog) { }
@@ -20,7 +25,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrent().subscribe(res=> {
       this.title = res.getFormattedRoles();
+      this.dataSource = new MatTableDataSource(res.products); //Initialize the material
     });
+
   }
 
 

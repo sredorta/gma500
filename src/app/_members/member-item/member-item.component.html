@@ -1,4 +1,4 @@
-
+<div *ngIf="isNormal">
   <div *ngIf="member.isAvailable(); else loading">  
     <div fxLayout="column" class="container">
         <div fxFlex="2 2 auto" fxLayoutAlign="center center" fxLayout="column">
@@ -26,4 +26,26 @@
         <div fxLayout="column" fxLayoutAlign="center center" class="container">
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
-  </ng-template>   
+  </ng-template> 
+</div>  
+<div *ngIf="isSmall">
+    <div  class="small-container" (click)="toggleExpansion()">
+        <div *ngIf="!showExpansion" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" style="padding:5px">
+            <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:30px;height:30px;border-radius:50%"></div>
+            <div style="font-weight:bold">{{member.firstName}} {{member.lastName}}</div>
+        </div>
+        <div *ngIf="showExpansion">
+            <div *ngIf="!isMobile" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px" class="small-container-expansion" [ngClass]="{'show' : showExpansion}">
+                <div style="font-size:11px">Email : {{member.email}}</div>
+                <div style="font-size:11px">Mobile: {{member.mobile}}</div>
+            </div>
+            <div *ngIf="isMobile" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="small-container-expansion" [ngClass]="{'show' : showExpansion}">
+                <a href="mailto:{{member.email}}" mat-mini-fab color="white"><mat-icon aria-label="Message">email</mat-icon></a>   
+                <a href="tel:{{member.mobile}}" mat-mini-fab color="white"><mat-icon aria-label="Call">phone</mat-icon></a>                     
+            </div>  
+        </div>
+
+    </div>    
+  
+</div>
+

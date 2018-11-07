@@ -31,6 +31,52 @@
           </mat-chip-list>  
           <small *ngIf="user.groups.length == 0">Vous n'etes dans aucun groupe'</small>
       </div>  
+      <small class="detail">MATERIEL EMPRUNTÉ:</small>
+      <p *ngIf="user.products.length == 0" class="box">Aucun matériel emprunté</p>  
+      <div *ngIf="user.products.length > 0" style="width:100%">
+                <p class="box">Total materiel emprunté : <span style="font-weight:bold"> {{user.products.length}} </span></p>  
+              <table mat-table [dataSource]="dataSource" class="table">
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>#</th>
+                    <td mat-cell *matCellDef="let row">{{row.idGMA}}</td>
+                </ng-container> 
+
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef>Photo</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="row.image" style="background-size:cover;width:50px;height:50px;border-radius:3px;opacity:0.8" class="image">
+                          <div class="available" [ngClass]="{'not-available' : !row.isAvailable()}"></div>
+                        </div>
+                    </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let row">{{row.type}}</td>
+                </ng-container> 
+        
+                <ng-container matColumnDef="cathegory">
+                    <th mat-header-cell *matHeaderCellDef>Cathégorie</th>
+                    <td mat-cell *matCellDef="let row">{{row.cathegory}}</td>
+                </ng-container>   
+        
+                <ng-container matColumnDef="brand">
+                    <th mat-header-cell *matHeaderCellDef>Marque</th>
+                    <td mat-cell *matCellDef="let row">{{row.brand}}</td>
+                </ng-container>  
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"></tr>
+              </table>
+
+
+
+
+
+
+      </div>
+
       <app-profile-edit style="width:100%" [user]="user"></app-profile-edit>                     
     </div>
 </div>

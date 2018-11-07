@@ -1,9 +1,6 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" class="background-image" fxLayoutAlign="center center">
   <h1>Location Materiel</h1>
 </div>  
-<div *ngIf="user.hasAccess('Admin')" fxLayoutAlign="start center" width="100%" class="admin-theme">
-  <button color="primary" mat-raised-button routerLink="/">Gerer le materiel</button>
-</div>
 <div class="container">
     <div class="loading-shade" *ngIf="loading">
       <mat-spinner *ngIf="loading"></mat-spinner>
@@ -17,6 +14,10 @@
         <p style="font-weight:bold;margin-top:5px;margin-bottom:5px">TOTAL : {{productsCount}}</p> 
       </div>   
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+        <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let row">{{row.idGMA}}</td>
+        </ng-container> 
 
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Photo</th>
@@ -52,7 +53,7 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
               <div class="element-detail"
                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <div style="padding:10px"> 
+                <div style="padding:10px;width:100%"> 
                   <p style="font-weight:bold">DESCRIPTION</p>
                   <div class="example-element-symbol"> {{element.description}} </div>
                   <div style="margin:5px"><a href={{element.docLink}}><mat-icon matTooltip="documentation">attach_file</mat-icon>Documentation</a></div>

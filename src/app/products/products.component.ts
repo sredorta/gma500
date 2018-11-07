@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
   dataSource = null;          //Store products array in table format
   expandedElement: Product;   //Expanded panel for description
   productsCount : number = 0;
-  displayedColumns: string[] = ['image','cathegory','type','usage','brand'];
+  displayedColumns: string[] = ['id','image','cathegory','type','usage','brand'];
   config : Config = this.configService.get();
   private _subscriptions : Subscription[] = new Array<Subscription>();
 

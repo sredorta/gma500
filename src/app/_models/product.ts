@@ -15,7 +15,7 @@ export class Product {
     expiresOn:  string;
     docLink: string = null;
     profile_id: number;                 //If Product is assigned to somebody
-    assignedTo : User = new User(null); //To whom is assigned
+    assignedTo : any = null; //To whom is assigned
     controls : string[] = null;
     comments: string[] = null;
 
@@ -30,7 +30,7 @@ export class Product {
         for (let prop in jsonObj) {
             this[prop] = jsonObj[prop];
             if (jsonObj.assignedTo != null)
-                this.assignedTo = new User(jsonObj.assignedTo);
+                this.assignedTo = jsonObj.assignedTo;
         }
     }
 }

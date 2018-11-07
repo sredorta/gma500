@@ -67,6 +67,43 @@ mat-chip {
     transform:scale(0.8);
 }
 
+th,td {
+    min-width:60px;
+  }
+  
+  table {
+    width: 100%;
+    margin-bottom:10px;
+  }
+
+  /*tr.element-row:not(.expanded-row):hover {
+    background: mat-color($primary,50);
+    cursor:pointer;
+  }
+  tr.element-row:not(.expanded-row):active {
+    background: mat-color($primary,100);;
+  }*/
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  .mat-cell {
+    font-size:12px;
+  }
+  .image {
+    transform:scale(0.8);
+  }
+
+
 /*
 .header {
     font-size:25px;

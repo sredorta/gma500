@@ -1,8 +1,9 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" class="background-image" fxLayoutAlign="center center">
   <h1>Détails du materiel</h1>
 </div>  
-<div *ngIf="!loading; else loadingTemplate" style="width:100%;padding:10px" fxLayout="column" fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutAlign="center center" style="padding:10px;min-width:250px;max-width:500px">
+<div *ngIf="!loading; else loadingTemplate" style="width:100%" fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" style="padding-right:10vw;padding-left:10vw;padding:10px;width:100%;max-width:500px;">
+    <div fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="1 1 auto">
         <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="product.image" style="background-size:cover;width:70px;height:70px;border-radius:3px" class="image">
             <div class="available" [ngClass]="{'not-available' : !product.isAvailable()}"></div>
@@ -11,14 +12,17 @@
       <div fxFlex="1 1 auto" fxLayout="column">
         <div>{{product.type}}</div>        
         <div>{{product.cathegory}}</div>
+        <div style="font-size:smaller">{{product.brand}}</div>
       </div>
+      <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end center">
+          <a mat-mini-fab color="white" href={{product.docLink}}><mat-icon matTooltip="documentation">attach_file</mat-icon></a>
+        </div>
     </div>
     <div *ngIf="!product.isAvailable()">
-      <div>Assigned to: </div>
-      <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="product.assignedTo.avatar" style="background-size:cover;width:30px;height:30px;border-radius:50%" class="image"></div>
-      <div>{{product.assignedTo.firstName}} {{product.assignedTo.lastName}}</div>
+      <p style="margin-bottom:5px">Actuellement utilizé par: </p>
+      <app-member-item [member]="product.assignedTo" [style]="'small'"></app-member-item>
     </div>
-    <div fxLayout="column" style="min-width:250px;max-width:500px">
+    <div fxLayout="column" style="padding-top:10px;padding-bottom:10px">
       <small class="detail-title">Identifiant GMA:</small>
       <small class="detail-value">{{product.idGMA}}</small>                    
       <small class="detail-title">Numero serie:</small>
@@ -34,7 +38,7 @@
       <p class="detail-title" style="width:100%">CONTROLS</p>
       <p class="detail-title">COMMENTAIRES</p>
     </div>
-
+  </div>
 </div>
 <ng-template #loadingTemplate>
     <div fxLayout="column" fxLayoutAlign="center center" class="container">

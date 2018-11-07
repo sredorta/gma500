@@ -72,7 +72,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;    
             case "Token has expired":
                 msg = "Votre session a expiré";
-                break;                  
+                break;   
+            case "owning_products":
+                msg = "Vous avez du matériel du club assigné, vous ne pouvez pas vous desinscrire. Contactéz le groupe de gestion de matériel"                   
+                break;    
             default:
                msg = code;
         }        

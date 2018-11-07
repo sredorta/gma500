@@ -31,44 +31,28 @@ $accent: map-get($main-app-theme,accent);
   small {
     font-size:11px;
   }
-/*
-.icon {
-    padding:5px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-}
-
-
-mat-icon {
-    opacity: 0.6;
-}
-*/
 
 .is-president {
     color: mat-color($accent);
     font-weight: bold;
 }
 
-
-
-
-/*
-
-.size-small {
-    width:30px;
-    height:30px;
-    min-width:30px;
-    max-width:30px;
-    min-height:30px;
-    max-height:30px;
+//Small format part
+.small-container {
+    padding:5px;
+}
+.small-container:hover {
+    background: mat-color($primary,50);
+    cursor:pointer;
+}
+.small-container:active {
+    background: mat-color($primary,100);;
+}
+.small-container-expansion {
+    padding:5px;
+    visibility: hidden;
 }
 
-.size-medium {
-    width:40px;
-    height:40px;
-    min-width:40px;
-    max-width:40px;
-    min-height:40px;
-    max-height:40px;    
+.show {
+    visibility: visible;
 }
-*/

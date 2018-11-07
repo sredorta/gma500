@@ -12,7 +12,6 @@ $accent: map-get($main-app-theme,accent);
     .image {
       transform:scale(0.8);
     }
-
   }
 
   .background-image {
@@ -31,7 +30,7 @@ $accent: map-get($main-app-theme,accent);
   th,td {
     min-width:60px;
   }
-  
+
   table {
     width: 100%;
   }
