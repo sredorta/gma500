@@ -82,6 +82,7 @@ import { RolesAdminComponent } from './_admin/roles-admin/roles-admin.component'
 import { GroupsAdminComponent } from './_admin/groups-admin/groups-admin.component';
 import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.component';
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
+import { AdminProductsComponent } from './_admin/admin-products/admin-products.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-d
     RolesAdminComponent,
     GroupsAdminComponent,
     ErrorSheetComponent,
-    MakeSureDialogComponent
+    MakeSureDialogComponent,
+    AdminProductsComponent
   ],
   imports: [
     BrowserModule,

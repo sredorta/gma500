@@ -92,4 +92,19 @@ export class AdminService {
     return this.http.post<any>(environment.apiURL +'/admin/users/delete',{profile_id:user_id});
   }   
 
+  //Delete a product
+  public deleteProduct(product_id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/products/delete',{product_id:product_id});
+  }   
+  //Dettach user from Product
+  public detachUserFromProduct(product_id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/products/detach',{product_id:product_id});
+  }  
+
+  //Attach user to Product
+  public attachUserToProduct(product_id:number, user_id:number) : Observable<any> {  
+    return this.http.post<any>(environment.apiURL +'/admin/products/attach', {product_id:product_id, profile_id:user_id});
+  }   
+
+
 }

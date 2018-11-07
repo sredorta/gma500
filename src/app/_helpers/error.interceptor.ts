@@ -76,6 +76,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             case "owning_products":
                 msg = "Vous avez du matériel du club assigné, vous ne pouvez pas vous desinscrire. Contactéz le groupe de gestion de matériel"                   
                 break;    
+            case "invalid_params":
+                msg = "Requete avec de parametres incorrectes !";                 
+                break;                  
             default:
                msg = code;
         }        

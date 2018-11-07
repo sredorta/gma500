@@ -24,7 +24,7 @@
 
         <div *ngIf="membersCount>0" class="table-container">
             <mat-form-field style="padding-top:10px;padding-left:20px">
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Chercher">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Chercher" autocomplete="off">
             </mat-form-field>  
             <div style="width:100%" fxLayoutAlign="end end" style="padding-right:20px">
               <p class="total">TOTAL : {{membersDisplayed}} / <span>{{membersCount}}</span></p> 

@@ -11,6 +11,7 @@ import {ProfileComponent} from './_authentication/profile/profile.component';
 import {ProfileEditComponent} from './_authentication/profile-edit/profile-edit.component';
 import {MembersComponent} from './_members/members/members.component';
 import {AdminMembersComponent} from './_admin/admin-members/admin-members.component';
+import {AdminProductsComponent} from './_admin/admin-products/admin-products.component';
 import {RolesAdminComponent} from './_admin/roles-admin/roles-admin.component';
 import {GroupsAdminComponent} from './_admin/groups-admin/groups-admin.component';
 import {NotifsComponent} from './_notifs/notifs/notifs.component';
@@ -84,12 +85,18 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
+    path: 'admin-products',
+    component: AdminProductsComponent,
+    canActivate: [AdminGuard]
+  },     
+  {
     path: 'materiel',
     component: ProductsComponent
   },
   {
     path: 'materiel-details/:id',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    canActivate: [LoggedInGuard]
   }
 ];
 

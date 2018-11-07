@@ -1,0 +1,67 @@
+
+@import "../../../styles.scss"; //Import general themeing
+
+$primary: map-get($admin-theme,primary);
+$accent: map-get($admin-theme,accent);
+
+
+
+
+//Products table part
+  th,td {
+    min-width:60px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    background: mat-color($primary,700);
+    cursor:pointer;
+  }
+  tr.element-row:not(.expanded-row):active {
+    background: mat-color($primary,100);;
+  }
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
+  .loading-shade {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .available {
+     width:10px;
+     height:10px;
+     margin:5px;
+     border-radius: 50%;
+     box-shadow: 1px 1px 2px black;
+     background-color: greenyellow;
+  }
+  .not-available {
+    background-color: red;
+  }
+
+  //On small screens change table font-size
+  @media only screen and (max-width: 500px) {
+    .mat-cell {
+      font-size:12px;
+    }
+    .image {
+      transform:scale(0.8);
+    }
+  }

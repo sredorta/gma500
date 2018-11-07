@@ -2,6 +2,10 @@
 
 $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
+//Theme on admin
+$primaryAdmin: map-get($admin-theme,primary);
+$accentAdmin: map-get($admin-theme,accent);
+
 
 
 .container {
@@ -48,6 +52,20 @@ $accent: map-get($main-app-theme,accent);
 .small-container:active {
     background: mat-color($primary,100);;
 }
+
+//Theme on admin
+:host-context(.admin-theme) {
+    .small-container:hover {
+        background: mat-color($primaryAdmin,900);
+        cursor:pointer;
+    }
+    .small-container:active {
+        background: mat-color($primaryAdmin,100);;
+    }
+}
+
+
+
 .small-container-expansion {
     padding:5px;
     visibility: hidden;

@@ -1,0 +1,98 @@
+<div [style.backgroundImage]="'url(./assets/img/background.jpg)'" class="background-image" fxLayoutAlign="center center">
+  <h1>Géstion du matériel</h1>
+</div>  
+<div class="container admin-theme">
+    <div class="loading-shade" *ngIf="loading">
+      <mat-spinner *ngIf="loading"></mat-spinner>
+    </div>
+  
+    <div *ngIf="!loading" class="table-container">
+      <mat-form-field style="padding-top:10px;padding-left:20px">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Chercher" autocomplete="off">
+      </mat-form-field>  
+      <div style="width:100%" fxLayoutAlign="end end" style="padding-right:20px">
+        <p style="margin-top:5px;margin-bottom:5px">TOTAL : {{productsCount}} / <span style="font-weight:bold">{{productsTotal}}</span></p> 
+      </div>   
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+        <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let row">{{row.idGMA}}</td>
+        </ng-container> 
+
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef>Photo</th>
+            <td mat-cell *matCellDef="let row">
+                <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="row.image" style="background-size:cover;width:50px;height:50px;border-radius:3px;opacity:0.8" class="image">
+                  <div class="available" [ngClass]="{'not-available' : !row.isAvailable()}"></div>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let row">{{row.type}}</td>
+        </ng-container> 
+
+        <ng-container matColumnDef="cathegory">
+            <th mat-header-cell *matHeaderCellDef>Cathégorie</th>
+            <td mat-cell *matCellDef="let row">{{row.cathegory}}</td>
+        </ng-container>   
+
+        <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef>Marque</th>
+            <td mat-cell *matCellDef="let row">{{row.brand}}</td>
+        </ng-container>  
+
+
+        <ng-container matColumnDef="usage">
+            <th mat-header-cell *matHeaderCellDef>Usage</th>
+            <td mat-cell *matCellDef="let row">{{row.usage}}</td>
+          </ng-container>  
+      
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div style="padding:10px;width:100%" fxLayout="row" fxLayoutGap="20px"> 
+                  <div *ngIf="element.profile_id>0" fxFlex="1 1 auto" fxLayoutAlign="end start">
+                    <div fxLayout="column" style="min-width:120px;max-width:300px">
+                      <p style="margin-bottom:5px">Actuellement utilizé par: </p>
+                      <app-member-item style="margin:5px;" [member]="element.profile" [style]="'small'"></app-member-item>
+                      <button mat-stroked-button color="primary" (click)="unassignProduct(element.id)">Unassign</button>
+                    </div>
+                  </div>  
+                  <div *ngIf="element.profile_id==null" fxFlex="1 1 auto" fxLayoutAlign="end start">
+                    <div fxLayout="column" style="min-width:120px;max-width:300px">
+                      <p style="margin-bottom:5px">Assigner ce materiel: </p>
+                      <small>Chercher un membre pour pouvoir l'assigner</small>
+                      <mat-form-field style="padding-top:10px">
+                          <input matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Chercher" autocomplete="off">
+                          <mat-hint>Membres trouvés : {{membersCount}}</mat-hint>
+                      </mat-form-field>  
+                      <app-member-item *ngIf="membersCount==1"  [member]="dataSourceMember.filteredData[0]" [style]="'small'"></app-member-item>
+                      <button *ngIf="membersCount == 1" mat-stroked-button color="primary" (click)="assignProduct(element.id, dataSourceMember.filteredData[0].id)">Assign</button>
+                    </div>
+                  </div>  
+                  <div fxFlex="1 1 auto">
+                    <div fxLayout="column" fxLayoutAlign="center end" style="min-width:120px;max-width:300px">
+                      <p>Supprimer ce Matériel</p>
+                      <button mat-stroked-button color="warn" (click)="removeProduct(element.id)">Supprimer</button>
+                    </div>
+                  </div>    
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = element">        
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </div>
+  </div>
+
+<app-footer></app-footer>
