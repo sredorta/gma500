@@ -7,6 +7,8 @@ import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import {Product} from '../_models/product';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -96,6 +98,24 @@ export class AdminService {
   public deleteProduct(product_id:number) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/products/delete',{product_id:product_id});
   }   
+
+  //Delete a product
+  public createProduct(product:Product) : Observable<any> {  
+      return this.http.post<any>(environment.apiURL +'/admin/products/create',
+        { image : product.image,
+          cathegory : product.cathegory,
+          type : product.type,
+          brand : product.brand,
+          description : product.description,
+          usage : product.usage,
+          idGMA : product.idGMA,
+          serialNumber : product.serialNumber,
+          fabricatedOn : product.fabricatedOn,
+          expiresOn : product.expiresOn,
+          boughtOn : product.boughtOn,
+          docLink : product.docLink
+        });
+  } 
   //Dettach user from Product
   public detachUserFromProduct(product_id:number) : Observable<any> {  
     return this.http.post<any>(environment.apiURL +'/admin/products/detach',{product_id:product_id});

@@ -1,7 +1,6 @@
 <div [style.backgroundImage]="'url(./assets/img/background.jpg)'" class="background-image" fxLayoutAlign="center center">
   <h1>Géstion du matériel</h1>
 </div>  
-  <app-admin-product-create [productTypes]="productTypes" [productCathegories]="productCathegories"></app-admin-product-create>
 <div class="container admin-theme">
     <div class="loading-shade" *ngIf="loading">
       <mat-spinner *ngIf="loading"></mat-spinner>
@@ -14,6 +13,7 @@
       <div style="width:100%" fxLayoutAlign="end end" style="padding-right:20px">
         <p style="margin-top:5px;margin-bottom:5px">TOTAL : {{productsCount}} / <span style="font-weight:bold">{{productsTotal}}</span></p> 
       </div>   
+      <app-admin-product-create [productTypes]="productTypes" [productCathegories]="productCathegories" (create)="createProduct($event)"></app-admin-product-create>
       <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
         <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>#</th>
@@ -58,7 +58,7 @@
                   <div *ngIf="element.profile_id>0" fxFlex="1 1 auto" fxLayoutAlign="end start">
                     <div fxLayout="column" style="min-width:120px;max-width:300px">
                       <p style="margin-bottom:5px">Actuellement utilizé par: </p>
-                      <app-member-item style="margin:5px;" [member]="element.profile" [style]="'small'"></app-member-item>
+                      <app-member-item style="margin:5px;" [member]="memberAssigned" [style]="'small'"></app-member-item>
                       <button mat-stroked-button color="primary" (click)="unassignProduct(element.id)">Unassign</button>
                     </div>
                   </div>  
@@ -91,7 +91,7 @@
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"
           class="element-row"
           [class.expanded-row]="expandedElement === element"
-          (click)="expandedElement = element;rowClick();">        
+          (click)="expandedElement = element;rowClick(element.profile_id);">        
         </tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>

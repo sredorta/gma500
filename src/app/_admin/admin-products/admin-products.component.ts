@@ -36,9 +36,9 @@ export class AdminProductsComponent implements OnInit {
   productsCount : number = 0;
   productsTotal : number = 0;
   membersCount : number = 0;  //Count of member match
-  
+  memberAssigned : User = new User(null); //Member to whom the product is assigned
   displayedColumns: string[] = ['id','image','cathegory','type','usage','brand'];
-
+  lastFilter = "";            //Contains last filter call;
   members : User[] = new Array<User>();
   config : Config = this.configService.get();
 
@@ -92,12 +92,14 @@ export class AdminProductsComponent implements OnInit {
   //Update html
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = changes.dataSource.currentValue;
+    //this.memberAssigned = changes.memberAssigned.currentValue;
   }
 
   //Filter on Products
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.productsCount = this.dataSource.filteredData.length;
+    this.lastFilter = filterValue;
   }
 
 
@@ -107,12 +109,18 @@ export class AdminProductsComponent implements OnInit {
     this.membersCount = this.dataSourceMember.filteredData.length;
   } 
 
+  //getMember from id
+  getMember(id:number) {
+    return this.dataSourceMember.data.find(i => i.id === id);
+  }
+
   //Assign product
   assignProduct(product_id:number, member_id:number) {
     this._subscriptions.push(this.adminService.attachUserToProduct(product_id,member_id).subscribe(result=>{
       const itemIndex = this.dataSource.data.findIndex(obj => obj.id === product_id);
       this.dataSource.data[itemIndex].profile_id = member_id;
       this.dataSource.data[itemIndex].profile = this.dataSourceMember.data.find(i => i.id === member_id); 
+      this.memberAssigned = this.getMember(member_id);
     })); 
   }
   //Unasign product
@@ -123,7 +131,7 @@ export class AdminProductsComponent implements OnInit {
       this.dataSource.data[itemIndex].profile = null; 
     })); 
   }
-
+  //Removes a product
   removeProduct(product_id: number) {
     let dialogRef = this.dialog.open(MakeSureDialogComponent, {
       disableClose :true,
@@ -148,12 +156,34 @@ export class AdminProductsComponent implements OnInit {
       } 
     }));    
   }
+
+  //Create a new product
+  createProduct(product : Product) {
+    product.image = 'url(' + product.image + ')';
+    product.profile_id = null;
+    this._subscriptions.push(this.adminService.createProduct(product).subscribe(result=>{
+      console.log(result);
+      product.id = result;
+      this.dataSource.data.push(product);
+      this.productsTotal = this.dataSource.data.length;
+      this.applyFilter(this.lastFilter);
+
+      this.table.renderRows();
+      this.productsTotal = this.dataSource.data.length;
+      this.productsCount = this.dataSource.filteredData.length;
+    }));       
+  }
+
   //Reset memberSearch input
-  rowClick() {
+  rowClick(profile_id:number) {
     this.myForm.reset();
     this.membersCount = this.dataSourceMember.data.length;
+    if (profile_id !== null)
+      this.memberAssigned = this.getMember(profile_id);
+    else
+      this.memberAssigned = new User(null);
   }
-  
+
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {

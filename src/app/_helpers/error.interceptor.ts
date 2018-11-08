@@ -82,6 +82,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             default:
                msg = code;
         }        
+        if (msg.length > 300) 
+            msg = msg.substr(0, 300) + '...';
         return msg;
     }
 
