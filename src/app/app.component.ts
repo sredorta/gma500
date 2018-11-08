@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 //Animations
 import {routerTransition} from "./_helpers/animations"
 
-
+import {interval} from "rxjs/internal/observable/interval";
+import {startWith, switchMap} from "rxjs/operators";
 import {User} from "./_models/user";
 import { UserService } from './_services/user.service';
 import { ConfigService } from './_services/config.service';
@@ -42,6 +43,22 @@ export class AppComponent {
     this._subscriptions.push(this.configService.isCompleted().subscribe(res=> {
       console.log("Config Service completed:");
     }));
+
+    //TODO switch to websockets instead
+    //Polling user
+    interval(30000) //30seconds
+    .pipe(
+      startWith(0),
+      switchMap(() => this.userService.getAuthUser())
+    )
+    .subscribe(res => {
+      console.log("POLL");
+      let user : User = new User(res);
+      this.userService.setCurrent(user);
+    });
+
+
+
   }
 
   //We are now logging out

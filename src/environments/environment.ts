@@ -8,7 +8,7 @@ export const environment = {
   MIN_INIT_WAITING_DELAY: 1000,            //Minimum delay the la page loading initial (Config load)
   EMAIL_CONTACT: 'contact@gma500.fr',      //Email de contact
   ADDRESS1: 'Maison des associations',      //Contact address
-  ADDRESS2: '16, reu de l\'ancien Palais de Justice',
+  ADDRESS2: '16, rue de l\'ancien Palais de Justice',
   ADDRESS3: '06130 GRASSE',
 };
 

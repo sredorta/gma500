@@ -16,11 +16,11 @@ export class NotifItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  private _markAsRead() {
+  _markAsRead() {
     this.markAsRead.emit(this.notif.id);
   }
 
-  private _delete() {
+  _delete() {
     this.delete.emit(this.notif.id);
 
   }

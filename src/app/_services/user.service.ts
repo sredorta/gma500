@@ -42,8 +42,9 @@ export class UserService {
   }*/
 
   //Gets the authenticated user (current user, or null if token is not valid or no token)
-  public getAuthUser() : Observable<UserInterface> {
-    return this.http.get<UserInterface>(environment.apiURL+'/auth/user').map(res => <UserInterface>res);
+  public getAuthUser() : Observable<any> {
+    console.log("accessing to: "+ environment.apiURL+'/auth/user');
+    return this.http.get<any>(environment.apiURL+'/auth/user').map(res => <any>res);
   }
 
   //Invalidates token for logout

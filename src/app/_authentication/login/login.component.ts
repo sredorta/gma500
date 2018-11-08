@@ -11,6 +11,7 @@ import {UserService } from '../../_services/user.service';
 // Base 64 IMage display issues with unsafe image
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 //User model
 import {User, UserMultipleAccessInterface} from '../../_models/user';
 import { MatRadioChange } from '@angular/material';
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   accessAvailable = new Array<string>() 
   accessSelected : string = null;
   myForm: FormGroup; 
-
+  validation_messages = CustomValidators.getMessages();
   loading = false;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 

@@ -52,38 +52,38 @@ export class MemberItemDetailAdminComponent implements OnInit {
 
 
   //Emit outputs
-  private _deleteUser(id) {
+  _deleteUser(id) {
     if (!this.loading) {
       this.action.emit({action:"removeUser", id:this.member.id});
     }       
   }
-  private _toggleMember(event) {
+  _toggleMember(event) {
     if (!this.loading) {
       this.action.emit({action:"toggleAccount", id:this.member.id});
     }    
   }
 
-  private _toggleAdmin(event) {
+  _toggleAdmin(event) {
     if (!this.loading) {
       if (event.checked)  this.action.emit({action:"addAccount", account:'Admin', id:this.member.id});
       else this.action.emit({action:"removeAccount", account:'Admin', id:this.member.id});
     }
   }  
-  private _removeRole(role:number) {
+  _removeRole(role:number) {
     if (!this.loading)
     this.action.emit({action:"removeRole", role:role, id:this.member.id});
   }
 
-  private _addRole(role:number) {
+  _addRole(role:number) {
     if (!this.loading)
     this.action.emit({action:"addRole", role:role, id:this.member.id});
   }
 
-  private _removeGroup(group:number) {
+  _removeGroup(group:number) {
     if (!this.loading)
     this.action.emit({action:"removeGroup", group:group, id:this.member.id});
   }
-  private _addGroup(group:number) {
+  _addGroup(group:number) {
     if (!this.loading)
     this.action.emit({action:"addGroup", group:group, id:this.member.id});
   }  

@@ -111,7 +111,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   //Reset the form
-  resetForm() {
+  resetForm(f:any) {
     //this.updateAccordeon.displayMode().closeAll();
     //this.firstExpansionPanel.close();
   }

@@ -17,7 +17,7 @@ export class MemberItemAdminComponent implements OnInit {
   ngOnInit() {
   }
 
-  private _select() {
+  _select() {
     this.selected.emit(this.member);;
   }
 }

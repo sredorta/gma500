@@ -7,7 +7,7 @@
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>Selection</mat-panel-title>
-                <mat-panel-description *ngIf="!userSelected.id>0">Pas de selection</mat-panel-description>
+                <mat-panel-description *ngIf="!(userSelected.id>0)">Pas de selection</mat-panel-description>
                 <mat-panel-description *ngIf="userSelected.id>0">{{userSelected.lastName}} {{userSelected.firstName}}</mat-panel-description>
               </mat-expansion-panel-header>   
               <app-member-item-detail-admin *ngIf="userSelected.id>0" [loading]="loading" [member]="userSelected" [roles]="roles" [accounts]="accounts" [groups]="groups" (action)="actionHandler($event)"></app-member-item-detail-admin>
