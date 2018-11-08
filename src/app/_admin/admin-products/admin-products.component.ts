@@ -62,6 +62,7 @@ export class AdminProductsComponent implements OnInit {
       for (let user of res) {
         this.members.push(new User(user));
       }
+      console.log(this.members);
       this.dataSourceMember = new MatTableDataSource(this.members);
       //Override filter to look only at first and last name
       this.dataSourceMember.filterPredicate = function(data, filter: string): boolean {
@@ -106,6 +107,7 @@ export class AdminProductsComponent implements OnInit {
    //Filter on Members
    applyFilterMember(filterValue: string) {
     this.dataSourceMember.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSourceMember.filteredData);
     this.membersCount = this.dataSourceMember.filteredData.length;
   } 
 

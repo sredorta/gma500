@@ -1,14 +1,13 @@
 
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
   <div>
-    <div  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="margin-left:10px;margin-bottom:20px">
-        <div mat-card-avatar [style.backgroundImage]="member.avatar" style="background-size:cover;width:40px;height:40px;border-radius:50%"></div>
-        <div fxLayout="row wrap" fxLayoutAlign="start center" style="font-weight:bold;font-size:18px">
-            <div style="margin-right:5px">{{member.lastName}}</div> 
-            <div>{{member.firstName}}</div>
-        </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" style="font-weight:bold;font-size:20px;margin-bottom:10px">
+        <div style="margin-right:5px">{{member.lastName}}</div> 
+        <div>{{member.firstName}}</div>
     </div>
+    <div style="width:100%" fxLayoutAlign="end center">
     <button mat-stroked-button color="warn" (click)="_deleteUser(member.id)">Suprimer</button>
+    </div>
       <div  fxLayout="column" fxLayoutAlign="center start" style="padding:10px">
         <p class="detail">EMAIL:</p>
         <p class="box">{{member.email}}</p>
