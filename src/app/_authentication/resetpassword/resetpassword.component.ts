@@ -63,6 +63,7 @@ export class ResetpasswordComponent implements OnInit {
     //request http here !
     this._subscriptions.push(this.userService.resetPassword(value.email, this.accessSelected).subscribe(
         result => {
+          console.log(result);
           //We check if we got multiple access
           if (result.response === "multiple_access") {
             //Update the html to show the available access

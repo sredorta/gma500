@@ -21,12 +21,13 @@ export class HomeComponent implements OnInit {
 
 
   loginTest() {
-    this.userService.login('sergi.redorta12@kubiiks.com','Member0',false,'Membre').subscribe(res=> {
-      User.saveToken(res.token);   //Save Token to session storage
+    this.userService.login('sergi.redorta0@kubiiks.com','Secure0',false,"admin").subscribe(res=> {
+      console.log(res);
+      /*User.saveToken(res.token);   //Save Token to session storage
       //We need to download here the profile of the user
       this.userService.getAuthUser().subscribe(res=> {
         this.userService.setCurrent(new User(res)); 
-      });
+      });*/
     });
   }
 

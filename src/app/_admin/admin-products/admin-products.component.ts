@@ -107,7 +107,6 @@ export class AdminProductsComponent implements OnInit {
    //Filter on Members
    applyFilterMember(filterValue: string) {
     this.dataSourceMember.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSourceMember.filteredData);
     this.membersCount = this.dataSourceMember.filteredData.length;
   } 
 
@@ -164,7 +163,6 @@ export class AdminProductsComponent implements OnInit {
     product.image = 'url(' + product.image + ')';
     product.profile_id = null;
     this._subscriptions.push(this.adminService.createProduct(product).subscribe(result=>{
-      console.log(result);
       product.id = result;
       this.dataSource.data.push(product);
       this.productsTotal = this.dataSource.data.length;

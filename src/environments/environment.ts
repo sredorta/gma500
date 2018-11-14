@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost:8000/api',
+  imageURL : 'http://localhost:8000/storage/images/',
   MIN_INIT_WAITING_DELAY: 1000,            //Minimum delay the la page loading initial (Config load)
   EMAIL_CONTACT: 'contact@gma500.fr',      //Email de contact
   ADDRESS1: 'Maison des associations',      //Contact address

@@ -4,8 +4,13 @@ import {Group} from '../_models/group';
 import {Notif} from '../_models/notif';
 import {Account} from '../_models/account';
 import {Product} from '../_models/product';
-
+import { environment } from '../../environments/environment';
 import { getMatScrollStrategyAlreadyAttachedError } from "@angular/cdk/overlay/typings/scroll/scroll-strategy";
+
+
+enum avatarSize {
+    original = 0, large =1 ,medium = 2,small = 3,tiny = 4
+}
 
 export interface UserTokenInterface {
     token:string;
@@ -63,6 +68,20 @@ export class User {
     hasAccess(access:string) {
         return this.access === access;
     }
+
+ 
+    getAvatar(size : avatarSize) {
+        return "url(" + this.avatar + ".png)";
+        switch (size) {
+            case 0: return "url(" + this.avatar + ")";
+            case 1: return "url(" + this.avatar + "_500)";
+            case 2: return "url(" + this.avatar + "_200)";
+            case 3: return "url(" + this.avatar + "_100)";
+            case 4: return "url(" + this.avatar + "_50)";
+            default : return "url(" + this.avatar + ")";
+        }
+
+    }
 /*
     hasRole(role:string) : boolean {
         return true;
@@ -76,7 +95,7 @@ export class User {
         this.password = jsonObj.password;
         this.firstName = jsonObj.firstName;
         this.lastName = jsonObj.lastName;
-        this.avatar = jsonObj.avatar;
+        this.avatar = environment.imageURL +  jsonObj.avatar;
         this.access = jsonObj.access;
         this.roles = new Array<Role>();
         if (jsonObj.roles != null)

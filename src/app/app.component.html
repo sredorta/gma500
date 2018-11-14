@@ -1,5 +1,5 @@
 
-<div *ngIf="(isConfigDone$ | async); else loading">
+<!--<div *ngIf="(isConfigDone$ | async); else loading">-->
 <div *ngIf="(user$ | async) as user">
   <div fxLayout="column" class="navbar-theme">
       <mat-toolbar>
@@ -32,7 +32,7 @@
                   </div>
                 </button>  
                 <div  fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
+                  <button mat-mini-fab [style.backgroundImage]="user.getAvatar(4)" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
                   <small style="font-size:10px;line-height:10px">{{user.access}}</small>
                 </div>
               </div>  
@@ -85,102 +85,12 @@
   </div>
 </div>
 
-</div>
+<!--</div>
 <ng-template #loading>
     <div fxLayout="column" fxLayoutAlign="center center" style="width:100vw;height:100vh">
       <img src="./assets/img/logo.jpg" alt="brand" style="height:150px;border-radius:15%">
       <p style="opacity:0.4">Chargement...</p>
     </div>
-</ng-template>
-
-<!--
-<div class="navbar-theme">
-  <div fxHide.xs>
-    <mat-toolbar>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/'" color="primary" routerLink="" style="height:100%">Home</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/'" color="secondary" routerLink="" style="height:100%">Home</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/about'" color="primary" routerLink="/about"  style="height:100%">About</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/about'" color="secondary" routerLink="/about"  style="height:100%">About</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/members'" color="primary" routerLink="/members"  style="height:100%">Membres</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/members'" color="secondary" routerLink="/members"  style="height:100%">Membres</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-raised-button *ngIf="selectedRoute == '/materiel'" color="primary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
-      <button class="navbar-wide-button" fxFlex="1 1 auto" mat-button *ngIf="selectedRoute != '/materiel'" color="secondary" routerLink="/materiel"  style="height:100%">Location Matériel</button>
-
-      <div *ngIf="(user$ | async) as user">
-          <div *ngIf="isLoggedIn$ | async">
-              <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
-              <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
-                  <button mat-menu-item routerLink='/profile'>Mon profile</button>
-                  <button mat-menu-item>Mes messages</button>
-                  <button mat-menu-item (click)="logout()">Me déconnecter</button>
-              </mat-menu>            
-            </div>        
-         <button *ngIf="!(isLoggedIn$ | async)"  mat-mini-fab color="warn" routerLink='/login'>
-            <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
-        </button> 
-      </div>
-
-    </mat-toolbar>
-    <div fxLayout="row">    
-       <div fxFlex="1 1 auto">
-          <img src="./assets/img/banniereGMA500.jpg" alt="banniere" style="width:100%;object-fit: scale-down">
-       </div>
-    </div>
-  </div>
-  <div  fxShow="false" fxShow.xs="true">
-    <mat-toolbar>
-      <button mat-icon-button (click)="snav.toggle()">
-          <mat-icon aria-label="menu">menu</mat-icon>
-      </button>
-      <div fxLayoutAlign="center center" style="margin-left:20px">
-        <div fxLayoutAlign="center center"><img src="./assets/img/logo.jpg" alt="brand" style="height:35px;border-radius:15%"></div>
-        <div fxLayoutAlign="center center" style="margin-left:10px"><span style="font-weight:bold;font-size:30px">GMA500</span></div>
-      </div>
-      <div fxFlex="1 1 auto" fxLayoutAlign="end center">
-        <div *ngIf="(user$ | async) as user">
-           <div *ngIf="isLoggedIn$ | async">
-            <button mat-mini-fab [style.backgroundImage]="user.avatar" style="background-size:cover;" [matMenuTriggerFor]="userMenu"></button> 
-            <mat-menu #userMenu="matMenu">
-                <button mat-menu-item routerLink='/profile'>Profile</button>
-                <button mat-menu-item>Item 2</button>
-            </mat-menu>            
-          </div>
-          <button *ngIf="!(isLoggedIn$ | async)"  mat-mini-fab color="warn" routerLink='/login'>
-             <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
-         </button> 
-        </div>
-      </div>
-    </mat-toolbar>
-  </div>
-</div>
-  <mat-sidenav-container class="main-sidenav-container">
-      <mat-sidenav #snav>
-        <mat-nav-list>
-          <div *ngIf="(user | async) as user">
-              <div *ngIf="!(isLoggedIn$ | async)"> 
-                  <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">Login</button></div>
-                  <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">Signup</button></div>
-              </div>  
-              <div *ngIf="isLoggedIn$ | async"> 
-                  <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
-               </div>               
-           </div>
-     
-          <mat-divider></mat-divider>
-          <a (click)="snav.toggle()" mat-list-item routerLink=""><span>Accueil</span></a>       
-          <a (click)="snav.toggle()" mat-list-item routerLink="about"><span>A propos</span></a>
-          <a (click)="snav.toggle()" mat-list-item routerLink="members"><span>Membres</span></a>
-          <a (click)="snav.toggle()" mat-list-item routerLink="materiel"><span>Location Matériel</span></a>
-        </mat-nav-list>
-      </mat-sidenav>
-  
-      <mat-sidenav-content>
-        <main [@routerTransition]="o.isActivated ? o.activatedRoute : ''">
-          <router-outlet #o="outlet"></router-outlet>
-        </main>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
--->
+</ng-template>-->
 
    
