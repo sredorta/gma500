@@ -1,5 +1,5 @@
 
-<!--<div *ngIf="(isConfigDone$ | async); else loading">-->
+<div *ngIf="(isConfigDone$ | async); else loading">
 <div *ngIf="(user$ | async) as user">
   <div fxLayout="column" class="navbar-theme">
       <mat-toolbar>
@@ -32,7 +32,7 @@
                   </div>
                 </button>  
                 <div  fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-mini-fab [style.backgroundImage]="user.getAvatar(4)" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
+                  <button mat-mini-fab [style.backgroundImage]="user.getAvatar(avatarSize)" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
                   <small style="font-size:10px;line-height:10px">{{user.access}}</small>
                 </div>
               </div>  
@@ -85,12 +85,12 @@
   </div>
 </div>
 
-<!--</div>
+</div>
 <ng-template #loading>
     <div fxLayout="column" fxLayoutAlign="center center" style="width:100vw;height:100vh">
-      <img src="./assets/img/logo.jpg" alt="brand" style="height:150px;border-radius:15%">
+      <img src="./assets/img/logo.jpg" alt="brand" style="height:250px;border-radius:15%">
       <p style="opacity:0.4">Chargement...</p>
     </div>
-</ng-template>-->
+</ng-template>
 
    

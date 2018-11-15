@@ -8,6 +8,7 @@ import {routerTransition} from "./_helpers/animations"
 import {interval} from "rxjs/internal/observable/interval";
 import {startWith, switchMap} from "rxjs/operators";
 import {User} from "./_models/user";
+import {ImageSizes} from "./_models/image"
 import { UserService } from './_services/user.service';
 import { ConfigService } from './_services/config.service';
 
@@ -25,7 +26,7 @@ export class AppComponent {
   user$  = this.userService.getCurrent();           //User data that is globally stored and sync
   user : User = new User(null);
 
-  avatar_url = null;
+  avatarSize : ImageSizes = ImageSizes.micro;
 
   //isLoggedIn$ = this.userService.isLogged();
   isConfigDone$ = this.configService.isCompleted(); //Data download completion
@@ -33,18 +34,19 @@ export class AppComponent {
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private router : Router, private userService:UserService, private configService: ConfigService, private deviceService: DeviceDetectorService) {
-/*    this.configService.init();  //Download all initial data required, when finishes the isCompleted Observable becomes true
 
+        this.configService.init();  //Download all initial data required, when finishes the isCompleted Observable becomes true
+/*
     //Detect router changes and then add class accordingly with selectedRoute property
     this._subscriptions.push(router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
           this.selectedRoute = event.url;
       }
-    }));
+    }));*/
 
     this._subscriptions.push(this.configService.isCompleted().subscribe(res=> {
       console.log("Config Service completed:");
-    }));*/
+    }));
 
     //TODO switch to websockets instead
     //Polling user
@@ -58,12 +60,12 @@ export class AppComponent {
       let user : User = new User(res);
       this.userService.setCurrent(user);
     });*/
-
+/*
     this._subscriptions.push(this.userService.getAuthUser().subscribe(res => {
       console.log(res);
       let user : User = new User(res);
       this.userService.setCurrent(user);
-    }));
+    }));*/
 
 
   }

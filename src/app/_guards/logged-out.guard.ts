@@ -14,7 +14,7 @@ export class LoggedOutGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    
+      return true; //debug only
       if(!User.hasValidToken()) {
         return true;
       } else {

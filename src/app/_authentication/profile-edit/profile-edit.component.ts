@@ -11,7 +11,7 @@ import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom
 //Directives
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import { UserService } from '../../_services/user.service';
-
+import {ImageSizes} from '../../_models/image';
 //User model
 import {User} from '../../_models/user';
 
@@ -135,21 +135,22 @@ export class ProfileEditComponent implements OnInit {
   if (value.lastName != null) myUpdateUser.lastName = value.lastName;
   if (value.email != null) myUpdateUser.email = value.email;
   if (value.mobile != null) myUpdateUser.mobile = value.mobile;
-  if (value.avatar != null) myUpdateUser.avatar = 'url(' + value.avatar + ')';
+  if (value.avatar != null) myUpdateUser.avatar = value.avatar;
   if (value.password_old != null) {
     myUpdateUser.password = value.matching_passwords_group.password; //New password
   }
   //if (value.avatar != null) myUpdateUser.password = value.password;
+  console.log("Sending params:");
+  console.log(myUpdateUser);
   this._subscriptions.push(this.userService.update(myUpdateUser, value.password_old).subscribe(
       (result: any) => {
         if (value.firstName != null) this.myCurrentUser.firstName = value.firstName;
         if (value.lastName != null) this.myCurrentUser.lastName = value.lastName;
         if (value.email != null) this.myCurrentUser.email = value.email;
         if (value.mobile != null) this.myCurrentUser.mobile = value.mobile;
-        if (value.avatar != null) this.myCurrentUser.avatar = 'url(' + value.avatar + ')';
+        if (value.avatar != null) this.myCurrentUser.avatar = result.avatar;
         this.userService.setCurrent(this.myCurrentUser);
-        this.loading = false;
-        //this.router.navigate([""]);                 
+        this.loading = false;                
       },
       error => {
           this.loading = false;

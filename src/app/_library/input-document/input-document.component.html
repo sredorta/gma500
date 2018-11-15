@@ -1,0 +1,22 @@
+
+<div *ngIf="!processing; else loading" class="wrapper" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" style="min-width:300px">
+  <div>
+    <mat-form-field style="width:220px;margin-right:10px">
+    <mat-select placeholder="Charger un document" [(value)]="selectedType">
+      <mat-option *ngFor="let doctype of doctypes" [value]="doctype.value" >{{doctype.viewValue}}</mat-option>
+    </mat-select>
+    <mat-hint>Séléctioner le type de document</mat-hint>
+  </mat-form-field>
+  </div>
+  <div [ngClass]="{'hide' : selectedType == null}">
+      <input class="hide" type="file" accept="application/pdf" #fileInput (change)="loadDoc($event)">  
+      <button mat-mini-fab color="default" type="button" (click)="openFileViewer()" [disabled]="isLoading">
+          <mat-icon aria-label="Example icon-button with a heart icon">attach_file</mat-icon>
+      </button>
+  </div>
+</div>
+<ng-template #loading>
+    <div fxLayout="column" fxLayoutAlign="center center" class="container">
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+</ng-template> 

@@ -45,12 +45,14 @@ export class ConfigService {
       Observable.forkJoin(
         Observable.of(delay).delay(environment.MIN_INIT_WAITING_DELAY),                  //Wait for a mimum delay of 2s
         this.userService.getAuthUser().catch(res => Observable.of(null)),
-        this.http.get<any[]>(environment.apiURL +'/config/product/cathegories',{}),
-        this.http.get<any[]>(environment.apiURL +'/config/product/types',{}),
+        //this.http.get<any[]>(environment.apiURL +'/config/product/cathegories',{}),
+        //this.http.get<any[]>(environment.apiURL +'/config/product/types',{}),
       ).subscribe(data => {
+        console.log("getAuthUser data:");
+        console.log(data[1]);
         this.userService.setCurrent(new User(data[1]));
-        this._data.productCathegories = data[2];
-        this._data.productTypes = data[3];
+        //this._data.productCathegories = data[2];
+        //this._data.productTypes = data[3];
         this._isDataDownloaded.next(true);
       },err=> {
           console.log("There was an error : " + err);

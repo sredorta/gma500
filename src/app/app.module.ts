@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DeviceDetectorModule } from 'ngx-device-detector';
-
 import {FormBuilder, FormGroup, FormControl,ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -84,6 +83,7 @@ import { ErrorSheetComponent } from './_library/error-sheet/error-sheet.componen
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
 import { AdminProductsComponent } from './_admin/admin-products/admin-products.component';
 import { AdminProductCreateComponent } from './_admin/admin-product-create/admin-product-create.component';
+import { InputDocumentComponent } from './_library/input-document/input-document.component';
 
 
 @NgModule({
@@ -116,7 +116,8 @@ import { AdminProductCreateComponent } from './_admin/admin-product-create/admin
     ErrorSheetComponent,
     MakeSureDialogComponent,
     AdminProductsComponent,
-    AdminProductCreateComponent
+    AdminProductCreateComponent,
+    InputDocumentComponent
   ],
   imports: [
     BrowserModule,

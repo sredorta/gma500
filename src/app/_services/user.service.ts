@@ -80,6 +80,11 @@ export class UserService {
       return this.http.post<any>(environment.apiURL +'/auth/update', {password_new:user.password,password_old:password_old});
   }
 
+  public addDocument(type,data) : Observable<any> {
+    console.log(data);
+    return this.http.post<any>(environment.apiURL + '/user/document/add', {function:type, base64:data});
+  }
+
   //Deletes the profile and all associated data !
   public delete() : Observable<any> {
     return this.http.delete<any>(environment.apiURL +'/auth/delete');

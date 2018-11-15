@@ -2,15 +2,14 @@ import { Timestamp } from "rxjs";
 import {Role} from '../_models/role';
 import {Group} from '../_models/group';
 import {Notif} from '../_models/notif';
+import {ImageSizes} from '../_models/image';
 import {Account} from '../_models/account';
 import {Product} from '../_models/product';
+import {Attachment} from '../_models/attachment';
 import { environment } from '../../environments/environment';
 import { getMatScrollStrategyAlreadyAttachedError } from "@angular/cdk/overlay/typings/scroll/scroll-strategy";
 
 
-enum avatarSize {
-    original = 0, large =1 ,medium = 2,small = 3,tiny = 4
-}
 
 export interface UserTokenInterface {
     token:string;
@@ -47,6 +46,7 @@ export class User {
     lastName: string;
     avatar: string;
     access: string;
+    attachments : Attachment[] = new Array<Attachment>();
     roles: Role[] = new Array<Role>();
     groups: Group[] = new Array<Group>();
     products: Product[] = new Array<Product>();
@@ -70,18 +70,24 @@ export class User {
     }
 
  
-    getAvatar(size : avatarSize) {
-        return "url(" + this.avatar + ".png)";
+    getAvatar(size : ImageSizes) {
         switch (size) {
-            case 0: return "url(" + this.avatar + ")";
-            case 1: return "url(" + this.avatar + "_500)";
-            case 2: return "url(" + this.avatar + "_200)";
-            case 3: return "url(" + this.avatar + "_100)";
-            case 4: return "url(" + this.avatar + "_50)";
-            default : return "url(" + this.avatar + ")";
+            case ImageSizes.micro: return "url("+ environment.storageURL + this.avatar + "/30.jpeg)";
+            case ImageSizes.tiny: return "url("+ environment.storageURL + this.avatar + "/50.jpeg)";
+            case ImageSizes.small: return "url("+ environment.storageURL + this.avatar + "/100.jpeg)";
+            case ImageSizes.medium: return "url("+ environment.storageURL + this.avatar + "/200.jpeg)";
+            case ImageSizes.large: return "url("+ environment.storageURL + this.avatar + "/500.jpeg)";
+            default : return "url("+ environment.storageURL + this.avatar + "/orig.jpeg)";
         }
-
     }
+
+    //Get only documents from user
+    getDocuments() {
+        //console.log("Documents:");
+        //console.log(this.attachments.filter(i => i.extension === "pdf"));
+        return (this.attachments.filter(i => i.extension === "pdf"));
+    }
+
 /*
     hasRole(role:string) : boolean {
         return true;
@@ -95,17 +101,21 @@ export class User {
         this.password = jsonObj.password;
         this.firstName = jsonObj.firstName;
         this.lastName = jsonObj.lastName;
-        this.avatar = environment.imageURL +  jsonObj.avatar;
+        this.avatar =  jsonObj.avatar;
         this.access = jsonObj.access;
         this.roles = new Array<Role>();
         if (jsonObj.roles != null)
             for (let role of jsonObj.roles) {
                 this.roles.push(new Role(role));
             }
+        if (jsonObj.attachments != null)
+            for (let document of jsonObj.attachments) {
+                this.attachments.push(new Attachment(document));
+            }    
         if (jsonObj.accounts != null)
             for (let account of jsonObj.accounts) {
                 this.accounts.push(new Account(account));
-            }    
+            }           
         if (jsonObj.groups != null)
             for (let group of jsonObj.groups) {
                 this.groups.push(new Group(group));
